@@ -1,7 +1,7 @@
 import { Component, OnInit, NgZone, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/authenticate/auth.service';
-import { AlertService } from 'src/app/services/alert/alert.service';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { AlertService } from 'src/app/core/services/alert.service';
 import { first } from 'rxjs/operators';
 import { element } from 'protractor';
 
