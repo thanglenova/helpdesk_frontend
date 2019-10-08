@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
         cookiepolicy: 'single_host_origin',
         scope: 'profile email'
       });
-      this.attachSigin(document.getElementById('googleBtn'));
+      this.attachSigin(document.getElementById('google-button'));
     });
   }
 
@@ -76,11 +76,11 @@ export class LoginComponent implements OnInit {
 
         this.authService.loginGoogle(googleUser.getAuthResponse().id_token)
         .subscribe((data)=>{
-          this.ngZone.run(()=> this.router.navigate(['/'])).then();
+          this.router.navigate(['/']);
         },
           error => {
             this.error =error;
-            this.ngZone.run(()=>this.router.navigate(['/login'])).then();
+            this.router.navigate(['/login']);
           }
         );
 
