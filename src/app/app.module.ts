@@ -3,19 +3,23 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './modules/auth/pages/login/login.component';
 import { AlertComponent } from './shared/components/alert/alert.component';
 import { HttpClientModule, HTTP_INTERCEPTORS, } from '@angular/common/http';
-import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { NavbarComponent } from './modules/layouts/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { SharedModule } from './shared/shared.module';
+import { IconsProviderModule } from './icons-provider.module';
+import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
+import { FormsModule } from '@angular/forms';
+import { registerLocaleData } from '@angular/common';
+import en from '@angular/common/locales/en';
+
+registerLocaleData(en);
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     AlertComponent,
     NavbarComponent
   ],
@@ -25,14 +29,13 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSliderModule,
-    SharedModule
+    SharedModule,
+    IconsProviderModule,
+    NgZorroAntdModule,
+    FormsModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    }
+    { provide: NZ_I18N, useValue: en_US }
    ],
   bootstrap: [AppComponent]
 })

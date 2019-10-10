@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { first } from 'rxjs/operators';
 import { element } from 'protractor';
+import { TokenService } from 'src/app/core/services/token.service';
 
 declare const gapi: any;
 
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
   ].join(' ');
 
   constructor(
-
+    private token: TokenService,
     private router: Router,
     private authService: AuthService,
     private ngZone: NgZone,
@@ -43,7 +44,7 @@ export class LoginComponent implements OnInit {
 
     //redirect to home if logged
     if (this.authService.currentUser) {
-      this.router.navigate[('/')];
+      this.router.navigate[('/welcome')];
     }
   }
 
@@ -67,21 +68,17 @@ export class LoginComponent implements OnInit {
   public attachSigin(element) {
     this.auth2.attachClickHandler(element, {},
       (googleUser) => {
-
         let profile = googleUser.getBasicProfile();
         console.log('Token|| ' + googleUser.getAuthResponse().id_token);
         console.log('ID: ' + profile.getId());
         console.log('Name: ' + profile.getName());
         console.log('Email: ' + profile.getEmail());
-
+        
         this.authService.loginGoogle(googleUser.getAuthResponse().id_token)
         .subscribe((data)=>{
-          this.router.navigate(['/']);
-        },
-          error => {
-            this.error =error;
-            this.router.navigate(['/login']);
-          }
+         
+          this.ngZone.run(() =>  this.router.navigate(['/welcome'])).then();
+        }
         );
 
       });

@@ -1,6 +1,6 @@
 import { Skill } from './skill';
 
-export class User{
+export class User {
 
     id: number;
     email: string;

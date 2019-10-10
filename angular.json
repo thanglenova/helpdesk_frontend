@@ -25,11 +25,18 @@
             "aot": false,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
+              "src/theme.less",
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ng-zorro-antd/ng-zorro-antd.min.css"
             ],
             "scripts": []
           },
