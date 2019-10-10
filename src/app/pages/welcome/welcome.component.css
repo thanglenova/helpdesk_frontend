@@ -1,0 +1,46 @@
+nz-date-picker,
+nz-month-picker,
+nz-range-picker,
+nz-week-picker {
+  margin: 0 8px 12px 0;
+}
+
+.form-request {
+  border: 1px solid #0000006b;
+  margin-top: 1.5em;
+  display: inherit;
+}
+
+.ant-form{
+  margin-left: 3.5em;
+}
+
+.operate {
+  margin-bottom: 16px;
+}
+
+.operate span {
+  margin-left: 8px;
+}
+
+.form-show {
+  border: 1px solid #0000006b;
+
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+.div{
+  display: flex;
+}
+
+.ant-input, .ant-input-group{
+  width: 350px
+}
+
+.ant-btn-primary {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+

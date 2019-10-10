@@ -13,5 +13,9 @@ export class AppComponent {
 
   private authService: AuthService;
 
- 
+  isLoggedIn(): boolean{
+    return this.authService.isLoggedIn();
+  }
 }
+
+
