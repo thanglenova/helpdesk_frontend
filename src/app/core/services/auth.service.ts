@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { User } from 'src/app/models/user';
+import { User } from 'src/app/shared/models/user';
 import { HttpClient, HttpErrorResponse, HttpHandler, HttpHeaders } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -17,15 +17,14 @@ export class AuthService {
   public currentUser: Observable<User>;
 
   constructor(private http: HttpClient) {
-
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-    this.currentUser = this.currentUserSubject.asObservable();
   }
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occured: ', error.message);
     } else {
+      console.log(error);
+      
       console.error(`Backend returned code ${error.status}, ` + `body was: ${error.error}`)
     }
     this.errorData = {
@@ -35,17 +34,18 @@ export class AuthService {
   }
 
   //login with gg
-  loginGoogle(token: string) {
+  loginGoogle(token: string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'token-google': token
       })
     };
-    return this.http.get<any>('https://helpdesk-kunlez-novahub.herokuapp.com/api/auth', httpOptions)
+    return this.http.get<any>('https://helpdesk-kunlez-novahub.herokuapp.com/api/auth', httpOptions);
+
   }
 
   isLoggedIn() {
-    if (localStorage.getItem(`currentUser`)) {
+    if (localStorage.getItem('currentUser')) {
       return true;
     }
     return false;
@@ -53,7 +53,7 @@ export class AuthService {
 
   getAuthentication() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    return currentUser.token;
+    return currentUser;
   }
 
   getToken(): string {
