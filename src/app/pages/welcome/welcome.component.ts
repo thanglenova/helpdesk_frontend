@@ -2,6 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DayOff } from 'src/app/shared/models/date-off';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UserService } from 'src/app/core/services/user.service';
+import { User } from 'src/app/shared/models/user';
+import { DayOffService } from 'src/app/core/services/day-off.service';
 
 @Component({
   selector: 'app-welcome',
@@ -23,6 +28,12 @@ export class WelcomeComponent implements OnInit {
   mapOfCheckedId: { [key: string]: boolean } = {};
   numberOfChecked = 0;
 
+  authService: AuthService;
+  router: Router;
+  idUser: number;
+  dayOff: DayOff;
+  user: User;
+  dayOffs: DayOff[];
 
   currentPageDataChange($event: DayOff): void {
     this.listOfDisplayData = $event;
@@ -42,13 +53,50 @@ export class WelcomeComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private dayOffService: DayOffService
+    ) { }
 
-  ngOnInit(): void {  
+  ngOnInit(): void { 
+    
+    this.getDays();
+    // this.getIdUser();
+    
     this.validateForm = this.fb.group({
       userName: [null, [Validators.required]],
       password: [null, [Validators.required]],
     });
    }
 
+   isLogged(): boolean{
+     if(this.authService.isLoggedIn()){
+       return true;
+     }else{
+       this.router.navigate(['/login']);
+      }
+   }
+
+   getDays(): void{
+     const id=+ this.route.snapshot.paramMap.get('id');
+     this.dayOffService.getDayOffs(id).subscribe(dayOff=> this.dayOff=dayOff)   
+   }
+
+  //  getIdUser(): void{
+  //    this.dayOffService.getUserById().subscribe(user=>this.idUser=user.idUser)
+  //  }
+
+   submit(name: string, dateStart: Date, dateEnd: Date, description: string): void{
+     name: name.trim();
+     description = description.trim();
+
+     if(!name||!dateStart||!dateEnd||!description){
+       return;
+     }
+     this.dayOffService.addRequest(name,dateStart,dateEnd,description)
+      .subscribe(dayOff=>{
+        this.dayOffs.push(dayOff);
+      })
+   }
 }

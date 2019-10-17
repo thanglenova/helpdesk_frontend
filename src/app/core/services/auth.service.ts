@@ -3,6 +3,10 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { User } from 'src/app/shared/models/user';
 import { HttpClient, HttpErrorResponse, HttpHandler, HttpHeaders } from '@angular/common/http';
 import { map, catchError, tap } from 'rxjs/operators';
+import { templateJitUrl } from '@angular/compiler';
+import { stringify } from 'querystring';
+import { NzAffixComponent, responsiveMap } from 'ng-zorro-antd';
+import axios from 'axios';
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +25,10 @@ export class AuthService {
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
-      console.error('An error occured: ', error.message);
+      console.error('An error occured: ', error.error.message);
     } else {
       console.log(error);
-      
-      console.error(`Backend returned code ${error.status}, ` + `body was: ${error.error}`)
+      // console.error(`Backend returned code ${error.status}, ` + `body was: ${error.error}`)
     }
     this.errorData = {
       errorTitle: 'Request failed',
@@ -41,10 +44,9 @@ export class AuthService {
       })
     };
     return this.http.get<any>('https://helpdesk-kunlez-novahub.herokuapp.com/api/auth', httpOptions);
-
   }
 
-  isLoggedIn() {
+  isLoggedIn(): boolean {
     if (localStorage.getItem('currentUser')) {
       return true;
     }
@@ -52,12 +54,13 @@ export class AuthService {
   }
 
   getAuthentication() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = localStorage.getItem('currentUser');
     return currentUser;
   }
 
   getToken(): string {
-    return localStorage.getItem('currentUser');
+    let temp = localStorage.getItem('currentUser').split(" ");
+    return temp[1];
   }
 
   getTokenGoogle() {

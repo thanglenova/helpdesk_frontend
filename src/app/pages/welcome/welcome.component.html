@@ -2,6 +2,7 @@
   REQUEST TIME OFF
 </h1>
 
+
 <div nz-row>
   <div nz-col nzSpan="12" style="padding-right: 20px;">
     <div class="form-show">
@@ -33,33 +34,32 @@
     <div class="form-request">
       <form nz-form [nzLayout]="'inline'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
         <nz-form-item>
+          <label style="padding-right: 39px;"><br />Name: </label>
+          <input nz-input #name />
+        </nz-form-item>
+        <nz-form-item>
           <label style="padding-right: 20px;"><br />Day Start: </label>
           <span></span>
-          <nz-date-picker #dateStart [nzFormat]="dateFormat"></nz-date-picker>
+          <nz-date-picker #dateStart [nzFormat]="dateFormat" style="width: 350px"></nz-date-picker>
           <br />
         </nz-form-item>
         <br />
         <nz-form-item>
           <label style="padding-right: 22px;"><br />Day End: </label>
-          <nz-date-picker #dateEnd [nzFormat]="dateFormat"></nz-date-picker>
+          <nz-date-picker #dateEnd [nzFormat]="dateFormat" style="width: 350px"></nz-date-picker>
           <br />
         </nz-form-item>
         <br />
         <nz-form-item>
           <label style="padding-right: 10px;"><br />Comments: </label>
-          <input nz-input #dayOff.description />
+          <input nz-input #description />
         </nz-form-item>
-  
-            <!-- <button nz-button nzType="primary" [disabled]="!validateForm.valid">Submmit</button> -->
-            <button nz-button nzType="primary">Primary</button>
+        <!-- <button nz-button nzType="primary"
+          (click)="submit(name.value,dateStart.value,dateEnd.value,description.value);name.value='';dateStart.value='';dateEnd.value='',description.value=''"> -->
+        <button nz-button nzType="primary">
+          Submit
+        </button>
       </form>
     </div>
   </div>
-
-
-
-
-
-
-
 </div>
