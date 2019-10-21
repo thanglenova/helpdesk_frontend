@@ -29,36 +29,51 @@
     </div>
   </div>
 
-
+  <div class="form-request">
   <div nz-col nzSpan="12">
-    <div class="form-request">
-      <form nz-form [nzLayout]="'inline'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
-        <nz-form-item>
-          <label style="padding-right: 39px;"><br />Name: </label>
-          <input nz-input #name />
-        </nz-form-item>
+      <form nz-form [nzLayout]="'inline'" [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
         <nz-form-item>
           <label style="padding-right: 20px;"><br />Day Start: </label>
           <span></span>
-          <nz-date-picker #dateStart [nzFormat]="dateFormat" style="width: 350px"></nz-date-picker>
+          <nz-date-picker formControlName="dayStartOff" class="form-control" [nzFormat]="dateFormat"></nz-date-picker>
           <br />
         </nz-form-item>
+      </div>
         <br />
+        <div class="form-group">
         <nz-form-item>
           <label style="padding-right: 22px;"><br />Day End: </label>
-          <nz-date-picker #dateEnd [nzFormat]="dateFormat" style="width: 350px"></nz-date-picker>
+          <nz-date-picker formControlName="dayEndOff" class="form-control" [nzFormat]="dateFormat"></nz-date-picker>
           <br />
         </nz-form-item>
+        </div>
         <br />
+        <!-- <div class="form-group">
+        <label style="padding-right: 22px;">Type : </label>
+        <nz-form-item style=" margin-left: 80px; width: 355px; margin-top: 3px;">
+          <nz-select formControlName="dateOffType" (nzScrollToBottom)="loadMore()" nzPlaceHolder="Select type of day off" nzAllowClear>
+            <nz-option nzValue= 0 nzLabel="Get Sick"></nz-option>
+            <nz-option *ngFor="let type of types" [nzValue]="type" [nzLabel]="type"></nz-option>
+            <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+              <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
+            </nz-option>
+          </nz-select>
+        </nz-form-item>
+      </div> -->
+        <br />
+        <div class="form=form-group">
         <nz-form-item>
           <label style="padding-right: 10px;"><br />Comments: </label>
-          <input nz-input #description />
+          <input nz-input formControlName="description" />
         </nz-form-item>
-        <!-- <button nz-button nzType="primary"
-          (click)="submit(name.value,dateStart.value,dateEnd.value,description.value);name.value='';dateStart.value='';dateEnd.value='',description.value=''"> -->
+        </div>
+        <div class="form-group">
         <button nz-button nzType="primary">
           Submit
         </button>
+        </div>
       </form>
     </div>
   </div>

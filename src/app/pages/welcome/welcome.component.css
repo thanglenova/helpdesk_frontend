@@ -48,4 +48,18 @@ nz-week-picker {
   font-weight: bold;
 }
 
+.ant-calendar-picker{
+  width: 350px;
+}
+
+nz-select {
+  width: 100%;
+}
+
+.loading-icon {
+  margin-right: 8px;
+}
+
+
+
 

@@ -12,7 +12,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { SharedModule } from './shared/shared.module';
 import { IconsProviderModule } from './icons-provider.module';
 import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import { NzFormModule } from 'ng-zorro-antd/form';
 
@@ -28,15 +28,16 @@ registerLocaleData(en);
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    NzFormModule,
+    NgZorroAntdModule.forRoot(), 
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSliderModule,
     SharedModule,
     IconsProviderModule,
-    NgZorroAntdModule,
-     FormsModule,
-    NzFormModule,
+    ReactiveFormsModule
   ],
   providers: [
     httpInterceptorProviders,
