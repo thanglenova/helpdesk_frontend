@@ -13,13 +13,13 @@ export class TokenInterceptor implements HttpInterceptor{
     ){}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-        let currentUser = this.auth.currentUser;
-        if(currentUser){
-            request = request.clone({
-                setHeaders: {
-                    'token-google': `${this.auth.getTokenGoogle()}`
-                }
-            });
+
+        if(this.auth.isLoggedIn()){
+           const authToken = this.auth.getAuthentication();
+           request = request.clone({
+               setHeaders: 
+               { Authorization: 'Bearer '+authToken}
+           });
         }   
        
         return next.handle(request);

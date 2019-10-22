@@ -12,11 +12,12 @@ export class TokenService {
   readonly jwtToken = 'currentUser';
 
   saveToken(token: string) {
-    localStorage[this.jwtToken] = token;
+    // localStorage.setItem[this.jwtToken] = token;
+    localStorage.setItem("token",this.jwtToken);
   }
 
   getToken(): string {
-    return localStorage[this.jwtToken];
+    return localStorage.getItem[this.jwtToken];
   }
 
   clearToken(): void {
