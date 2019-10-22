@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { User } from 'src/app/shared/models/user';
 import { HttpClient, HttpErrorResponse, HttpHandler, HttpHeaders } from '@angular/common/http';
 import { map, catchError, tap } from 'rxjs/operators';
+import { Token } from '../../shared/models/token';
 
 @Injectable({
   providedIn: 'root'
@@ -34,13 +35,13 @@ export class AuthService {
   }
 
   //login with gg
-  loginGoogle(token: string): Observable<any> {
+  loginGoogle(token: string): Observable<Token> {
     const httpOptions = {
       headers: new HttpHeaders({
         'token-google': token
       })
     };
-    return this.http.get<any>('https://helpdesk-kunlez-novahub.herokuapp.com/api/auth', httpOptions);
+    return this.http.get<Token>('https://helpdesk-kunlez-novahub.herokuapp.com/api/auth', httpOptions);
 
   }
 
