@@ -14,7 +14,7 @@ export class SkillService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Context-Type': 'applicatiob/json',
+      'Context-Type': 'application/json',
       'Authorization:': 'Bearer'
     })
   };

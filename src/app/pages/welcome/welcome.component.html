@@ -2,8 +2,7 @@
   REQUEST TIME OFF
 </h1>
 
-
-<div nz-row>
+<div nz-row class="data">
   <div nz-col nzSpan="12" style="padding-right: 20px;">
     <div class="form-show">
       <nz-table #detailTable nzShowSizeChanger>
@@ -50,18 +49,18 @@
         </nz-form-item>
         </div>
         <br />
-        <!-- <div class="form-group">
+        <div class="form-group">
         <label style="padding-right: 22px;">Type : </label>
         <nz-form-item style=" margin-left: 80px; width: 355px; margin-top: 3px;">
-          <nz-select formControlName="dateOffType" (nzScrollToBottom)="loadMore()" nzPlaceHolder="Select type of day off" nzAllowClear>
-            <nz-option nzValue= 0 nzLabel="Get Sick"></nz-option>
-            <nz-option *ngFor="let type of types" [nzValue]="type" [nzLabel]="type"></nz-option>
+          <nz-select formControlName="dayOffType" (nzScrollToBottom)="loadMore()" nzPlaceHolder="Select Type Of Day Off" nzAllowClear>
+            <!-- <nz-option nzValue= 0 nzLabel="Get Sick"></nz-option> -->
+            <nz-option *ngFor="let type of types" [nzValue]="type.id" [nzLabel]="type.name"></nz-option>
             <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
               <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
             </nz-option>
           </nz-select>
         </nz-form-item>
-      </div> -->
+      </div>
         <br />
         <div class="form=form-group">
         <nz-form-item>

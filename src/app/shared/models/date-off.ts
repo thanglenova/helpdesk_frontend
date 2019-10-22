@@ -1,4 +1,4 @@
-export interface DayOff{
+export class DayOff{
     id: number;
     createAt: Date;
     dayStartOff: Date;

@@ -1,1 +1,39 @@
-<p>category works!</p>
+<div class="listOfData">
+    <nz-table #editRowTable nzBordered>
+            <thead>
+              <tr>
+                <th nzWidth="20%">ID</th>
+                <th nzWidth="50%">Name</th>
+                <th nzWidth="30%" routerLink="/">More</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of editRowTable.data">
+                <td>
+                  <ng-container *ngIf="!editCache[data.id].edit; else idInputTpl">
+                    {{ data.id }}
+                  </ng-container>
+                  <ng-template #idInputTpl>
+                    <input type="text" nz-input [(ngModel)]="editCache[data.id].data.id" />
+                  </ng-template>
+                </td>
+                <td>
+                  <ng-container *ngIf="!editCache[data.id].edit; else nameInputTpl">
+                    {{ data.name }}
+                  </ng-container>
+                  <ng-template #nameInputTpl>
+                    <input type="text" nz-input [(ngModel)]="editCache[data.id].data.name" />
+                  </ng-template>
+                </td>
+                <td>
+                  <ng-container *ngIf="!editCache[data.id].edit; else categoryInputTpl">
+                    {{ data.category }}
+                  </ng-container>
+                  <ng-template #categoryInputTpl>
+                    <input type="text" nz-input [(ngModel)]="editCache[data.id].data.category" />
+                  </ng-template>
+                </td>               
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>

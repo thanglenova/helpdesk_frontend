@@ -14,13 +14,6 @@ export class DayOffService {
 
   private serverUrl = 'https://helpdesk-kunlez-novahub.herokuapp.com/api/day_offs';   //url server
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Context-Type': 'appliccation/json',
-      'Authorization': 'Bearer'
-    })
-  };
-
   constructor(
     private http: HttpClient,
     private alertService: AlertService
@@ -34,16 +27,16 @@ export class DayOffService {
     }
   }
 
-  getDayOffs(id: number): Observable<DayOff> {
-    return this.http.get<DayOff>(`${this.serverUrl}/user_of_year/${id}?year`).pipe(
-      catchError(this.handleError<DayOff>('getDays'))
+  getDayOffs(id: number): Observable<DayOff[]> {
+    return this.http.get<DayOff[]>(`${this.serverUrl}/user_of_year/${id}?year`).pipe(
+      catchError(this.handleError<DayOff[]>('getDays'))
     );
   }
 
 
    /** POST: add a new request day off */
     addDayOff(dayOff: TypeDay){
-      return this.http.post(this.serverUrl, dayOff,this.httpOptions).pipe(
+      return this.http.post(this.serverUrl, dayOff).pipe(
         catchError(this.handleError<TypeDay>('addDayOff'))
       );
     }

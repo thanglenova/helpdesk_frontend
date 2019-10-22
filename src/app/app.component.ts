@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './core/services/auth.service'
 import { Router } from '@angular/router';
+import { AlertService } from './core/services/alert.service';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +10,17 @@ import { Router } from '@angular/router';
 })
 
 
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
-    ){}
+    private router: Router,
+    private alerService: AlertService
+    ){ }
+
+    ngOnInit() {
+      this.alerService.success("HUyen");
+    }
   
 
   isLogged(): boolean{

@@ -14,7 +14,7 @@ export class SkillComponent implements OnInit {
   skill: Skill;
 
   editCache: {[key:string]: {edit: boolean; data: Skill}}={};
-  listOfData: Skill[] = [];
+  listOfData: Skill[];
 
   constructor(
     private skillService: SkillService,
@@ -51,17 +51,17 @@ export class SkillComponent implements OnInit {
   ngOnInit() {
     this.getSkills();
 
-    for (let i = 0; i < 100; i++) {
-      this.listOfData.push({
-        id: i,
-        name: `Edrward ${i}`,
-        category:{
-          id: 0,
-          name: "Cate 1"
-        }
-      });
-    }
-    this.updateEditCache();
+    // for (let i = 0; i < 100; i++) {
+    //   this.listOfData.push({
+    //     id: i,
+    //     name: `Edrward ${i}`,
+    //     category:{
+    //       id: 0,
+    //       name: "Cate 1"
+    //     }
+    //   });
+    // }
+    // this.updateEditCache();
   }
 
   getSkills(): void {
