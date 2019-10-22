@@ -9,7 +9,7 @@ import { AppMaterialModule } from './material.module';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   exports: [
     FormsModule,
