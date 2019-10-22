@@ -75,11 +75,10 @@ export class LoginComponent implements OnInit {
         console.log('Email: ' + profile.getEmail());
         this.authService.loginGoogle(googleUser.getAuthResponse().id_token)
         .subscribe((data)=>{
-          
-          console.log("cooc");
-          
           this.ngZone.run(() =>  this.router.navigate(['/welcome'])).then();
-        }
+          let token = data.accessToken;
+          localStorage.setItem('currentUser',token);
+          }
         );
 
       });

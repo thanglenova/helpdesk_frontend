@@ -41,7 +41,7 @@
         <strong><i nz-icon nzType="poweroff" nzTheme="outline"></i> Starting day: </strong>
         <span>{{profile.startingDay | date: 'dd-MM-yyyy'}}</span>
     </div>
-    <div class="">
+    <div class="" [style.display]="isUserLogin ? 'block': 'none'">
         <button id="btn-edit-profile" (click)="showModal()" nz-button nzType="primary" nzBlock>Edit profile</button>
     </div>
 </div>

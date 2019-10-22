@@ -1,0 +1,58 @@
+<!-- <div class="skills">
+    <li *ngFor="let skill of skills">
+       <span>{{skill.id}}</span>
+       <span>{{skill.name}}</span>
+    </li>
+</div> -->
+
+<div class="listOfData">
+<nz-table #editRowTable nzBordered>
+        <thead>
+          <tr>
+            <th nzWidth="25%">ID</th>
+            <th nzWidth="15%">Name</th>
+            <th nzWidth="40%">Category</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of editRowTable.data">
+            <td>
+              <ng-container *ngIf="!editCache[data.id].edit; else idInputTpl">
+                {{ skill.id }}
+              </ng-container>
+              <ng-template #idInputTpl>
+                <input type="text" nz-input [(ngModel)]="editCache[data.id].skill.id" />
+              </ng-template>
+            </td>
+            <td>
+              <ng-container *ngIf="!editCache[data.id].edit; else nameInputTpl">
+                {{ skill.age }}
+              </ng-container>
+              <ng-template #nameInputTpl>
+                <input type="text" nz-input [(ngModel)]="editCache[data.id].skill.name" />
+              </ng-template>
+            </td>
+            <td>
+              <ng-container *ngIf="!editCache[data.id].edit; else categoryInputTpl">
+                {{ skill.category }}
+              </ng-container>
+              <ng-template #categoryInputTpl>
+                <input type="text" nz-input [(ngModel)]="editCache[data.id].skill.category" />
+              </ng-template>
+            </td>
+            <td>
+              <div class="editable-row-operations">
+                <ng-container *ngIf="!editCache[data.id].edit; else saveTpl">
+                  <a (click)="startEdit(data.id)">Edit</a>
+                </ng-container>
+                <ng-template #saveTpl>
+                  <a (click)="saveEdit(data.id)">Save</a>
+                  <a nz-popconfirm nzTitle="Sure to cancel?" (nzOnConfirm)="cancelEdit(data.id)">Cancel</a>
+                </ng-template>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>

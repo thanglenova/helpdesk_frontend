@@ -32,6 +32,8 @@ export class EditProfileComponent implements OnInit {
   }
 
   onChangeInput() {
+    console.log(this.profile.sex);
+
     if (this.isStringvalidate(this.profile.firstName) || this.isStringvalidate(this.profile.lastName)
       || this.isStringvalidate(this.profile.address) || this.profile.startingDay == null
       || this.profile.birthday == null || this.profile.sex == null) {

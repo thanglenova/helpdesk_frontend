@@ -23,16 +23,18 @@
     <nz-form-item>
         <nz-form-label [nzSpan]="6" nzFor="address">*Age</nz-form-label>
         <nz-form-control [nzSpan]="14">
-            <nz-input-number [(ngModel)]="profile.age" [nzMin]="1" [nzMax]="10" [nzStep]="1">
+            <nz-input-number [(ngModel)]="profile.age" [nzMin]="1" [nzMax]="10" [nzStep]="1"
+                (ngModelChange)="onChangeInput()">
             </nz-input-number>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
         <nz-form-label [nzSpan]="6" nzFor="address">*Gender</nz-form-label>
         <div nzSpan="14">
-            <nz-select [(ngModel)]="profile.sex">
-                <nz-option nzValue="men" nzLabel="Men"></nz-option>
-                <nz-option nzValue="women" nzLabel="women"></nz-option>
+            <nz-select [(ngModel)]="profile.sex" (ngModelChange)="onChangeInput()">
+                <nz-option nzValue="men" nzLabel="Male"></nz-option>
+                <nz-option nzValue="women" nzLabel="Female"></nz-option>
+                <nz-option nzValue="other" nzLabel="Other"></nz-option>
             </nz-select>
         </div>
     </nz-form-item>
@@ -52,7 +54,8 @@
     </nz-form-item>
     <nz-form-item>
         <nz-form-label [nzSpan]="6" nzFor="address">*Avatar</nz-form-label>
-        <input type="file" multiple="true" nzSpan="18" (change)="handleFileInput($event.target.files)">
+        <input type="file" multiple="true" nzSpan="18" (change)="handleFileInput($event.target.files)"
+            (ngModelChange)="onChangeInput()">
     </nz-form-item>
 </div>
 

@@ -1,7 +1,7 @@
 <nz-layout class="app-layout">
   <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
     [nzTrigger]="null">
-    <div  class="sidebar-logo">
+    <div class="sidebar-logo">
       <a href="https://ng.ant.design/" target="_blank">
         <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
         <h1>Helpdesk Novahub</h1>
@@ -14,7 +14,10 @@
             <a routerLink="/welcome">Home</a>
           </li>
           <li nz-menu-item nzMatchRouter>
-            <a>Workplace</a>
+            <a>Category</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/skills">Skill</a>
           </li>
           <li nz-menu-item nzMatchRouter>
             <a>About Us</a>
@@ -32,16 +35,16 @@
         </ul>
       </li>
       <li nz-submenu nzOpen nzTitle="Your" nzIcon="user">
-          <ul>
-            <li nz-menu-item nzMatchRouter>
-              <a routerLink="/profile/4">Profile</a>
-            </li>
-          </ul>
-          <ul>
-              <li nz-menu-item nzMatchRouter>
-                <a>Logout</a>
-              </li>
-            </ul>
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a (click)="profile()">Profile</a>
+          </li>
+        </ul>
+        <ul>
+          <li nz-menu-item nzMatchRouter (click)="logout()">
+            <a>Logout</a>
+          </li>
+        </ul>
       </li>
     </ul>
   </nz-sider>

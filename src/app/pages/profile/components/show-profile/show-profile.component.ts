@@ -6,6 +6,8 @@ import { EditProfileService } from '../../service/edit-profile/edit-profile.serv
 
 import { Profile } from '../../../../shared/models/profile';
 import { CommonService } from '../../service/common/common.service';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { TokenService } from 'src/app/core/services/token.service';
 
 @Component({
   selector: 'app-show-profile',
@@ -16,24 +18,33 @@ export class ShowProfileComponent implements OnInit {
 
   private isVisible = false;
   private validateForm = false;
+  private isUserLogin = false;
   private subscription: Subscription;
   private profile: Profile;
-  private fileToUpload : File;
-  private profileSendToEditProfile : Profile;
+  private fileToUpload: File;
+  private profileSendToEditProfile: Profile;
   private idUrl = this.commonService.getIdProfileInParams();
 
   constructor(private showProfileService: ShowProfileService,
-              private editProfileService : EditProfileService,
-              private commonService : CommonService) { }
+    private editProfileService: EditProfileService,
+    private commonService: CommonService,
+    private tokenService: TokenService,
+    private authService : AuthService) { }
 
   ngOnInit() {
     this.loadProfile();
   }
 
+
   loadProfile() {
     this.subscription = this.showProfileService.getProfileFollowId(this.idUrl).subscribe(data => {
       this.profile = data;
       this.profileSendToEditProfile = new Profile(this.profile);
+      
+      // is user login
+      if(this.tokenService.parseJwt(this.authService.getAuthentication()).sub === this.profile.email){
+        this.isUserLogin = true;
+      }
     }, error => {
       console.log(error);
     });
@@ -61,7 +72,7 @@ export class ShowProfileComponent implements OnInit {
     this.isVisible = false;
   }
 
-  getValidateForm($event){
+  getValidateForm($event) {
     this.validateForm = $event;
   }
 }

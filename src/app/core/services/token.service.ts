@@ -12,14 +12,25 @@ export class TokenService {
   readonly jwtToken = 'currentUser';
 
   saveToken(token: string) {
-    localStorage[this.jwtToken] = token;
+    // localStorage.setItem[this.jwtToken] = token;
+    localStorage.setItem("token",this.jwtToken);
   }
 
   getToken(): string {
-    return localStorage[this.jwtToken];
+    return localStorage.getItem[this.jwtToken];
   }
 
   clearToken(): void {
     localStorage.removeItem(this.jwtToken);
   }
+
+  parseJwt (token : string) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+};
 }

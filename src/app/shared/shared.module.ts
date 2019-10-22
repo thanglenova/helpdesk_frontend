@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppMaterialModule } from './material.module';
+import { NzFormModule } from 'ng-zorro-antd';
 
 
 @NgModule({
@@ -9,7 +10,8 @@ import { AppMaterialModule } from './material.module';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NzFormModule
   ],
   exports: [
     FormsModule,
