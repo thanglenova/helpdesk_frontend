@@ -75,7 +75,6 @@ export class AuthService {
   }
 
   getProfileCurrent() : Observable<Profile>{
-    console.log(this.getAuthentication());
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': 'Bearer ' + this.getAuthentication()
