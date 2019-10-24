@@ -30,8 +30,6 @@ export class AppComponent implements OnDestroy {
   }
 
   profile(): void {
-    console.log("cocococ");
-    
     this.subscription = this.authService.getProfileCurrent().subscribe(
       data => {
         this.router.navigate(['/profile/' + data.id]);

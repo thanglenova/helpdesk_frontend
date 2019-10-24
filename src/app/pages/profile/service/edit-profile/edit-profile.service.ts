@@ -10,7 +10,7 @@ export class EditProfileService {
 
   constructor(private http: HttpClient) { }
 
-  editProfile(profile : Profile) : Observable<Profile>{
+  editProfile(profile: Profile): Observable<Profile> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraGFuaG5ndXllbkBub3ZhaHViLnZuIiwic2NvcGVzIjoiUk9MRV9BRE1JTixST0xFX0VNUExPWUVFUyxST0xFX1NFQ1JFVEFSWSIsImlhdCI6MTU3MTM4MjExMywiZXhwIjoxNTczOTc0MTEzfQ.OCb2q2PHKbYH6AMOiO9Wu9BUNcrb6ApgznEKhZAMjZo'
@@ -18,10 +18,10 @@ export class EditProfileService {
     };
 
     return this.http.put<Profile>('https://helpdesk-kunlez-novahub.herokuapp.com/api/profiles',
-                          profile, httpOptions);
+      profile, httpOptions);
   }
 
-  uploadImage(image : File){
+  uploadImage(image: File) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraGFuaG5ndXllbkBub3ZhaHViLnZuIiwic2NvcGVzIjoiUk9MRV9BRE1JTixST0xFX0VNUExPWUVFUyxST0xFX1NFQ1JFVEFSWSIsImlhdCI6MTU3MTM4MjExMywiZXhwIjoxNTczOTc0MTEzfQ.OCb2q2PHKbYH6AMOiO9Wu9BUNcrb6ApgznEKhZAMjZo'
@@ -31,6 +31,6 @@ export class EditProfileService {
     formData.append('avatar', image, image.name);
 
     return this.http.put('https://helpdesk-kunlez-novahub.herokuapp.com/api/profiles/avatar',
-    formData, httpOptions);
+      formData, httpOptions);
   }
 }
