@@ -29,7 +29,7 @@ export class ShowProfileComponent implements OnInit {
     private editProfileService: EditProfileService,
     private commonService: CommonService,
     private tokenService: TokenService,
-    private authService : AuthService) { }
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.loadProfile();
@@ -40,9 +40,10 @@ export class ShowProfileComponent implements OnInit {
     this.subscription = this.showProfileService.getProfileFollowId(this.idUrl).subscribe(data => {
       this.profile = data;
       this.profileSendToEditProfile = new Profile(this.profile);
-      
+
       // is user login
-      if(this.tokenService.parseJwt(this.authService.getAuthentication()).sub === this.profile.email){
+      if (this.tokenService.parseJwt(this.authService.getAuthentication()).sub === this.profile.email
+        || this.tokenService.parseJwt(this.authService.getAuthentication()).scopes.includes("ROLE_ADMIN")) {
         this.isUserLogin = true;
       }
     }, error => {

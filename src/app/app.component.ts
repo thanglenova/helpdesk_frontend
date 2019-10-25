@@ -7,7 +7,6 @@ import { Subscription } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-
 export class AppComponent implements OnDestroy {
 
   private subscription: Subscription
@@ -30,8 +29,6 @@ export class AppComponent implements OnDestroy {
   }
 
   profile(): void {
-    console.log("cocococ");
-    
     this.subscription = this.authService.getProfileCurrent().subscribe(
       data => {
         this.router.navigate(['/profile/' + data.id]);

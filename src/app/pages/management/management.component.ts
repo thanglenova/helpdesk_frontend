@@ -1,99 +1,143 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ShowUserService } from './service/show-user/show-user.service';
-import { Profile } from 'selenium-webdriver/firefox';
 import { Subscription } from 'rxjs';
+import { Profile } from '../../shared/models/profile'
+import { EditUserService } from './service/edit-user/edit-user.service';
 
 @Component({
   selector: 'app-management',
   templateUrl: './management.component.html',
   styleUrls: ['./management.component.scss']
 })
-export class ManagementComponent implements OnInit {
+export class ManagementComponent implements OnInit, OnDestroy {
 
-  private users : Profile[];
-  private subscription : Subscription;
-  constructor(private showUserService : ShowUserService) { }
+  private users: Profile[];
+  private subscription: Subscription;
+  private searchValue: string;
+  private allUser: Profile[];
+  private sortNameCurrent: string;
+  private sortEmailCurrent: string;
+
+  constructor(private showUserService: ShowUserService,
+    private editUserService: EditUserService) { }
 
   ngOnInit() {
     this.loadListUser();
   }
 
-  loadListUser(){
-    console.log(this.showUserService.get());
-    
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  loadListUser() {
     this.subscription = this.showUserService.getListProfile().subscribe(
       data => {
-        //this.users = data;
+        this.users = data;
+        this.allUser = data;
       },
       error => {
         console.log(error);
-        
       }
     )
   }
-  sortName: string | null = null;
-  sortValue: string | null = null;
-  searchAddress: string;
-  listOfName = [{ text: 'Joe', value: 'Joe' }, { text: 'Jim', value: 'Jim' }];
-  listOfAddress = [{ text: 'London', value: 'London' }, { text: 'Sidney', value: 'Sidney' }];
-  listOfSearchName: string[] = [];
-  listOfData: Array<{ name: string; age: number; address: string; [key: string]: string | number }> = [
-    {
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park'
-    },
-    {
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park'
-    },
-    {
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    },
-    {
-      name: 'Jim Red',
-      age: 32,
-      address: 'London No. 2 Lake Park'
+
+  onDisableUser(user: Profile) {
+    this.subscription = this.editUserService.disableFollowIdUser(user.id).subscribe(
+      data => {
+        this.reverseStatusOfUser(user);
+      }, error => {
+        console.log(error);
+      }
+    )
+  }
+  onEnableUser(user: Profile) {
+    this.subscription = this.editUserService.enableFollowIdUser(user.id).subscribe(
+      data => {
+        this.reverseStatusOfUser(user);
+      }, error => {
+        console.log(error);
+      }
+    )
+  }
+
+  reverseStatusOfUser(user: Profile) {
+    for (let i = 0; i < this.users.length; ++i) {
+      if (this.users[i].id === user.id) {
+        this.users[i].enable = !this.users[i].enable;
+        break;
+      }
     }
-  ];
-  listOfDisplayData: Array<{ name: string; age: number; address: string; [key: string]: string | number }> = [
-    ...this.listOfData
-  ];
-
-  sort(sort: { key: string; value: string }): void {
-    this.sortName = sort.key;
-    this.sortValue = sort.value;
-    this.search();
   }
 
-  filter(listOfSearchName: string[], searchAddress: string): void {
-    this.listOfSearchName = listOfSearchName;
-    this.searchAddress = searchAddress;
-    this.search();
-  }
-
-  search(): void {
-    /** filter data **/
-    const filterFunc = (item: { name: string; age: number; address: string }) =>
-      (this.searchAddress ? item.address.indexOf(this.searchAddress) !== -1 : true) &&
-      (this.listOfSearchName.length ? this.listOfSearchName.some(name => item.name.indexOf(name) !== -1) : true);
-    const data = this.listOfData.filter(item => filterFunc(item));
-    /** sort data **/
-    if (this.sortName && this.sortValue) {
-      this.listOfDisplayData = data.sort((a, b) =>
-        this.sortValue === 'ascend'
-          ? a[this.sortName!] > b[this.sortName!]
-            ? 1
-            : -1
-          : b[this.sortName!] > a[this.sortName!]
-          ? 1
-          : -1
-      );
+  sortName(event) {
+    if (event === "ascend") {
+      this.users.sort(function (a, b) {
+        var nameA = a.lastName.toUpperCase();
+        var nameB = b.lastName.toUpperCase();
+        return nameA.localeCompare(nameB);
+      });
+    } else if (event === "descend") {
+      this.users.sort(function (a, b) {
+        var nameA = a.lastName.toUpperCase();
+        var nameB = b.lastName.toUpperCase();
+        return nameB.localeCompare(nameA);
+      });
     } else {
-      this.listOfDisplayData = data;
+      this.users.sort(function (a, b) {
+        if (a.id === b.id) {
+          return 0;
+        }
+        return a > b ? 1 : -1;
+      });
     }
+    this.sortEmailCurrent = event;
   }
+
+  sortEmail(event) {
+    if (event === "ascend") {
+      this.users.sort(function (a, b) {
+        var nameA = a.email.toUpperCase();
+        var nameB = b.email.toUpperCase();
+        return nameA.localeCompare(nameB);
+      });
+    } else if (event === "descend") {
+      this.users.sort(function (a, b) {
+        var nameA = a.email.toUpperCase();
+        var nameB = b.email.toUpperCase();
+        return nameB.localeCompare(nameA);
+      });
+    } else {
+      this.users.sort(function (a, b) {
+        if (a.id === b.id) {
+          return 0;
+        }
+        return a > b ? 1 : -1;
+      });
+    }
+    this.sortEmailCurrent = event;
+  }
+
+  searchName() {
+    this.users = this.allUser.filter(user => {
+      if (user.firstName.includes(this.searchValue) || user.lastName.includes(this.searchValue)) {
+        return user;
+      }
+    });
+    this.sortName(this.sortNameCurrent);
+  }
+
+  searchEmail() {
+    let litsUserSearch: Profile[];
+    this.users = this.allUser.filter(user => {
+      if (user.email.includes(this.searchValue)) {
+        return user;
+      }
+    });
+    this.sortEmail(this.sortEmailCurrent);
+  }
+
+  reset() {
+    this.users = this.allUser;
+  }
+
 }

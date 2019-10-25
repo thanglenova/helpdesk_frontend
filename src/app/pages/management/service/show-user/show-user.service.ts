@@ -10,9 +10,9 @@ import { TokenService } from 'src/app/core/services/token.service';
 export class ShowUserService {
 
   constructor(private http: HttpClient,
-              private tokenService : TokenService) { }
+    private tokenService: TokenService) { }
 
-  getListProfile() : Observable<Profile[]>{
+  getListProfile(): Observable<Profile[]> {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -21,8 +21,5 @@ export class ShowUserService {
     };
     return this.http.get<Profile[]>('https://helpdesk-kunlez-novahub.herokuapp.com/api/users', httpOptions);
   }
-  
-  get() : string {
-    return "baba";
-  }
+
 }

@@ -1,41 +1,64 @@
-<nz-table #filterTable [nzData]="listOfDisplayData">
-    <thead (nzSortChange)="sort($event)" nzSingleSort>
-      <tr>
-        <th
-          nzShowSort
-          nzSortKey="name"
-          nzShowFilter
-          [nzFilters]="listOfName"
-          (nzFilterChange)="filter($event, searchAddress)"
-        >
-          Name
-        </th>
-        <th nzShowSort nzSortKey="age">Email</th>
-        <th
-          nzShowSort
-          nzSortKey="address"
-          nzShowFilter
-          [nzFilterMultiple]="false"
-          [nzFilters]="listOfAddress"
-          (nzFilterChange)="filter(listOfSearchName, $event)"
-        >
-          Image
-        </th>
-        <th>
-            Acction edit
-        </th>
-        <th>
-            Acction disable
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of filterTable.data">
-        <td>{{ data.name }}</td>
-        <td>{{ data.age }}</td>
-        <td>{{ data.address }}</td>
-        <td><button nz-button nzType="primary">Edit</button></td>
-        <td><button nz-button nzType="danger">Disable</button></td>
-      </tr>
-    </tbody>
-  </nz-table>
+<nz-table #filterTable [nzData]="users" [nzPageSize]="5">
+  <thead>
+    <tr>
+      <th nzWidth="150px" nzShowSort (nzSortChange)="sortName($event)">
+        <i nz-icon nzType="user" nzTheme="outline"></i> Name
+        <span nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" style="float: right;">
+          <i nz-icon nzType="down"></i>
+        </span>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <div class="search-box">
+            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+            <button nz-button nzSize="small" nzType="primary" (click)="searchName()" class="search-button">
+              Search
+            </button>
+            <button nz-button nzSize="small" (click)="reset()">Reset</button>
+          </div>
+        </nz-dropdown-menu>
+      </th>
+      <th nzWidth="150px" nzShowSort (nzSortChange)="sortEmail($event)"><i nz-icon nzType="mail" nzTheme="outline"></i>
+        Email
+        <span nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" style="float: right;">
+          <i nz-icon nzType="down"></i>
+        </span>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <div class="search-box">
+            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+            <button nz-button nzSize="small" nzType="primary" (click)="searchEmail()" class="search-button">
+              Search
+            </button>
+            <button nz-button nzSize="small" (click)="reset()">Reset</button>
+          </div>
+        </nz-dropdown-menu>
+      </th>
+      <th><i nz-icon nzType="file-image" nzTheme="outline"></i> Image</th>
+      <th>Disable</th>
+      <th>Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of filterTable.data">
+      <td>{{ data.firstName }} {{ data.lastName }}</td>
+      <td>{{ data.email }}</td>
+      <td><img src="{{'data:image/jpg;base64,' + data.avatarBase64}}" class="img-user" alt="Not found image"></td>
+      <td>
+        <div *ngIf="!data.enable ; else disableUser">
+          <button nz-button nzType="default" (click)="onEnableUser(data)">
+            <i nz-icon nzType="user-add" nzTheme="outline"></i>
+            Enable
+          </button>
+        </div>
+        <ng-template #disableUser>
+          <button nz-button nzType="default" (click)="onDisableUser(data)">
+            <i nz-icon nzType="user-delete" nzTheme="outline"></i>
+            Disable
+          </button>
+        </ng-template>
+      </td>
+      <td><button nz-button nzType="default" routerLink="/profile/{{data.id}}"><i nz-icon nzType="edit"
+            nzTheme="outline"></i>Edit
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
