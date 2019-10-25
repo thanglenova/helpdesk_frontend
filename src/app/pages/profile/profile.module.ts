@@ -23,8 +23,7 @@ import { EditSkillsComponent } from './components/edit-skills/edit-skills.compon
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
-
-
+import { NzMessageModule } from 'ng-zorro-antd/message';
 @NgModule({
   declarations: [
     ProfileComponent,
@@ -48,7 +47,8 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
     NzIconModule,
     NzRadioModule,
     NzUploadModule,
-    NzNotificationModule
+    NzNotificationModule,
+    NzMessageModule
    
   ],
   exports : [

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { ShowProfileService } from '../../service/show-profile/show-profile.service';
@@ -14,10 +14,10 @@ import { TokenService } from 'src/app/core/services/token.service';
   templateUrl: './show-profile.component.html',
   styleUrls: ['./show-profile.component.scss']
 })
-export class ShowProfileComponent implements OnInit {
+export class ShowProfileComponent implements OnInit, OnDestroy {
 
   private isVisible = false;
-  private validateForm = false;
+  private validateForm = true;
   private isUserLogin = false;
   private subscription: Subscription;
   private profile: Profile;
@@ -35,6 +35,9 @@ export class ShowProfileComponent implements OnInit {
     this.loadProfile();
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   loadProfile() {
     this.subscription = this.showProfileService.getProfileFollowId(this.idUrl).subscribe(data => {

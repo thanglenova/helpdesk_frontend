@@ -13,7 +13,7 @@ export class SkillComponent implements OnInit {
   skills: Skill[];
   skill: Skill;
 
-  editCache: {[key:string]: {edit: boolean; data: Skill}}={};
+  editCache: { [key: string]: { edit: boolean; data: Skill } } = {};
   listOfData: Skill[] = [];
 
   constructor(
@@ -26,7 +26,7 @@ export class SkillComponent implements OnInit {
   }
 
   cancelEdit(id: number): void {
-    const index = this.listOfData.findIndex(skill => skill.id===id)
+    const index = this.listOfData.findIndex(skill => skill.id === id)
     this.editCache[id] = {
       data: { ...this.listOfData[index] },
       edit: false
@@ -34,7 +34,7 @@ export class SkillComponent implements OnInit {
   }
 
   saveEdit(id: number): void {
-    const index = this.listOfData.findIndex(skill => skill.id===id);
+    const index = this.listOfData.findIndex(skill => skill.id === id);
     Object.assign(this.listOfData[index], this.editCache[id].data);
     this.editCache[id].edit = false;
   }
@@ -50,22 +50,10 @@ export class SkillComponent implements OnInit {
 
   ngOnInit() {
     this.getSkills();
-
-    // for (let i = 0; i < 100; i++) {
-    //   this.listOfData.push({
-    //     id: i,
-    //     name: `Edrward ${i}`,
-    //     category: {
-    //       id: 0,
-    //       name: "Cate 1"
-    //     }
-    //   });
-    // }
-    // this.updateEditCache();
   }
 
   getSkills(): void {
-    this.skillService.getSkills().subscribe(skills=>this.skills=skills);
+    this.skillService.getSkills().subscribe(skills => this.skills = skills);
   }
 
 }
