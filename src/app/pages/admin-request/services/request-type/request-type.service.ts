@@ -9,9 +9,9 @@ import { RequestModel } from 'src/app/shared/models/request/request';
 })
 export class RequestTypeService {
 
-  // private url = 'http://localhost:8081/api/request-types'
+  private url = 'http://localhost:8081/api/request-types'
 
-  // constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   
 }

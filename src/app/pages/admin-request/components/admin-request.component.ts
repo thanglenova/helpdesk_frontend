@@ -80,28 +80,20 @@ export class AdminRequestComponent implements OnInit {
 
   onChange(event, request: RequestModel) {
     this.httpClient.put("http://localhost:8081/api/requests", request).subscribe(pu => console.log(pu));
-    // console.log(request)
-    // this.putRequest(request);
-    // console.log(3);
   }
 
   getSize() {
     this.adminRequestService.getSize(this.searchKeyword).subscribe(size => {
       this.sizeArray = size;
-      console.log(size);
     });
   }
 
   requestPage(event) {
-    console.log(event);
-
     this.selectedRows = event.rows;
-
     this.sendRequestPage(event.page, this.selectedRows, this.selectedSortBy, this.searchKeyword);
   }
 
   sendRequestPage(page: number, items: number, sortBy: string, search: string) {
-
     const body = {
       page: page,
       items: items,
@@ -112,14 +104,11 @@ export class AdminRequestComponent implements OnInit {
     this.adminRequestService.getPageRequest(body).subscribe(request => {
       this.requests = request;
       this.getSize();
-      console.log(body);
     });
   }
 
   changeSortBy(event){
-
     this.selectedSortBy = event.value;
-
     this.sendRequestPage(0, this.selectedRows, this.selectedSortBy, this.searchKeyword);
   }
 
