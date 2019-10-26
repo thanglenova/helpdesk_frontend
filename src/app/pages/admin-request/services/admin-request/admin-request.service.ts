@@ -9,7 +9,7 @@ import { RequestPageModel } from 'src/app/shared/models/request/request-page-mod
 })
 export class AdminRequestService {
 
-  httpOptions = {
+  private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
