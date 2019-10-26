@@ -21,13 +21,13 @@ export class AdminRequestService {
   }
 
   putRequest(request:RequestModel): Observable<RequestModel>{
-    return this.httpClient.put<RequestModel>(this.url, request, this.httpOptions).pipe();
+    return this.httpClient.put<RequestModel>(this.url, request, this.httpOptions);
   }
 
   getSize(keyword:string):Observable<number>{
     let params = new HttpParams()
     .append('search', keyword);
-    return this.httpClient.get<number>(this.url+'/get-size', {params:params}).pipe();
+    return this.httpClient.get<number>(this.url+'/get-size', {params:params});
   }
 
   getPageRequest(body):Observable<RequestModel[]>{
