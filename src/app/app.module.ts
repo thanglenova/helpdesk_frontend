@@ -20,6 +20,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {TableModule} from 'primeng/table';
 import {TimeAgoPipe} from 'time-ago-pipe';
 import {PaginatorModule} from 'primeng/paginator';
+import {ButtonModule} from 'primeng/button';
 
 registerLocaleData(en);
 
@@ -45,7 +46,8 @@ registerLocaleData(en);
     ReactiveFormsModule,
     DropdownModule,
     TableModule,
-    PaginatorModule
+    PaginatorModule,
+    ButtonModule
   ],
   providers: [
     httpInterceptorProviders,
