@@ -94,7 +94,6 @@ export class AdminRequestComponent implements OnInit {
 
   sendRequestPage() {
     this.adminRequestService.getPageRequest(this.requestPageModel).subscribe(request => {
-      console.log(this.requestPageModel);
       this.requests = request;
       this.getSize();
     });

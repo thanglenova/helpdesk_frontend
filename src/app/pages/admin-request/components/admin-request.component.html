@@ -36,4 +36,4 @@
     </ng-template>
 </p-table>
 
-<p-paginator [rows]="selectedRows" [totalRecords]="sizeArray" [rowsPerPageOptions]="[2,3,5]" (onPageChange)="requestPage($event)"></p-paginator>
+<p-paginator [rows]="requestPageModel.items" [totalRecords]="sizeArray" [rowsPerPageOptions]="[2,3,5]" (onPageChange)="requestPage($event)"></p-paginator>
