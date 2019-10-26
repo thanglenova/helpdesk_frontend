@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { RequestModel } from '../../../../shared/models/request/request';
 import { RequestPageModel } from 'src/app/shared/models/request/request-page-model';
+import { environment} from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class AdminRequestService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  private url = 'http://localhost:8081/api/requests';
+  private url = environment.urlAPI + '/api/requests';
 
   constructor(private httpClient : HttpClient) { }
 

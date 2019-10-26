@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RequestType } from '../../../../shared/models/request/request-type';
 import { RequestModel } from 'src/app/shared/models/request/request';
+import { environment} from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestTypeService {
 
-  private url = 'http://localhost:8081/api/request-types'
+  private url = environment.urlAPI +'/api/request-types'
 
   constructor(private httpClient: HttpClient) { }
 

@@ -78,7 +78,7 @@ export class AdminRequestComponent implements OnInit {
   }
 
   onChange(event, request: RequestModel) {
-    this.httpClient.put("http://localhost:8081/api/requests", request).subscribe(pu => console.log(pu));
+    this.adminRequestService.putRequest(request).subscribe(pu => console.log(pu));
   }
 
   getSize() {
