@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { RequestModel } from '../../../../shared/models/request/request';
+import { RequestPageModel } from 'src/app/shared/models/request/request-page-model';
 
 @Injectable({
   providedIn: 'root'

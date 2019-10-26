@@ -9,6 +9,7 @@ import { Status } from 'src/app/shared/models/request/status';
 import { SelectItem } from 'primeng/components/common/selectitem';
 import { DropdownModule } from 'primeng/dropdown';
 import { HttpClient } from '@angular/common/http';
+import { RequestPageModel } from 'src/app/shared/models/request/request-page-model';
 
 @Component({
   selector: 'app-admin-request',
@@ -25,17 +26,11 @@ export class AdminRequestComponent implements OnInit {
 
   selectedStatus: Status;
 
-  sizeArray: number;
-
-  selectedRows: number;
-
-  search: string;
-
   sortBys: SelectItem[];
 
-  selectedSortBy: string;
+  sizeArray: number;
 
-  searchKeyword : string;
+  requestPageModel : RequestPageModel;
 
   constructor(
     private adminRequestService: AdminRequestService,
@@ -43,7 +38,11 @@ export class AdminRequestComponent implements OnInit {
     private requestTypeService: RequestTypeService,
     private httpClient: HttpClient
   ) {
-    this.selectedRows = 2;
+    this.requestPageModel = new RequestPageModel();
+
+    this.requestPageModel.page = 0;
+
+    this.requestPageModel.items = 2;
 
     this.sortBys = [
       {label: "Create At", value:"Create At"},
@@ -52,13 +51,13 @@ export class AdminRequestComponent implements OnInit {
       {label: "Status", value:"Status"}
     ]
 
-    this.searchKeyword = "";
+    this.requestPageModel.search = "";
 
-    this.selectedSortBy = "Create At";
+    this.requestPageModel.sortBy = "Create At";
   }
 
   ngOnInit() {
-    this.sendRequestPage(0, this.selectedRows, this.selectedSortBy, this.searchKeyword);
+    this.sendRequestPage();
     this.getStatus();
     this.getSize();
   }
@@ -83,36 +82,31 @@ export class AdminRequestComponent implements OnInit {
   }
 
   getSize() {
-    this.adminRequestService.getSize(this.searchKeyword).subscribe(size => {
+    this.adminRequestService.getSize(this.requestPageModel.search).subscribe(size => {
       this.sizeArray = size;
     });
   }
 
   requestPage(event) {
-    this.selectedRows = event.rows;
-    this.sendRequestPage(event.page, this.selectedRows, this.selectedSortBy, this.searchKeyword);
+    this.requestPageModel.items = event.rows;
+    this.sendRequestPage();
   }
 
-  sendRequestPage(page: number, items: number, sortBy: string, search: string) {
-    const body = {
-      page: page,
-      items: items,
-      sortBy: sortBy,
-      search: search
-    }
-
-    this.adminRequestService.getPageRequest(body).subscribe(request => {
+  sendRequestPage() {
+    this.adminRequestService.getPageRequest(this.requestPageModel).subscribe(request => {
+      console.log(this.requestPageModel);
       this.requests = request;
       this.getSize();
     });
   }
 
   changeSortBy(event){
-    this.selectedSortBy = event.value;
-    this.sendRequestPage(0, this.selectedRows, this.selectedSortBy, this.searchKeyword);
+    this.requestPageModel.sortBy = event.value;
+    this.sendRequestPage();
   }
 
   searchRequest(){
-    this.sendRequestPage(0, this.selectedRows, this.selectedSortBy, this.searchKeyword);
+    this.requestPageModel.page = 0;
+    this.sendRequestPage();
   }
 }

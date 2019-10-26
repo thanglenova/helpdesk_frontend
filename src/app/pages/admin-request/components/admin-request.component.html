@@ -3,11 +3,11 @@
 </h1>
 <br>
 <div class="ui-g ui-fluid">
-    <p-dropdown [options]="sortBys" [(ngModel)]="selectedSortBy" (onChange)="changeSortBy($event)" class="ui-g-12 ui-md-4"></p-dropdown>
+    <p-dropdown [options]="sortBys" [(ngModel)]="requestPageModel.sortBy" (onChange)="changeSortBy($event)" class="ui-g-12 ui-md-4"></p-dropdown>
 
     <div class="ui-g-12 ui-md-8">
         <div class="ui-inputgroup">
-            <input type="text" pInputText placeholder="Keyword" class="ui-g-12 ui-md-11 bo-tron" [(ngModel)]="searchKeyword">
+            <input type="text" pInputText placeholder="Keyword" class="ui-g-12 ui-md-11 bo-tron" [(ngModel)]="requestPageModel.search">
             <button pButton type="button" label="Search" (click)="searchRequest()"></button>
         </div>
     </div>
