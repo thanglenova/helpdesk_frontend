@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminRequestService } from '../services/admin-request/admin-request.service';
-import { StatusService } from '../services/status/status.service';
+import { AdminRequestService } from '../../core/services/admin-request.service';
+import { StatusService } from '../../core/services/status.service';
 import { Observable } from 'rxjs';
-import { RequestTypeService } from '../services/request-type/request-type.service';
-import { RequestModel } from '../../../shared/models/request/request';
-import { RequestType } from '../../../shared/models/request/request-type';
-import { Status } from 'src/app/shared/models/request/status';
+import { RequestTypeService } from '../../core/services/request-type.service';
+import { RequestModel } from '../../shared/models/request';
+import { RequestType } from '../../shared/models/request-type';
+import { Status } from 'src/app/shared/models/status';
 import { SelectItem } from 'primeng/components/common/selectitem';
 import { DropdownModule } from 'primeng/dropdown';
 import { HttpClient } from '@angular/common/http';
-import { RequestPageModel } from 'src/app/shared/models/request/request-page-model';
+import { RequestPageModel } from 'src/app/shared/models/request-page-model';
 
 @Component({
   selector: 'app-admin-request',

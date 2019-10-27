@@ -1,6 +1,6 @@
 
 import {RequestType} from './request-type';
-import { User } from '../user';
+import { User } from './user';
 import { Status } from './status';
 
 export class RequestModel{
