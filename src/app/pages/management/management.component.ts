@@ -13,7 +13,7 @@ export class ManagementComponent implements OnInit, OnDestroy {
 
   private users: Profile[];
   private subscription: Subscription;
-  private searchValue: string;
+  private valueSearch: string;
   private allUser: Profile[];
   private sortNameCurrent: string;
   private sortEmailCurrent: string;
@@ -32,8 +32,8 @@ export class ManagementComponent implements OnInit, OnDestroy {
   loadListUser() {
     this.subscription = this.showUserService.getListProfile().subscribe(
       data => {
-        this.users = data;
         this.allUser = data;
+        this.users = [...this.allUser];
       },
       error => {
         console.log(error);
@@ -50,6 +50,7 @@ export class ManagementComponent implements OnInit, OnDestroy {
       }
     )
   }
+
   onEnableUser(user: Profile) {
     this.subscription = this.editUserService.enableFollowIdUser(user.id).subscribe(
       data => {
@@ -70,13 +71,14 @@ export class ManagementComponent implements OnInit, OnDestroy {
   }
 
   sortName(event) {
-    if (event === "ascend") {
+    this.users = [...this.users];
+    if (event == "ascend") {
       this.users.sort(function (a, b) {
         var nameA = a.lastName.toUpperCase();
         var nameB = b.lastName.toUpperCase();
         return nameA.localeCompare(nameB);
       });
-    } else if (event === "descend") {
+    } else if (event == "descend") {
       this.users.sort(function (a, b) {
         var nameA = a.lastName.toUpperCase();
         var nameB = b.lastName.toUpperCase();
@@ -94,6 +96,7 @@ export class ManagementComponent implements OnInit, OnDestroy {
   }
 
   sortEmail(event) {
+    this.users = [...this.users];
     if (event === "ascend") {
       this.users.sort(function (a, b) {
         var nameA = a.email.toUpperCase();
@@ -117,19 +120,12 @@ export class ManagementComponent implements OnInit, OnDestroy {
     this.sortEmailCurrent = event;
   }
 
-  searchName() {
-    this.users = this.allUser.filter(user => {
-      if (user.firstName.includes(this.searchValue) || user.lastName.includes(this.searchValue)) {
-        return user;
-      }
-    });
-    this.sortName(this.sortNameCurrent);
-  }
-
-  searchEmail() {
+  search() {
     let litsUserSearch: Profile[];
     this.users = this.allUser.filter(user => {
-      if (user.email.includes(this.searchValue)) {
+      if (user.email.includes(this.valueSearch)
+        || user.firstName.includes(this.valueSearch)
+        || user.lastName.includes(this.valueSearch)) {
         return user;
       }
     });

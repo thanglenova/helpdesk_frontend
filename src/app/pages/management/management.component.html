@@ -1,35 +1,20 @@
-<nz-table #filterTable [nzData]="users" [nzPageSize]="5">
+<nz-input-group [nzSuffix]="suffixIconSearch" class="group-search">
+  <input type="text" nz-input placeholder="input search text" id="input-search" [(ngModel)]="valueSearch" />
+</nz-input-group>
+<ng-template #suffixIconSearch>
+  <i nz-icon nzType="search" id="btn-search" (click)="search()"></i>
+  <span nzType="default" id="btn-reset-data" (click)="reset()">Reset</span>
+</ng-template>
+
+<nz-table #filterTable [nzData]="users" [nzPageSize]="3">
   <thead>
     <tr>
       <th nzWidth="150px" nzShowSort (nzSortChange)="sortName($event)">
-        <i nz-icon nzType="user" nzTheme="outline"></i> Name
-        <span nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" style="float: right;">
-          <i nz-icon nzType="down"></i>
-        </span>
-        <nz-dropdown-menu #menu="nzDropdownMenu">
-          <div class="search-box">
-            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
-            <button nz-button nzSize="small" nzType="primary" (click)="searchName()" class="search-button">
-              Search
-            </button>
-            <button nz-button nzSize="small" (click)="reset()">Reset</button>
-          </div>
-        </nz-dropdown-menu>
+        <i nz-icon nzType="user" nzTheme="outline"></i>
+        Name
       </th>
       <th nzWidth="150px" nzShowSort (nzSortChange)="sortEmail($event)"><i nz-icon nzType="mail" nzTheme="outline"></i>
         Email
-        <span nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" style="float: right;">
-          <i nz-icon nzType="down"></i>
-        </span>
-        <nz-dropdown-menu #menu="nzDropdownMenu">
-          <div class="search-box">
-            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
-            <button nz-button nzSize="small" nzType="primary" (click)="searchEmail()" class="search-button">
-              Search
-            </button>
-            <button nz-button nzSize="small" (click)="reset()">Reset</button>
-          </div>
-        </nz-dropdown-menu>
       </th>
       <th><i nz-icon nzType="file-image" nzTheme="outline"></i> Image</th>
       <th>Disable</th>
