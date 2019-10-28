@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Profile } from '../../../../shared/models/profile';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class EditProfileService {
       })
     };
 
-    return this.http.put<Profile>('https://helpdesk-kunlez-novahub.herokuapp.com/api/profiles',
+    let api = environment.apiUrl + '/profiles';
+    return this.http.put<Profile>( api,
       profile, httpOptions);
   }
 
@@ -31,8 +33,8 @@ export class EditProfileService {
     };
     const formData: FormData = new FormData();
     formData.append('avatar', image, image.name);
-
-    return this.http.put('https://helpdesk-kunlez-novahub.herokuapp.com/api/profiles/avatar',
+    let api = environment.apiUrl + '/profiles/avatar';
+    return this.http.put( api,
       formData, httpOptions);
   }
 }
