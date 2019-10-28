@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {SharedModule} from 'src/app/shared/shared.module';
 import {CategoryComponent} from './category.component';
 import {CategoryRoutingModule} from './category-routing.module';
+import {NzPopconfirmModule} from 'ng-zorro-antd';
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import {CategoryRoutingModule} from './category-routing.module';
   imports: [
     CommonModule,
     SharedModule,
-    CategoryRoutingModule
+    CategoryRoutingModule,
+    NzPopconfirmModule
   ],
   exports: [CategoryComponent]
 })

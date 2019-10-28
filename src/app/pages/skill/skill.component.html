@@ -1,40 +1,38 @@
-<div class="listOfData">
-<nz-table #editRowTable nzBordered>
+<h1 style="color: #40a9ff">
+  CATEGORY
+</h1>
+
+<nz-table #editRowTable nzBordered [nzData]="data">
         <thead>
           <tr>
             <th nzWidth="15%">ID</th>
             <th nzWidth="25%">Name</th>
-            <th nzWidth="25%">Category</th>
-            <th nzWidth="25%" routerLink="/">More</th>
+            <th nzWidth="35%">Category</th>
+            <th nzWidth="15%" routerLink="/">More</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let data of editRowTable.data">
             <td>
-              <ng-container *ngIf="!editCache[data.id].edit; else idInputTpl">
+              <ng-container >
                 {{ data.id }}
               </ng-container>
-              <ng-template #idInputTpl>
-                <input type="text" nz-input [(ngModel)]="editCache[data.id].data.id" />
-              </ng-template>
             </td>
             <td>
-              <ng-container *ngIf="!editCache[data.id].edit; else nameInputTpl">
+              <ng-container >
                 {{ data.name }}
               </ng-container>
-              <ng-template #nameInputTpl>
-                <input type="text" nz-input [(ngModel)]="editCache[data.id].data.name" />
-              </ng-template>
             </td>
             <td>
-              <ng-container *ngIf="!editCache[data.id].edit; else categoryInputTpl">
-                {{ data.category }}
+              <ng-container >
+                {{ data.categories.name }}
               </ng-container>
-              <ng-template #categoryInputTpl>
-                <input type="text" nz-input [(ngModel)]="editCache[data.id].data.category" />
-              </ng-template>
+            </td>
+            <td>
+              <a>More</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a>Delete</a>
             </td>
           </tr>
         </tbody>
       </nz-table>
-    </div>

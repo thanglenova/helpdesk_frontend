@@ -1,19 +1,14 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { User } from 'src/app/shared/models/user';
-import { HttpClient, HttpErrorResponse, HttpHandler, HttpHeaders } from '@angular/common/http';
-import { map, catchError, tap } from 'rxjs/operators';
-import { templateJitUrl } from '@angular/compiler';
-import { stringify } from 'querystring';
-import { NzAffixComponent, responsiveMap } from 'ng-zorro-antd';
-import axios from 'axios';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
+import {User} from 'src/app/shared/models/user';
+import {HttpClient, HttpErrorResponse, HttpHandler, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  serverUrl = "";
+  serverUrl = '';
   errorData: {};
   redirectUrl: string;
 
@@ -32,11 +27,11 @@ export class AuthService {
     }
     this.errorData = {
       errorTitle: 'Request failed',
-    }
+    };
     return throwError(this.errorData);
   }
 
-  //login with gg
+  // login with gg
   loginGoogle(token: string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -59,13 +54,14 @@ export class AuthService {
   }
 
   getToken(): string {
-    let temp = localStorage.getItem('currentUser').split(" ");
+    const temp = localStorage.getItem('currentUser').split(' ');
     return temp[1];
   }
 
   getTokenGoogle() {
-    let token_value = JSON.parse(this.getToken());
-    return token_value.token
+    // tslint:disable-next-line:variable-name
+    const token_value = JSON.parse(this.getToken());
+    return token_value.token;
   }
 
   public get currentUserValue(): User {

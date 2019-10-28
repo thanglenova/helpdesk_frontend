@@ -1,79 +1,75 @@
-<h1>
+<h1 style="color: #40a9ff">
   REQUEST TIME OFF
 </h1>
 
-<div nz-row class="data">
-  <div nz-col nzSpan="12" style="padding-right: 20px;">
-    <div class="form-show">
-      <nz-table #detailTable nzShowSizeChanger>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Create At</th>
-            <th>Start Day</th>
-            <th>End Day</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let data of detailTable.data">
-            <td>{{ data.name }}</td>
-            <td>{{ data.createAt }}</td>
-            <td>{{ data.dayStartOff }}</td>
-            <td>{{ data.dayEndOff }}</td>
-            <td>{{ data.description }}</td>
-          </tr>
-        </tbody>
-      </nz-table>
-    </div>
-  </div>
-
-  <div class="form-request">
-  <div nz-col nzSpan="12">
-      <form nz-form [nzLayout]="'inline'" [formGroup]="requestForm" (ngSubmit)="onSubmit()">
-
-        <div class="form-group">
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Request Day Off" (nzOnCancel)="handleCancel()" (nzOnOk)="onSubmit()">
+    <form nz-form [nzLayout]="'inline'" [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
         <nz-form-item>
-          <label style="padding-right: 20px;"><br />Day Start: </label>
+          <label style="padding-right: 20px;"><br/>Day Start: </label>
           <span></span>
           <nz-date-picker formControlName="dayStartOff" class="form-control" [nzFormat]="dateFormat"></nz-date-picker>
-          <br />
+          <br/>
         </nz-form-item>
       </div>
-        <br />
-        <div class="form-group">
+      <br/>
+      <div class="form-group">
         <nz-form-item>
-          <label style="padding-right: 22px;"><br />Day End: </label>
+          <label style="padding-right: 22px;"><br/>Day End: </label>
           <nz-date-picker formControlName="dayEndOff" class="form-control" [nzFormat]="dateFormat"></nz-date-picker>
-          <br />
+          <br/>
         </nz-form-item>
-        </div>
-        <br />
-        <div class="form-group">
+      </div>
+      <br/>
+      <div class="form-group">
         <label style="padding-right: 22px;">Type : </label>
         <nz-form-item style=" margin-left: 80px; width: 355px; margin-top: 3px;">
-          <nz-select formControlName="dayOffType" (nzScrollToBottom)="loadMore()" nzPlaceHolder="Select Type Of Day Off" nzAllowClear>
-            <!-- <nz-option nzValue= 0 nzLabel="Get Sick"></nz-option> -->
-            <nz-option *ngFor="let type of types" [nzValue]="type.id" [nzLabel]="type.name"></nz-option>
+          <nz-select formControlName="dayOffType" (nzScrollToBottom)="getAllTypes()"
+                     nzPlaceHolder="Select Type Of Day Off" nzAllowClear>
+            <nz-option *ngFor="let type of types" [nzValue]="[type.id,type.name]" [nzLabel]="type.name"></nz-option>
             <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
               <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
             </nz-option>
           </nz-select>
         </nz-form-item>
       </div>
-        <br />
-        <div class="form=form-group">
+      <br/>
+      <div class="form=form-group">
         <nz-form-item>
-          <label style="padding-right: 10px;"><br />Comments: </label>
-          <input nz-input formControlName="description" />
+          <label style="padding-right: 10px;"><br/>Comments: </label>
+          <input nz-input formControlName="description"/>
         </nz-form-item>
-        </div>
-        <div class="form-group">
-        <button nz-button nzType="primary">
-          Submit
-        </button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+      </div>
+    </form>
+</nz-modal>
+<button nz-button nzType="dashed" nzShape="circle" (click)="showModal()"><i nz-icon nzType="plus" nzTheme="outline"></i>
+</button>
+<br/><br/>
+<nz-table #detailTable nzShowSizeChanger [nzData]="data">
+  <div class="types"></div>
+  <thead>
+  <tr>
+    <th nzWidth="20%">Create At</th>
+    <th nzWidth="20%">Start Day</th>
+    <th nzWidth="20%">End Day</th>
+    <th nzWidth="40%">Description</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of detailTable.data">
+    <td>
+      <ng-container>{{ data.createAt | date : 'dd/MM/yyyy' }}</ng-container>
+    </td>
+    <td>
+      <ng-container>{{ data.dayStartOff }}</ng-container>
+    </td>
+    <td>
+      <ng-container>{{ data.dayEndOff }}</ng-container>
+    </td>
+    <td>
+      <ng-container>{{ data.description }}</ng-container>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+

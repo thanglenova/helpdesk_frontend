@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from './core/services/auth.service'
-import { Router } from '@angular/router';
-import { AlertService } from './core/services/alert.service';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from './core/services/auth.service';
+import {Router} from '@angular/router';
+import {AlertService} from './core/services/alert.service';
 
 @Component({
   selector: 'app-root',
@@ -16,18 +16,18 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private alerService: AlertService
-    ){ }
+  ) {
+  }
 
-    ngOnInit() {
-      this.alerService.success("HUyen");
-    }
-  
+  ngOnInit() {
+  }
 
-  isLogged(): boolean{
+
+  isLogged(): boolean {
     return this.authService.isLoggedIn();
   }
 
-  logout(): void{
+  logout(): void {
     localStorage.removeItem('currentUser');
     this.router.navigate(['/login']);
   }

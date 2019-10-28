@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
-import { CategoryComponent } from './category.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {Routes, RouterModule} from '@angular/router';
+import {CategoryComponent} from './category.component';
 
-const routes: Routes=[
-  { path: '', component: CategoryComponent}
-]
+const routes: Routes = [
+  {path: '', component: CategoryComponent}
+];
 
 @NgModule({
   imports: [
@@ -14,4 +14,5 @@ const routes: Routes=[
   ],
   exports: [RouterModule]
 })
-export class CategoryRoutingModule { }
+export class CategoryRoutingModule {
+}

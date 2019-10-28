@@ -10,7 +10,7 @@ import {catchError} from 'rxjs/operators';
 })
 export class RequestService {
 
-  private serverUrl = 'https://helpdesk-kunlez-novahub.herokuapp.com/request';
+  private serverUrl = 'https://helpdesk-kunlez-novahub.herokuapp.com/api/requests';
 
   constructor(
     private http: HttpClient,
@@ -33,11 +33,20 @@ export class RequestService {
     );
   }
 
-  /** DELETE request */
-  deleteRequest(request: Request): Observable<Request> {
-    return this.http.delete<Request>(this.serverUrl).pipe(
-      catchError(this.handleError<Request>('deleteRequest'))
+  /** GET request by id */
+  getRequest(id: number): Observable<Request> {
+    const url = `${this.serverUrl}/${id}`;
+    return this.http.get<Request>(url).pipe(
+      catchError(this.handleError<Request>(`getRequest id=${id}`))
     );
   }
 
+  /** DELETE request */
+  deleteRequest(request: Request | number): Observable<Request> {
+    const id = typeof request === 'number' ? request : request.id;
+    const url = `${this.serverUrl}?${id}`;
+    return this.http.delete<Request>(url).pipe(
+      catchError(this.handleError<Request>('deleteRequest'))
+    );
+  }
 }

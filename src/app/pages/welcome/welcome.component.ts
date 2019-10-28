@@ -21,6 +21,8 @@ import {AlertService} from 'src/app/core/services/alert.service';
 })
 export class WelcomeComponent implements OnInit {
 
+  isVisible = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -36,41 +38,18 @@ export class WelcomeComponent implements OnInit {
 
   requestForm: FormGroup;
 
-  dateFormat = 'yyyy/MM/dd';
-
-  dateOff: DayOff;
+  dateFormat = 'dd/MM/yyyy';
 
   submitted = false;
 
-  isAllDisplayDataChecked = false;
-  isOperating = false;
-  isIndeterminate = false;
-  listOfDisplayData: DayOff;
-  mapOfCheckedId: { [key: string]: boolean } = {};
-  numberOfChecked = 0;
+  isLoading = false;
 
   authService: AuthService;
   router: Router;
-  idUser: number;
-  dayOff: DayOff;
-  user: User;
   data: DayOff[];
   types: TypeDay[];
-
+  type: TypeDay;
   id: number;
-  status: number;
-  userEntity: number;
-
-  currentPageDataChange($event: DayOff): void {
-    this.listOfDisplayData = $event;
-  }
-
-  operateData(): void {
-    this.isOperating = true;
-    setTimeout(() => {
-      this.isOperating = false;
-    }, 1000);
-  }
 
   ngOnInit(): void {
 
@@ -78,12 +57,10 @@ export class WelcomeComponent implements OnInit {
     this.getAllTypes();
 
     this.requestForm = this.formBuilder.group({
-      createAt: new Date(),
       dayEndOff: ['', [Validators.required]],
-      dayOffType: 0,
+      dayOffType: [0, ''],
       dayStartOff: ['', [Validators.required]],
       description: ['', [Validators.required]],
-
     });
   }
 
@@ -95,22 +72,30 @@ export class WelcomeComponent implements OnInit {
     }
   }
 
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleCancel(): void {
+    console.log('Button cancel clicked!');
+    this.isVisible = false;
+  }
+
   getDays(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.dayOffService.getDayOffs(id).subscribe(data => this.data = data);
   }
 
   getAllTypes(): void {
-    this.typeService.getAllTypes().subscribe(types => this.types = types);
+    this.isLoading = true;
+    this.typeService.getAllTypes().subscribe(types => {
+      this.isLoading = false;
+      this.types = types;
+    });
   }
 
-
   onSubmit() {
-    // tslint:disable-next-line:forin
-    for (const i in this.requestForm.controls) {
-      this.requestForm.controls[i].markAsDirty();
-      this.requestForm.controls[i].updateValueAndValidity();
-    }
+
     this.submitted = true;
     if (this.requestForm.invalid) {
       return;
@@ -125,5 +110,6 @@ export class WelcomeComponent implements OnInit {
           this.alertService.error('error');
         }
       );
+    this.isVisible = false;
   }
 }
