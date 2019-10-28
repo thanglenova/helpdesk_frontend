@@ -9,10 +9,10 @@ import { environment } from 'src/environments/environment';
 })
 export class ShowSkillsService {
 
-  constructor(private http : HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  getSkillFollowIdUser(idUser : number) : Observable<Skill[]>{
-    let api = environment.apiUrl + 'skills/user?idUser=' + idUser;
+  getSkillFollowIdUser(idUser: number): Observable<Skill[]> {
+    let api = environment.apiUrl + '/skills/user?idUser=' + idUser;
     return this.http.get<Skill[]>(api);
   }
 

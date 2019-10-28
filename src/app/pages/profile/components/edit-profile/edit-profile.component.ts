@@ -36,7 +36,7 @@ export class EditProfileComponent implements OnInit {
     }
     else {
       this.getValidateForm.emit(true);
-      this.profileService.uploadImage(this.fileToUpload).subscribe();
+      this.profileService.uploadImage(this.fileToUpload, this.profile.id).subscribe();
     }
   }
 

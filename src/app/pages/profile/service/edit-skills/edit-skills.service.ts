@@ -12,12 +12,12 @@ export class EditSkillsService {
 
   constructor(private http: HttpClient) { }
 
-  getAllCategoriesForSkill() : Observable<Category[]>{
+  getAllCategoriesForSkill(): Observable<Category[]> {
     let api = environment.apiUrl + "/categories";
     return this.http.get<Category[]>(api);
   }
 
-  loadSkillsFollowIdCategories(idCategories : number): Observable<Skill[]> {
+  loadSkillsFollowIdCategories(idCategories: number): Observable<Skill[]> {
     let api = environment.apiUrl + "/skills/categories?idCategories=" + idCategories
     return this.http.get<Skill[]>(api);
   }

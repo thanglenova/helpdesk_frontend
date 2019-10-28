@@ -96,7 +96,7 @@ export class EditSkillsComponent implements OnInit, OnDestroy {
       } else {
         let nameSkill = this.listOfTagOptions[i] + '';
 
-        if (nameSkill.length > 10) {
+        if (nameSkill.length > 70) {
           this.notifitionText = "data lager";
           this.notification.template(template);
         } else {

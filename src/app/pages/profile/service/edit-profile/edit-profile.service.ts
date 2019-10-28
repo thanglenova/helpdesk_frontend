@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Profile } from '../../../../shared/models/profile';
-import { AuthService } from 'src/app/core/services/auth.service';
 import { environment } from 'src/environments/environment';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +21,11 @@ export class EditProfileService {
     };
 
     let api = environment.apiUrl + '/profiles';
-    return this.http.put<Profile>( api,
+    return this.http.put<Profile>(api,
       profile, httpOptions);
   }
 
-  uploadImage(image: File) {
+  uploadImage(image: File, idUser : number) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': 'Bearer ' + this.authService.getAuthentication()
@@ -33,8 +33,8 @@ export class EditProfileService {
     };
     const formData: FormData = new FormData();
     formData.append('avatar', image, image.name);
-    let api = environment.apiUrl + '/profiles/avatar';
-    return this.http.put( api,
+    let api = environment.apiUrl + '/profiles/avatars/' + idUser;
+    return this.http.put(api,
       formData, httpOptions);
   }
 }
