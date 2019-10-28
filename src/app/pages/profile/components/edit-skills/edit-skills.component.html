@@ -28,7 +28,7 @@
         <nz-form-label [nzSpan]="5" nzFor="address">*Skill</nz-form-label>
         <nz-form-control [nzSpan]="19">
             <nz-select [(ngModel)]="listOfTagOptions" nzMode="tags" [nzTokenSeparators]="[',']"
-                nzPlaceHolder="automatic tokenization" (ngModelChange)="onChangeValidate($event)" required>
+                nzPlaceHolder="List of skill" (ngModelChange)="onChangeValidate($event)" required>
                 <nz-option *ngFor="let skill of listSkillFollowCategories" [nzLabel]="skill.name" [nzValue]="skill"
                     maxlength="10">
                 </nz-option>

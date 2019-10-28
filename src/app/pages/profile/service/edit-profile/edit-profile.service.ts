@@ -2,35 +2,39 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Profile } from '../../../../shared/models/profile';
+import { environment } from 'src/environments/environment';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EditProfileService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private authService: AuthService) { }
 
   editProfile(profile: Profile): Observable<Profile> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraGFuaG5ndXllbkBub3ZhaHViLnZuIiwic2NvcGVzIjoiUk9MRV9BRE1JTixST0xFX0VNUExPWUVFUyxST0xFX1NFQ1JFVEFSWSIsImlhdCI6MTU3MTM4MjExMywiZXhwIjoxNTczOTc0MTEzfQ.OCb2q2PHKbYH6AMOiO9Wu9BUNcrb6ApgznEKhZAMjZo'
+        'Authorization': 'Bearer ' + this.authService.getAuthentication()
       })
     };
 
-    return this.http.put<Profile>('https://helpdesk-kunlez-novahub.herokuapp.com/api/profiles',
+    let api = environment.apiUrl + '/profiles';
+    return this.http.put<Profile>(api,
       profile, httpOptions);
   }
 
-  uploadImage(image: File) {
+  uploadImage(image: File, idUser : number) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraGFuaG5ndXllbkBub3ZhaHViLnZuIiwic2NvcGVzIjoiUk9MRV9BRE1JTixST0xFX0VNUExPWUVFUyxST0xFX1NFQ1JFVEFSWSIsImlhdCI6MTU3MTM4MjExMywiZXhwIjoxNTczOTc0MTEzfQ.OCb2q2PHKbYH6AMOiO9Wu9BUNcrb6ApgznEKhZAMjZo'
+        'Authorization': 'Bearer ' + this.authService.getAuthentication()
       })
     };
     const formData: FormData = new FormData();
     formData.append('avatar', image, image.name);
-
-    return this.http.put('https://helpdesk-kunlez-novahub.herokuapp.com/api/profiles/avatar',
+    let api = environment.apiUrl + '/profiles/avatars/' + idUser;
+    return this.http.put(api,
       formData, httpOptions);
   }
 }
