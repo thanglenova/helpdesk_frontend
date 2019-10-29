@@ -37,6 +37,9 @@ registerLocaleData(en);
     MatSliderModule,
     SharedModule,
     IconsProviderModule,
+    NgZorroAntdModule,
+     FormsModule,
+    NzFormModule,
     ReactiveFormsModule
   ],
   providers: [
