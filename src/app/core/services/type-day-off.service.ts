@@ -15,7 +15,7 @@ export class TypeDayOffService {
   httpOptions = {
     headers: new HttpHeaders({
       'Context-Type': 'application/json',
-      'Authorization': 'Bearer'
+      Authorization: 'Bearer'
     })
   };
 
