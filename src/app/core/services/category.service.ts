@@ -20,7 +20,6 @@ export class CategoryService {
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error);
       this.alertService.error(`${operation} failed: ${error.message}`);
       return of(result as T);
     };
@@ -35,7 +34,6 @@ export class CategoryService {
   getCategoryById(id: number): Observable<Category> {
     const url = `${this.serverUrl}/${id}`;
     return this.http.get<Category>(url).pipe(
-      tap(_ => console.log(`get category id ${id}`)),
       catchError(this.handleError<Category>('getCategoryById'))
     );
   }
@@ -44,7 +42,6 @@ export class CategoryService {
     const id = typeof cate === 'number' ? cate : cate.id;
     const url = `${this.serverUrl}/${id}`;
     return this.http.delete<Category>(url).pipe(
-      tap(_ => console.log(`delete category id=${id}`)),
       catchError(this.handleError<Category>('deleteCategory'))
     );
   }
@@ -63,7 +60,6 @@ export class CategoryService {
 
   updateCategory(cate: Category | number): Observable<Category> {
     const id = typeof cate === 'number' ? cate : cate.id;
-    console.log(cate);
     return this.http.put<Category>(this.serverUrl, cate).pipe(
       catchError(this.handleError<Category>('updateCategory'))
     );

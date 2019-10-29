@@ -20,7 +20,6 @@ export class RequestService {
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error);
       this.alertService.error(`${operation} failed: ${error.message}`);
       return of(result as T);
     };
