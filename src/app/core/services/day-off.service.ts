@@ -17,8 +17,7 @@ export class DayOffService {
   constructor(
     private http: HttpClient,
     private alertService: AlertService
-  ) {
-  }
+  ) { }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
