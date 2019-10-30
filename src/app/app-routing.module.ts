@@ -7,8 +7,8 @@ const routes: Routes = [
   { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
   { path: 'categoríe', loadChildren: () => import('./pages/category/category.module').then(m => m.CategoryModule)},
   { path: 'skills', loadChildren: () => import('./pages/skill/skill.module').then(m => m.SkillModule)},
-  { path: 'admin-request', loadChildren: () => import('./pages/admin-request/admin-request.module').then(m => m.AdminRequestModule)}
-  
+  { path: 'admin-request', loadChildren: () => import('./pages/admin-request/admin-request.module').then(m => m.AdminRequestModule)},
+  { path: 'request-type', loadChildren: () => import('./pages/request-type/request-type.module').then(m => m.RequestTypeModule)}  
 ];
 
 @NgModule({

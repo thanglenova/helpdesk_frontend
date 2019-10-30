@@ -1,0 +1,30 @@
+<h1 class="ui-g-12 ui-md-6">
+    REQUEST TYPE
+</h1>
+
+<h1 class="ui-g-12 ui-md-6" style="color: rgb(223, 150, 16)">
+    ADD REQUEST TYPE
+</h1>
+
+<div class="ui-g-12 ui-md-6">
+    <p-table [value]="listRequestType">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Request Type</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-requestType>
+            <tr>
+                <td>
+                    {{requestType.name}}
+                    <button pButton type="button" label="Delete" class="ui-button-raised ui-button-danger" style="float:right" (click)="deleteRequestType(requestType.id)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<div class="ui-g-12 ui-md-6">
+    <input id="input" type="text" size="30" pInputText [(ngModel)]="nameRequestTypeAdd">
+    <button pButton type="button" label="Add" class="ui-button-raised ui-button-warning" (click)="postRequestType()"></button>
+</div>
