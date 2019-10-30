@@ -45,7 +45,8 @@ export class ShowProfileComponent implements OnInit, OnDestroy {
       this.profileSendToEditProfile = new Profile(this.profile);
 
       // is user login
-      if (this.tokenService.parseJwt(this.authService.getAuthentication()).sub === this.profile.email) {
+      if (this.tokenService.parseJwt(this.authService.getAuthentication()).sub === this.profile.email
+        || this.tokenService.parseJwt(this.authService.getAuthentication()).scopes.includes("ROLE_ADMIN")) {
         this.isUserLogin = true;
       }
     }, error => {

@@ -30,8 +30,8 @@ export class ShowSkillsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.showProfileService.getProfileFollowId(this.commonService.getIdProfileInParams()).subscribe(data => {
       this.skills = data.skills;
-
-      if (this.tokenService.parseJwt(this.authService.getAuthentication()).sub == data.email) {
+      if (this.tokenService.parseJwt(this.authService.getAuthentication()).scopes.includes("ROLE_ADMIN")
+        || this.tokenService.parseJwt(this.authService.getAuthentication()).sub == data.email) {
         this.isUserLogin = true;
       }
     }, error => {

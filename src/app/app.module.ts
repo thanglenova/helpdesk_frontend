@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { httpInterceptorProviders} from './core/interceptors/index'
+import { httpInterceptorProviders } from './core/interceptors/index'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,7 +30,7 @@ registerLocaleData(en);
     BrowserModule,
     FormsModule,
     NzFormModule,
-    NgZorroAntdModule.forRoot(), 
+    NgZorroAntdModule.forRoot(),
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -38,14 +38,14 @@ registerLocaleData(en);
     SharedModule,
     IconsProviderModule,
     NgZorroAntdModule,
-     FormsModule,
+    FormsModule,
     NzFormModule,
     ReactiveFormsModule
   ],
   providers: [
     httpInterceptorProviders,
     { provide: NZ_I18N, useValue: en_US }
-   ],
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

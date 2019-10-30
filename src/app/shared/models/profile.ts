@@ -12,6 +12,7 @@ export class Profile{
     avatarBase64 : string;
     fileUpload : File;
     skills : Skill[];
+    enable : boolean;
 
     constructor(profile : Profile){
         this.sex = profile.sex;
@@ -25,5 +26,6 @@ export class Profile{
         this.firstName = profile.firstName;
         this.id = profile.id;
         this.lastName = profile.lastName;
+        this.enable = profile.enable;
     }
 }
