@@ -1,67 +1,62 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ShowUserService } from './service/show-user/show-user.service';
-import { Subscription } from 'rxjs';
 import { Profile } from '../../shared/models/profile'
 import { EditUserService } from './service/edit-user/edit-user.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-management',
   templateUrl: './management.component.html',
   styleUrls: ['./management.component.scss']
 })
-export class ManagementComponent implements OnInit, OnDestroy {
+export class ManagementComponent implements OnInit {
 
   private users: Profile[];
-  private subscription: Subscription;
   private valueSearch: string;
   private allUser: Profile[];
-  private sortNameCurrent: string;
   private sortEmailCurrent: string;
 
   constructor(private showUserService: ShowUserService,
-    private editUserService: EditUserService) { }
+    private editUserService: EditUserService,
+    private message: NzMessageService) { }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.loadListUser();
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
-  loadListUser() {
-    this.subscription = this.showUserService.getListProfile().subscribe(
+  public loadListUser() {
+    this.showUserService.getListProfile().subscribe(
       data => {
         this.allUser = data;
         this.users = [...this.allUser];
       },
       error => {
-        console.log(error);
+        this.message.error("[ERROR] load list user");
       }
     )
   }
 
-  onDisableUser(user: Profile) {
-    this.subscription = this.editUserService.disableFollowIdUser(user.id).subscribe(
+  public onDisableUser(user: Profile) {
+    this.editUserService.disableFollowIdUser(user.id).subscribe(
       data => {
         this.reverseStatusOfUser(user);
       }, error => {
-        console.log(error);
+        this.message.error("[ERROR] on disable user");
       }
     )
   }
 
-  onEnableUser(user: Profile) {
-    this.subscription = this.editUserService.enableFollowIdUser(user.id).subscribe(
+  public onEnableUser(user: Profile) {
+    this.editUserService.enableFollowIdUser(user.id).subscribe(
       data => {
         this.reverseStatusOfUser(user);
       }, error => {
-        console.log(error);
+        this.message.error("[ERROR] On enable user");
       }
     )
   }
 
-  reverseStatusOfUser(user: Profile) {
+  public reverseStatusOfUser(user: Profile) {
     for (let i = 0; i < this.users.length; ++i) {
       if (this.users[i].id === user.id) {
         this.users[i].enable = !this.users[i].enable;
@@ -70,7 +65,7 @@ export class ManagementComponent implements OnInit, OnDestroy {
     }
   }
 
-  sortName(event) {
+  public sortName(event) {
     this.users = [...this.users];
     if (event == "ascend") {
       this.users.sort(function (a, b) {
@@ -95,7 +90,7 @@ export class ManagementComponent implements OnInit, OnDestroy {
     this.sortEmailCurrent = event;
   }
 
-  sortEmail(event) {
+  public sortEmail(event) {
     this.users = [...this.users];
     if (event === "ascend") {
       this.users.sort(function (a, b) {
@@ -120,7 +115,7 @@ export class ManagementComponent implements OnInit, OnDestroy {
     this.sortEmailCurrent = event;
   }
 
-  search() {
+  public search() {
     let litsUserSearch: Profile[];
     this.users = this.allUser.filter(user => {
       if (user.email.includes(this.valueSearch)

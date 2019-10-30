@@ -1,25 +1,22 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Profile } from '../../../../shared/models/profile';
-import { TokenService } from 'src/app/core/services/token.service';
-
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { Profile } from "../../../../shared/models/profile";
+import { TokenService } from "src/app/core/services/token.service";
+import { environment } from "src/environments/environment";
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class ShowUserService {
-
-  constructor(private http: HttpClient,
-    private tokenService: TokenService) { }
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   getListProfile(): Observable<Profile[]> {
-
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + this.tokenService.getToken
+        Authorization: "Bearer " + this.tokenService.getToken
       })
     };
-    return this.http.get<Profile[]>('https://helpdesk-kunlez-novahub.herokuapp.com/api/users', httpOptions);
+    let api = environment.apiUrl + "/users";
+    return this.http.get<Profile[]>(api, httpOptions);
   }
-
 }
