@@ -7,7 +7,7 @@
   <app-edit-profile
     [profile]="profileSendToEditProfile"
     [fileToUpload]="fileToUpload"
-    (getValidateForm)="getValidateForm(event)"
+    (getValidateForm)="getValidateForm($event)"
   ></app-edit-profile>
   <div *nzModalFooter>
     <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>

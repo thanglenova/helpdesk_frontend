@@ -87,7 +87,7 @@ export class ShowProfileComponent implements OnInit {
     this.isVisible = false;
   }
 
-  getValidateForm(event) {
-    this.validateForm = event;
+  getValidateForm(val) {
+    this.validateForm = val;
   }
 }

@@ -21,7 +21,7 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit() {}
 
-  public onChangeInput() {
+  public onChange() {
     if (
       this.isStringvalidate(this.profile.firstName) ||
       this.isStringvalidate(this.profile.lastName) ||
@@ -56,7 +56,7 @@ export class EditProfileComponent implements OnInit {
         "Please upload to photo Image file formats TIF, JPG, PNG, GIF!!! Thank"
       );
     }
-    this.onChangeInput();
+    this.onChange();
   }
 
   public isFileImage(file) {

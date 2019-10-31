@@ -11,7 +11,7 @@
         placeholder="Your first name"
         value="{{ profile.firstName }}"
         [(ngModel)]="profile.firstName"
-        (ngModelChange)="onChangeInput()"
+        (ngModelChange)="onChange()"
       />
     </nz-form-control>
   </nz-form-item>
@@ -27,7 +27,7 @@
         placeholder="Your fisrt name"
         value="{{ profile.lastName }}"
         [(ngModel)]="profile.lastName"
-        (ngModelChange)="onChangeInput()"
+        (ngModelChange)="onChange()"
       />
     </nz-form-control>
   </nz-form-item>
@@ -43,7 +43,7 @@
         placeholder="Your address"
         value="{{ profile.address }}"
         [(ngModel)]="profile.address"
-        (ngModelChange)="onChangeInput()"
+        (ngModelChange)="onChange()"
       />
     </nz-form-control>
   </nz-form-item>
@@ -55,7 +55,7 @@
         [nzMin]="1"
         [nzMax]="10"
         [nzStep]="1"
-        (ngModelChange)="onChangeInput()"
+        (ngModelChange)="onChange()"
       >
       </nz-input-number>
     </nz-form-control>
@@ -66,7 +66,7 @@
       <nz-select
         requiredtrue
         [(ngModel)]="profile.sex"
-        (ngModelChange)="onChangeInput()"
+        (ngModelChange)="onChange()"
       >
         <nz-option nzValue="male" nzLabel="Male"></nz-option>
         <nz-option nzValue="female" nzLabel="Female"></nz-option>
@@ -79,7 +79,7 @@
     <nz-form-control requiredtrue [nzSpan]="14">
       <nz-date-picker
         [(ngModel)]="profile.birthday"
-        (ngModelChange)="onChangeInput($event)"
+        (ngModelChange)="onChange()"
       >
       </nz-date-picker>
     </nz-form-control>
@@ -89,7 +89,7 @@
     <nz-form-control requiredtrue [nzSpan]="14">
       <nz-date-picker
         [(ngModel)]="profile.startingDay"
-        (ngModelChange)="onChangeInput($event)"
+        (ngModelChange)="onChange()"
       ></nz-date-picker>
     </nz-form-control>
   </nz-form-item>
