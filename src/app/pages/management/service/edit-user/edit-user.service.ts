@@ -1,36 +1,32 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { Profile } from "../../../../shared/models/profile";
+import { AuthService } from "../../../../core/services/auth.service";
 import { environment } from "src/environments/environment";
-import { AuthService } from "src/app/core/services/auth.service";
-
 @Injectable({
   providedIn: "root"
 })
-export class EditProfileService {
+export class EditUserService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  editProfile(profile: Profile): Observable<Profile> {
+  disableFollowIdUser(id: number): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         Authorization: "Bearer " + this.authService.getAuthentication()
       })
     };
 
-    let api = environment.apiUrl + "/profiles";
-    return this.http.put<Profile>(api, profile, httpOptions);
+    let api = environment.apiUrl + "/users/disable?idUser=" + id;
+    return this.http.put(api, httpOptions);
   }
 
-  uploadImage(image: File, idUser: number) {
+  enableFollowIdUser(id: number): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         Authorization: "Bearer " + this.authService.getAuthentication()
       })
     };
-    const formData: FormData = new FormData();
-    formData.append("avatar", image, image.name);
-    let api = environment.apiUrl + "/profiles/avatars/" + idUser;
-    return this.http.put(api, formData, httpOptions);
+    let api = environment.apiUrl + "/users/enable?idUser=" + id;
+    return this.http.put(api, httpOptions);
   }
 }
