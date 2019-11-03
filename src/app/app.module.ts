@@ -28,19 +28,22 @@ registerLocaleData(en);
     BrowserModule,
     FormsModule,
     NzFormModule,
-    NgZorroAntdModule.forRoot(), 
+    NgZorroAntdModule.forRoot(),
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSliderModule,
     SharedModule,
     IconsProviderModule,
+    NgZorroAntdModule,
+    FormsModule,
+    NzFormModule,
     ReactiveFormsModule
   ],
   providers: [
     httpInterceptorProviders,
     { provide: NZ_I18N, useValue: en_US }
-   ],
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

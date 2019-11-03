@@ -1,8 +1,11 @@
-import { Category } from './category';
+import { Category } from "./category";
 
-export class Skill{
+export class Skill {
+  id: number;
+  name: string;
+  categories: Category;
 
-    id: number;
-    name: string;
-    category: Category;
+  constructor(values?: Skill) {
+    Object.assign(this, values);
+  }
 }

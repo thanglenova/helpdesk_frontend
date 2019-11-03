@@ -73,7 +73,6 @@ export class LoginComponent implements OnInit {
         console.log('ID: ' + profile.getId());
         console.log('Name: ' + profile.getName());
         console.log('Email: ' + profile.getEmail());
-        
         this.authService.loginGoogle(googleUser.getAuthResponse().id_token)
         .subscribe((data)=>{
           this.ngZone.run(() =>  this.router.navigate(['/welcome'])).then();

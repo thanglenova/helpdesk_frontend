@@ -10,7 +10,7 @@ import { environment} from '../../../environments/environment';
 })
 export class RequestTypeService {
 
-  private url = environment.urlAPI +'/api/request-types'
+  private url = environment.apiUrl +'/api/request-types'
 
   constructor(private httpClient: HttpClient) { }
 
