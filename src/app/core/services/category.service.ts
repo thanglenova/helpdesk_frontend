@@ -52,9 +52,9 @@ export class CategoryService {
     );
   }
 
-  searchCategory(valueSearch: string): Observable<Category> {
-    return this.http.get<Category>(`${this.serverUrl}/search`).pipe(
-      catchError(this.handleError<Category>('searchCategory'))
+  searchCategory(valueSearch: string): Observable<Category[]> {
+    return this.http.get<Category[]>(`${this.serverUrl}/search?valueSearch=${valueSearch}`).pipe(
+      catchError(this.handleError<Category[]>('searchCategory'))
     );
   }
 

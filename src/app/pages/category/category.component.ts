@@ -45,7 +45,6 @@ export class CategoryComponent implements OnInit {
   }
 
   handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.isVisible = false;
   }
 
@@ -61,7 +60,6 @@ export class CategoryComponent implements OnInit {
       nzOkType: 'danger',
       nzOnOk: () => {
         this.data = this.data.filter(c => c !== currentData);
-        console.log(this.data);
         this.categoryService.deleteCategory(currentData).subscribe();
       },
       nzCancelText: 'No',
@@ -70,7 +68,8 @@ export class CategoryComponent implements OnInit {
   }
 
   search(valueSearch: string): void {
-    this.categoryService.searchCategory(valueSearch).subscribe(value => this.value = value);
+    this.categoryService.searchCategory(valueSearch).subscribe(data => this.data = [...data]);
+
   }
 
   startEdit(id: number): void {

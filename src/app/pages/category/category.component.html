@@ -5,11 +5,7 @@
 <div nz-row>
   <div nz-col [nzSpan]="18" [nzPush]="6">
     <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" style="width: 50%; float: right">
-      <input #searchText type="text" nz-input placeholder="Input search text"/>
-      <ng-template #suffixIconButton>
-        <button nz-button nzType="primary" nzSearch (click)="search(searchText.value)"><i nz-icon nzType="search"></i>
-        </button>
-      </ng-template>
+      <input (keyup)="search($event.target.value)" type="text" nz-input placeholder="Input search text"/>
     </nz-input-group>
 
   </div>
@@ -18,9 +14,9 @@
                                                                                 nzTheme="outline"></i>
       <nz-modal [(nzVisible)]="isVisible" nzTitle="Create New Category" (nzOnCancel)="handleCancel()"
                 (nzOnOk)="createNew(cateName.value)">
-<!--        <nz-input-group [nzSuffix]="suffixTemplateInfo" [nzPrefix]="prefixTemplateUser">-->
+        <nz-input-group [nzSuffix]="suffixTemplateInfo" [nzPrefix]="prefixTemplateUser">
           <input #cateName type="text" nz-input placeholder="Create New Category"/>
-<!--        </nz-input-group>-->
+        </nz-input-group>
         <span></span>
         <ng-template #prefixTemplateUser><i nz-icon nzType="form" nzTheme="outline"></i></ng-template>
       </nz-modal>
@@ -49,7 +45,7 @@
         {{ data.name }}
       </ng-container>
       <ng-template #nameInputTpl>
-        <input type="text" nz-input [(ngModel)]="data.name" />
+        <input type="text" nz-input [(ngModel)]="data.name"/>
       </ng-template>
     </td>
     <td>
@@ -66,7 +62,6 @@
           <button nz-button nzType="dashed" (click)="showDeleteConfirm(data)">Delete</button>
         </ng-template>
       </div>
-
     </td>
   </tr>
   </tbody>
