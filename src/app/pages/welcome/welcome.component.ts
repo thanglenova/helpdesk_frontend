@@ -4,13 +4,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DayOff} from 'src/app/shared/models/date-off';
 import {AuthService} from 'src/app/core/services/auth.service';
 import {Router, ActivatedRoute} from '@angular/router';
-import {UserService} from 'src/app/core/services/user.service';
-import {User} from 'src/app/shared/models/user';
 import {DayOffService} from 'src/app/core/services/day-off.service';
 import {TypeDayOffService} from 'src/app/core/services/type-day-off.service';
 import {TypeDay} from 'src/app/shared/models/type-day';
-import {Observable} from 'rxjs';
-import {type} from 'os';
 import {first} from 'rxjs/operators';
 import {AlertService} from 'src/app/core/services/alert.service';
 
