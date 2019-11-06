@@ -13,7 +13,6 @@
           <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
         </nz-option>
       </nz-select>
-<!--      <input (keyup)="search($event.target.value)" type="text" nz-input placeholder="Input search text"/>-->
     </nz-input-group>
 
   </div>
@@ -25,7 +24,7 @@
     <form nz-form [nzLayout]="'inline'" [formGroup]="skillForm" (ngSubmit)="onSubmit()">
       <nz-form-item>
           <nz-input-group [nzSuffix]="suffixTemplateInfo" [nzPrefix]="prefixTemplateUser">
-            <input formControlName="name" type="text" nz-input placeholder="Create New Skill Name"
+            <input type="text" nz-input placeholder="Create New Skill Name"
             style="width: 470px;"/>
           </nz-input-group>
       </nz-form-item>
@@ -45,7 +44,6 @@
 </button>
   </div>
 <br/><br/>
-<!--<form nz-form [nzLayout]="'inline'" [formGroup]="skillEditForm" (ngSubmit)="onSubmitEdit(id)">-->
 <nz-table #editRowTable nzBordered [nzData]="data">
   <thead>
   <tr>

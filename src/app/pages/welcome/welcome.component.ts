@@ -34,8 +34,6 @@ export class WelcomeComponent implements OnInit {
 
   requestForm: FormGroup;
 
-  dateFormat = 'dd/MM/yyyy';
-
   submitted = false;
 
   isLoading = false;
@@ -46,6 +44,9 @@ export class WelcomeComponent implements OnInit {
   types: TypeDay[];
   type: TypeDay;
   id: number;
+
+  time: Date | null = null;
+  year: number;
 
   ngOnInit(): void {
 
@@ -107,5 +108,20 @@ export class WelcomeComponent implements OnInit {
         }
       );
     this.isVisible = false;
+  }
+
+  getByYear(year: number): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    if (year == null) {
+      this.dayOffService.getDayOffs(id).subscribe(data => this.data = data);
+    } else {
+      this.dayOffService.getDayOffsByYear(year).subscribe(data => this.data = [...data]);
+    }
+  }
+
+  onChange(result: Date): void {
+  }
+
+  onOk(result: Date): void {
   }
 }

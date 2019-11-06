@@ -3,6 +3,7 @@ import {Category} from 'src/app/shared/models/category';
 import {Router} from '@angular/router';
 import {CategoryService} from 'src/app/core/services/category.service';
 import {NzModalService} from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-category',
@@ -19,7 +20,8 @@ export class CategoryComponent implements OnInit {
   constructor(
     private route: Router,
     private categoryService: CategoryService,
-    private modalService: NzModalService
+    private modalService: NzModalService,
+    private message: NzMessageService
   ) {
   }
 
@@ -32,8 +34,9 @@ export class CategoryComponent implements OnInit {
   }
 
   createNew(name: string): void {
-    name = name.trim();
-    if (!name) {
+    // tslint:disable-next-line:triple-equals
+    if (name.trim() == '') {
+      this.message.warning('Please input again name of category');
       return;
     }
     this.categoryService.addCategory(name).subscribe(data => {
