@@ -39,4 +39,8 @@ export class DayOffService {
       catchError(this.handleError<TypeDay>('addDayOff'))
     );
   }
+
+  getDayOffsByYear(year: number) {
+    return this.http.get<DayOff[]>(`${this.serverUrl}/user_of_year/0?year=${year}`);
+  }
 }

@@ -12,6 +12,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzDividerModule} from 'ng-zorro-antd/divider';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import {NzMessageModule} from 'ng-zorro-antd';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [],
@@ -28,7 +30,9 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
     NzSelectModule,
     NzIconModule,
     NzDividerModule,
-    NzModalModule
+    NzModalModule,
+    NzMessageModule,
+    FlexLayoutModule
   ]
 })
 export class AppMaterialModule {

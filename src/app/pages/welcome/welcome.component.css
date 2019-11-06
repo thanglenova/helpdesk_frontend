@@ -14,3 +14,12 @@ nz-week-picker {
 .ant-btn-circle, .ant-btn-circle-outline {
   float: right;
 }
+
+nz-date-picker {
+  margin: 0 8px 12px 0;
+}
+
+nz-select {
+  margin-right: 8px;
+  width: 300px;
+}

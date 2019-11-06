@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {Skill} from 'src/app/shared/models/skill';
 import {Category} from '../../shared/models/category';
 import {CategoryService} from '../../core/services/category.service';
-import {NzModalService} from 'ng-zorro-antd';
+import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import {AlertService} from '../../core/services/alert.service';
@@ -37,7 +37,8 @@ export class SkillComponent implements OnInit {
     private router: Router,
     private cateService: CategoryService,
     private modalService: NzModalService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private message: NzMessageService
   ) {
   }
 
@@ -76,6 +77,7 @@ export class SkillComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (this.skillForm.invalid) {
+      this.message.warning('Please fill this form');
       return;
     }
     this.skillService.addSkill(this.skillForm.value)
@@ -125,6 +127,10 @@ export class SkillComponent implements OnInit {
   }
 
   search(value: number): void {
-    this.skillService.searchSkill(value).subscribe(data => this.data = [...data]);
+    if (value == null) {
+      this.skillService.getSkills().subscribe(data => this.data = data);
+    } else {
+      this.skillService.searchSkill(value).subscribe(data => this.data = [...data]);
+    }
   }
 }
