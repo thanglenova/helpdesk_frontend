@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { httpInterceptorProviders } from './core/interceptors/index'
-
+import { httpInterceptorProviders} from './core/interceptors/index'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AlertComponent } from './shared/components/alert/alert.component';
@@ -15,7 +14,6 @@ import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import { NzFormModule } from 'ng-zorro-antd/form';
-
 import en from '@angular/common/locales/en';
 
 registerLocaleData(en);
