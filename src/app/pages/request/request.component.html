@@ -1,0 +1,59 @@
+<div nz-row>
+  <div nz-col nzSpan="16">
+    <nz-card style="width:100%;" nzTitle="Send request">
+      <div nz-row>
+        <nz-form-label nzSpan="6" nzRequired nzFor="requestType"
+          >Request Type</nz-form-label
+        >
+        <nz-form-control nzSpan="14" nzRequired>
+          <nz-select
+            [(ngModel)]="idRequestTypeSelect"
+            style="width: 100%;"
+            nzPlaceHolder="select type request"
+          >
+            <nz-option
+              *ngFor="let requestType of requestTypes"
+              nzValue="{{ requestType.id }}"
+              nzLabel="{{ requestType.name }}"
+            ></nz-option>
+          </nz-select>
+          <p
+            class="error"
+            *ngIf="idRequestTypeSelect === -1 && activeSendRequest"
+          >
+            *Please!!! select to a Type request
+          </p>
+        </nz-form-control>
+      </div>
+
+      <div nz-row>
+        <nz-form-label nzSpan="6" nzRequired>Day Request</nz-form-label>
+        <nz-form-control nzSpan="14">
+          <nz-date-picker [(ngModel)]="dayRequestSelect"></nz-date-picker>
+          <p
+            class="error"
+            *ngIf="dayRequestSelect == null && activeSendRequest"
+          >
+            Please!!! Select your day request
+          </p>
+        </nz-form-control>
+      </div>
+
+      <nz-form-item>
+        <nz-form-label nzSm="6" nzXs="24" nzRequired>Description</nz-form-label>
+        <nz-form-control nzSm="14" nzXs="24">
+          <textarea rows="4" nz-input [(ngModel)]="desciption"></textarea>
+          <p class="error" *ngIf="desciption == '' && activeSendRequest">
+            Please!!! Input your description request
+          </p>
+        </nz-form-control>
+      </nz-form-item>
+      <button nz-button nzType="danger" (click)="sendRequest()">Request</button>
+    </nz-card>
+  </div>
+  <div nz-col nzSpan="8">
+    <img
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBhqR3Q8iVH_MHIIOk3NbNXPtINzD8lzafuwukYompby6H40qo&s"
+    />
+  </div>
+</div>
