@@ -13,7 +13,8 @@ export class SkillComponent implements OnInit {
   data: Skill[];
 
   editCache: { [key: string]: { edit: boolean; data: Skill } } = {};
-  listOfData: Skill[];
+  listOfData: Skill[] = [];
+  skills: Skill[];
 
   constructor(
     private skillService: SkillService,
@@ -26,7 +27,7 @@ export class SkillComponent implements OnInit {
   }
 
   cancelEdit(id: number): void {
-    const index = this.listOfData.findIndex(skill => skill.id === id);
+    const index = this.listOfData.findIndex(skill => skill.id === id)
     this.editCache[id] = {
       data: {...this.listOfData[index]},
       edit: false
@@ -53,7 +54,7 @@ export class SkillComponent implements OnInit {
   }
 
   getSkills(): void {
-    this.skillService.getSkills().subscribe(data => this.data = data);
+    this.skillService.getSkills().subscribe(skills => this.skills = skills);
   }
 
 }
