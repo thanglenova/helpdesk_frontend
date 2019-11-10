@@ -24,12 +24,7 @@ export class SkillComponent implements OnInit {
   id: number;
 
   editCache: { [key: string]: { edit: boolean; data: Skill } } = {};
-
-  skillForm: FormGroup;
-  skillEditForm: FormGroup;
-  submitted = false;
-  categories: Category;
-  categoryId: number;
+  listOfData: Skill[] = [];
 
   constructor(
     private alertService: AlertService,
@@ -46,74 +41,30 @@ export class SkillComponent implements OnInit {
     return this.skillForm.controls;
   }
 
-  ngOnInit() {
-    this.getSkills();
-    this.getCategory();
-
-    this.skillForm = this.formBuilder.group({
-      name: [Skill, [Validators.required]],
-      categories: [Category, [Validators.required]]
-    });
-
-    this.skillEditForm = this.formBuilder.group({
-      id: [this.id, [Validators.required]],
-      name: ['', [Validators.required]],
-      categories: [Category, [Validators.required]]
-    });
+  cancelEdit(id: number): void {
+    const index = this.listOfData.findIndex(skill => skill.id === id)
+    this.editCache[id] = {
+      data: { ...this.listOfData[index] },
+      edit: false
+    };
   }
 
-  showModal(): void {
-    this.isVisible = true;
+  saveEdit(id: number): void {
+    const index = this.listOfData.findIndex(skill => skill.id === id);
+    Object.assign(this.listOfData[index], this.editCache[id].data);
+    this.editCache[id].edit = false;
   }
 
   getSkills(): void {
     this.skillService.getSkills().subscribe(data => this.data = data);
   }
 
-  getCategory(): void {
-    this.cateService.getCategories().subscribe(cateValues => this.cateValues = cateValues);
+  ngOnInit() {
+    this.getSkills();
   }
 
-  onSubmit() {
-    this.submitted = true;
-    if (this.skillForm.invalid) {
-      this.message.warning('Please fill this form');
-      return;
-    }
-    this.skillService.addSkill(this.skillForm.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.alertService.success('successful');
-        },
-        error => {
-          this.alertService.error('error');
-        }
-      );
-    this.isVisible = false;
-  }
-
-  handleCancel(): void {
-    this.isVisible = false;
-  }
-
-  showDeleteConfirm(currentData: Skill): void {
-    this.modalService.confirm({
-      nzTitle: 'Are you sure delete this skill?',
-      nzContent: '<b style="color: red;">This action can be dangerous</b>',
-      nzOkText: 'Yes',
-      nzOkType: 'danger',
-      nzOnOk: () => {
-        this.data = this.data.filter(c => c !== currentData);
-        this.skillService.deleteSkill(currentData).subscribe();
-      },
-      nzCancelText: 'No'
-    });
-  }
-
-  startEdit(id: number) {
-    console.log(typeof (id));
-    this.edit = true;
+  getSkills(): void {
+    this.skillService.getSkills().subscribe(skills => this.skills = skills);
   }
 
   cancelEdit(id: number) {
