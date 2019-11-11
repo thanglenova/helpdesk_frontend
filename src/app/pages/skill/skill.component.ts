@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { SkillService } from 'src/app/core/services/skill.service';
-import { Router } from '@angular/router';
-import { Skill } from 'src/app/shared/models/skill';
+import {Component, OnInit} from '@angular/core';
+import {SkillService} from 'src/app/core/services/skill.service';
+import {Router} from '@angular/router';
+import {Skill} from 'src/app/shared/models/skill';
 
 @Component({
   selector: 'app-skill',
@@ -10,16 +10,17 @@ import { Skill } from 'src/app/shared/models/skill';
 })
 export class SkillComponent implements OnInit {
 
-  skills: Skill[];
-  skill: Skill;
+  data: Skill[];
 
   editCache: { [key: string]: { edit: boolean; data: Skill } } = {};
   listOfData: Skill[] = [];
+  skills: Skill[];
 
   constructor(
     private skillService: SkillService,
     private router: Router,
-  ) { }
+  ) {
+  }
 
   startEdit(id: number): void {
     this.editCache[id].edit = true;
@@ -28,7 +29,7 @@ export class SkillComponent implements OnInit {
   cancelEdit(id: number): void {
     const index = this.listOfData.findIndex(skill => skill.id === id)
     this.editCache[id] = {
-      data: { ...this.listOfData[index] },
+      data: {...this.listOfData[index]},
       edit: false
     };
   }
@@ -43,7 +44,7 @@ export class SkillComponent implements OnInit {
     this.listOfData.forEach(item => {
       this.editCache[item.id] = {
         edit: false,
-        data: { ...item }
+        data: {...item}
       };
     });
   }

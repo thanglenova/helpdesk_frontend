@@ -1,9 +1,7 @@
-export interface DayOff{
-    id: number;
-    createAt: Date;
-    dayStartOff: Date;
-    dayEndOff: Date;
-    description: string
+export class DayOff {
+  id: number;
+  createAt: Date;
+  dayStartOff: Date;
+  dayEndOff: Date;
+  description: string;
 }
-
-    

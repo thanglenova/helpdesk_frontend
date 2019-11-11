@@ -3,7 +3,7 @@ import {RequestType} from './request-type';
 import { User } from './user';
 import { Status } from './status';
 
-export class RequestModel{
+export class Request{
     id: number;
     requestType: RequestType;
     user : User;
