@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { User } from 'src/app/shared/models/user';
-import { HttpClient, HttpErrorResponse, HttpHandler, HttpHeaders } from '@angular/common/http';
-import { map, catchError, tap } from 'rxjs/operators';
-import { Token } from '../../shared/models/token';
-import { templateJitUrl } from '@angular/compiler';
-import { stringify } from 'querystring';
-import { NzAffixComponent, responsiveMap } from 'ng-zorro-antd';
-import { Profile } from 'src/app/shared/models/profile';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
+import {User} from 'src/app/shared/models/user';
+import {HttpClient, HttpErrorResponse, HttpHandler, HttpHeaders} from '@angular/common/http';
+import {map, catchError, tap} from 'rxjs/operators';
+import {Token} from '../../shared/models/token';
+import {templateJitUrl} from '@angular/compiler';
+import {stringify} from 'querystring';
+import {NzAffixComponent, responsiveMap} from 'ng-zorro-antd';
+import {Profile} from 'src/app/shared/models/profile';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +37,6 @@ export class AuthService {
     return throwError(this.errorData);
   }
 
-  //login with gg
   loginGoogle(token: string): Observable<Token> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -66,9 +65,8 @@ export class AuthService {
   }
 
   getTokenGoogle() {
-    // tslint:disable-next-line:variable-name
-    const token_value = JSON.parse(this.getToken());
-    return token_value.token;
+    const tokenValue = JSON.parse(this.getToken());
+    return tokenValue.token;
   }
 
   public get currentUserValue(): User {
@@ -78,7 +76,7 @@ export class AuthService {
   getProfileCurrent(): Observable<Profile> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + this.getAuthentication()
+        Authorization: 'Bearer ' + this.getAuthentication()
       })
     };
 
