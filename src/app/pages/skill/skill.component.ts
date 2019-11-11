@@ -115,7 +115,6 @@ export class SkillComponent implements OnInit {
   }
 
   startEdit(id: number) {
-    console.log(typeof (id));
     this.edit = true;
   }
 
