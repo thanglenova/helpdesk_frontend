@@ -4,11 +4,8 @@ import {AlertService} from './alert.service';
 import {Observable, of} from 'rxjs';
 import {Skill} from 'src/app/shared/models/skill';
 import {catchError} from 'rxjs/operators';
-<<<<<<< HEAD
 import {environment} from '../../../environments/environment';
-=======
 import {Category} from '../../shared/models/category';
->>>>>>> skill functions and interface
 
 @Injectable({
   providedIn: 'root'
