@@ -1,20 +1,21 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { User } from 'src/app/shared/models/user';
-import { HttpClient, HttpErrorResponse, HttpHandler, HttpHeaders } from '@angular/common/http';
-import { map, catchError, tap } from 'rxjs/operators';
-import { Token } from '../../shared/models/token';
-import { templateJitUrl } from '@angular/compiler';
-import { stringify } from 'querystring';
-import { NzAffixComponent, responsiveMap } from 'ng-zorro-antd';
-import { Profile } from 'src/app/shared/models/profile';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
+import {User} from 'src/app/shared/models/user';
+import {HttpClient, HttpErrorResponse, HttpHandler, HttpHeaders} from '@angular/common/http';
+import {map, catchError, tap} from 'rxjs/operators';
+import {Token} from '../../shared/models/token';
+import {templateJitUrl} from '@angular/compiler';
+import {stringify} from 'querystring';
+import {NzAffixComponent, responsiveMap} from 'ng-zorro-antd';
+import {Profile} from 'src/app/shared/models/profile';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  serverUrl = "";
+  serverUrl = environment.apiUrl + '/auth';
   errorData: {};
   redirectUrl: string;
 
@@ -33,11 +34,10 @@ export class AuthService {
     }
     this.errorData = {
       errorTitle: 'Request failed',
-    }
+    };
     return throwError(this.errorData);
   }
 
-  //login with gg
   loginGoogle(token: string): Observable<Token> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -45,7 +45,7 @@ export class AuthService {
       })
     };
 
-    return this.http.get<any>('https://helpdesk-kunlez-novahub.herokuapp.com/api/auth', httpOptions);
+    return this.http.get<any>(this.serverUrl, httpOptions);
   }
 
   isLoggedIn(): boolean {
@@ -61,13 +61,13 @@ export class AuthService {
   }
 
   getToken(): string {
-    let temp = localStorage.getItem('currentUser').split(" ");
+    const temp = localStorage.getItem('currentUser').split(' ');
     return temp[1];
   }
 
   getTokenGoogle() {
-    let token_value = JSON.parse(this.getToken());
-    return token_value.token
+    const tokenValue = JSON.parse(this.getToken());
+    return tokenValue.token;
   }
 
   public get currentUserValue(): User {
@@ -77,7 +77,7 @@ export class AuthService {
   getProfileCurrent(): Observable<Profile> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + this.getAuthentication()
+        Authorization: 'Bearer ' + this.getAuthentication()
       })
     };
 

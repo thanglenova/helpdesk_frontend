@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { SkillComponent } from './skill.component';
+import { AdminRequestComponent } from './admin-request.component';
+import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
-  { path: '', component: SkillComponent }
+  { path: '', component: AdminRequestComponent }
 ];
 
 @NgModule({
@@ -15,4 +15,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class SkillRoutingModule { }
+export class AdminRequestRoutingModule { }
