@@ -8,13 +8,14 @@ import {templateJitUrl} from '@angular/compiler';
 import {stringify} from 'querystring';
 import {NzAffixComponent, responsiveMap} from 'ng-zorro-antd';
 import {Profile} from 'src/app/shared/models/profile';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  serverUrl = '';
+  serverUrl = environment.apiUrl + '/auth';
   errorData: {};
   redirectUrl: string;
 
@@ -44,7 +45,7 @@ export class AuthService {
       })
     };
 
-    return this.http.get<any>('https://helpdesk-kunlez-novahub.herokuapp.com/api/auth', httpOptions);
+    return this.http.get<any>(this.serverUrl, httpOptions);
   }
 
   isLoggedIn(): boolean {

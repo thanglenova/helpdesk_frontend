@@ -4,13 +4,14 @@ import {AlertService} from './alert.service';
 import {Observable, of} from 'rxjs';
 import {Skill} from 'src/app/shared/models/skill';
 import {catchError} from 'rxjs/operators';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SkillService {
 
-  private serverUrl = 'https://helpdesk-kunlez-novahub.herokuapp.com/api/skills';    //Link API of the server
+  private serverUrl = environment.apiUrl + '/skills';
 
   httpOptions = {
     headers: new HttpHeaders({

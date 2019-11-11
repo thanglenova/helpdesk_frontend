@@ -4,13 +4,14 @@ import {HttpHeaders, HttpClient} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {Request} from 'src/app/shared/models/request';
 import {catchError} from 'rxjs/operators';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestService {
 
-  private serverUrl = 'https://helpdesk-kunlez-novahub.herokuapp.com/api/requests';
+  private serverUrl =  environment.apiUrl + '/requests';
 
   constructor(
     private http: HttpClient,

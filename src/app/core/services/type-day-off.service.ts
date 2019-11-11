@@ -4,13 +4,14 @@ import {AlertService} from './alert.service';
 import {Observable, of} from 'rxjs';
 import {TypeDay} from 'src/app/shared/models/type-day';
 import {catchError} from 'rxjs/operators';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TypeDayOffService {
 
-  private serverUrl = 'https://helpdesk-kunlez-novahub.herokuapp.com/api/';
+  private serverUrl = environment.apiUrl +  '/';
 
   httpOptions = {
     headers: new HttpHeaders({

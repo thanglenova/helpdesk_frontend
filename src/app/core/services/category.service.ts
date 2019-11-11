@@ -4,13 +4,14 @@ import {AlertService} from './alert.service';
 import {Observable, of} from 'rxjs';
 import {Category} from 'src/app/shared/models/category';
 import {catchError, tap} from 'rxjs/operators';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
 
-  private serverUrl = 'https://helpdesk-kunlez-novahub.herokuapp.com/api/categories';
+  private serverUrl = environment.apiUrl + '/categories';
 
   constructor(
     private http: HttpClient,

@@ -6,18 +6,20 @@ import {Observable, of} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {User} from 'src/app/shared/models/user';
 import {TypeDay} from 'src/app/shared/models/type-day';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DayOffService {
 
-  private serverUrl = 'https://helpdesk-kunlez-novahub.herokuapp.com/api/day_offs';   // url server
+  private serverUrl = environment.apiUrl + '/day_offs';   // url server
 
   constructor(
     private http: HttpClient,
     private alertService: AlertService
-  ) { }
+  ) {
+  }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

@@ -4,13 +4,14 @@ import {Observable, of} from 'rxjs';
 import {User} from 'src/app/shared/models/user';
 import {tap, map, catchError} from 'rxjs/operators';
 import {AlertService} from './alert.service';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private serverUrl = 'https://helpdesk-kunlez-novahub.herokuapp.com/api/users';
+  private serverUrl = environment.apiUrl + '/users';
 
   httOptions = {
     headers: new HttpHeaders({

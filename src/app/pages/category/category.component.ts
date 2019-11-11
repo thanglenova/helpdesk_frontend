@@ -37,8 +37,7 @@ export class CategoryComponent implements OnInit {
       return;
     }
     this.categoryService.addCategory(name).subscribe(data => {
-      // tslint:disable-next-line:no-shadowed-variable
-      this.categoryService.getCategories().subscribe(data => this.data = data);
+      this.categoryService.getCategories().subscribe(listCategories => this.data = listCategories);
     });
 
     this.isVisible = false;
@@ -77,14 +76,12 @@ export class CategoryComponent implements OnInit {
   }
 
   cancelEdit(id: number): void {
-    // tslint:disable-next-line:no-shadowed-variable
     const index = this.data.findIndex(c => c.id === id);
     this.edit = false;
   }
 
 
   saveEdit(currentData: Category): void {
-    // tslint:disable-next-line:no-shadowed-variable
     this.categoryService.updateCategory(currentData).subscribe();
     this.edit = false;
   }
