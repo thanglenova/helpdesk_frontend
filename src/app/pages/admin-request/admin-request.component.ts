@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { AdminRequestService } from '../../core/services/admin-request.service';
-import { StatusService } from '../../core/services/status.service';
-import { Observable } from 'rxjs';
-import { RequestTypeService } from '../../core/services/request-type.service';
-import { RequestModel } from '../../shared/models/request';
-import { RequestType } from '../../shared/models/request-type';
-import { Status } from 'src/app/shared/models/status';
-import { SelectItem } from 'primeng/components/common/selectitem';
-import { DropdownModule } from 'primeng/dropdown';
-import { HttpClient } from '@angular/common/http';
-import { RequestPageModel } from 'src/app/shared/models/request-page-model';
+import {Component, OnInit} from '@angular/core';
+import {AdminRequestService} from '../../core/services/admin-request.service';
+import {StatusService} from '../../core/services/status.service';
+import {Observable} from 'rxjs';
+import {RequestTypeService} from '../../core/services/request-type.service';
+import {Request} from '../../shared/models/request';
+import {RequestType} from '../../shared/models/request-type';
+import {Status} from 'src/app/shared/models/status';
+import {SelectItem} from 'primeng/components/common/selectitem';
+import {DropdownModule} from 'primeng/dropdown';
+import {HttpClient} from '@angular/common/http';
+import {RequestPageModel} from 'src/app/shared/models/request-page-model';
 
 @Component({
   selector: 'app-admin-request',
@@ -20,7 +20,7 @@ export class AdminRequestComponent implements OnInit {
 
   statuss: SelectItem[];
 
-  requests: RequestModel[];
+  requests: Request[];
 
   statusList: Status[] = [];
 
@@ -30,7 +30,7 @@ export class AdminRequestComponent implements OnInit {
 
   sizeArray: number;
 
-  requestPageModel : RequestPageModel;
+  requestPageModel: RequestPageModel;
 
   constructor(
     private adminRequestService: AdminRequestService,
@@ -45,15 +45,15 @@ export class AdminRequestComponent implements OnInit {
     this.requestPageModel.items = 2;
 
     this.sortBys = [
-      {label: "Create At", value:"Create At"},
-      {label: "Email", value:"Email"},
-      {label: "Request Type", value:"Request Type"},
-      {label: "Status", value:"Status"}
-    ]
+      {label: 'Create At', value: 'Create At'},
+      {label: 'Email', value: 'Email'},
+      {label: 'Request Type', value: 'Request Type'},
+      {label: 'Status', value: 'Status'}
+    ];
 
-    this.requestPageModel.search = "";
+    this.requestPageModel.search = '';
 
-    this.requestPageModel.sortBy = "Create At";
+    this.requestPageModel.sortBy = 'Create At';
   }
 
   ngOnInit() {
@@ -66,18 +66,18 @@ export class AdminRequestComponent implements OnInit {
     this.statusService.getStatusList().subscribe(listStatus => {
       this.statusList = listStatus;
       this.statuss = [
-        { label: this.statusList[0].name, value: this.statusList[0] },
-        { label: this.statusList[1].name, value: this.statusList[1] },
-        { label: this.statusList[2].name, value: this.statusList[2] }
-      ]
-    })
+        {label: this.statusList[0].name, value: this.statusList[0]},
+        {label: this.statusList[1].name, value: this.statusList[1]},
+        {label: this.statusList[2].name, value: this.statusList[2]}
+      ];
+    });
   }
 
-  putRequest(request: RequestModel) {
+  putRequest(request: Request) {
     this.adminRequestService.putRequest(request);
   }
 
-  onChange(event, request: RequestModel) {
+  onChange(event, request: Request) {
     this.adminRequestService.putRequest(request).subscribe(pu => console.log(pu));
   }
 
@@ -99,12 +99,12 @@ export class AdminRequestComponent implements OnInit {
     });
   }
 
-  changeSortBy(event){
+  changeSortBy(event) {
     this.requestPageModel.sortBy = event.value;
     this.sendRequestPage();
   }
 
-  searchRequest(){
+  searchRequest() {
     this.requestPageModel.page = 0;
     this.sendRequestPage();
   }
