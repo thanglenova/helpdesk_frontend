@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import {Component} from '@angular/core';
 import {AuthService} from './core/services/auth.service';
 import {Router} from '@angular/router';
+=======
+import { Component } from '@angular/core';
+import { AuthService } from './core/services/auth.service';
+import { Router } from '@angular/router';
+>>>>>>> add script
 
 @Component({
   selector: 'app-root',
