@@ -1,7 +1,6 @@
-export class Status {
+export class RequestType {
   id: number;
-  name: String;
-
+  name: string;
   constructor(obj?: any) {
     Object.assign(this, obj);
   }

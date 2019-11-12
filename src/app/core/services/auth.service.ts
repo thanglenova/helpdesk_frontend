@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
 
-  serverUrl = "";
+  serverUrl = environment.apiUrl + '/auth';
   errorData: {};
   redirectUrl: string;
 
@@ -34,11 +34,10 @@ export class AuthService {
     }
     this.errorData = {
       errorTitle: 'Request failed',
-    }
+    };
     return throwError(this.errorData);
   }
 
-  //login with gg
   loginGoogle(token: string): Observable<Token> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -62,13 +61,13 @@ export class AuthService {
   }
 
   getToken(): string {
-    let temp = localStorage.getItem('currentUser').split(" ");
+    const temp = localStorage.getItem('currentUser').split(' ');
     return temp[1];
   }
 
   getTokenGoogle() {
-    let token_value = JSON.parse(this.getToken());
-    return token_value.token
+    const tokenValue = JSON.parse(this.getToken());
+    return tokenValue.token;
   }
 
   public get currentUserValue(): User {
@@ -78,7 +77,7 @@ export class AuthService {
   getProfileCurrent(): Observable<Profile> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + this.getAuthentication()
+        Authorization: 'Bearer ' + this.getAuthentication()
       })
     };
 

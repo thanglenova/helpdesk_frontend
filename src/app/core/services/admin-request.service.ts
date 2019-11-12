@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import { RequestModel } from '../../shared/models/request';
+import { Request } from '../../shared/models/request';
 import { RequestPageModel } from 'src/app/shared/models/request-page-model';
 import { environment} from '../../../environments/environment';
 
@@ -18,12 +18,12 @@ export class AdminRequestService {
 
   constructor(private httpClient : HttpClient) { }
 
-  getAllRequests(): Observable<RequestModel[]>{
-    return this.httpClient.get<RequestModel[]>(this.url);
+  getAllRequests(): Observable<Request[]>{
+    return this.httpClient.get<Request[]>(this.url);
   }
 
-  putRequest(request:RequestModel): Observable<RequestModel>{
-    return this.httpClient.put<RequestModel>(this.url, request, this.httpOptions);
+  putRequest(request:Request): Observable<Request>{
+    return this.httpClient.put<Request>(this.url, request, this.httpOptions);
   }
 
   getSize(keyword:string):Observable<number>{
@@ -32,13 +32,13 @@ export class AdminRequestService {
     return this.httpClient.get<number>(`${this.url}/get-size`, {params:params});
   }
 
-  getPageRequest(body):Observable<RequestModel[]>{
+  getPageRequest(body):Observable<Request[]>{
     let params = new HttpParams()
     .append('page', body.page)
     .append('items', body.items)
     .append('sortBy', body.sortBy)
     .append('search', body.search);
 
-    return this.httpClient.get<RequestModel[]>(`${this.url}/pagination-and-search`, {params:params}).pipe();
+    return this.httpClient.get<Request[]>(`${this.url}/pagination-and-search`, {params:params}).pipe();
   }
 }
