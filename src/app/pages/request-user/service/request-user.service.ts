@@ -11,13 +11,12 @@ export class RequestUserService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   getAllRequestType(): Observable<Request> {
-    let api = environment.apiUrl + "/request-types";
+    const api = `${environment.apiUrl}/request-types`;
     return this.http.get<Request>(api);
   }
 
   postRequest(request: Request): Observable<any> {
-    let api = environment.apiUrl + "/requests";
-
+    const api = `${environment.apiUrl}/requests`;
     return this.http.post(api, request);
   }
 }
