@@ -8,6 +8,7 @@ import { templateJitUrl } from '@angular/compiler';
 import { stringify } from 'querystring';
 import { NzAffixComponent, responsiveMap } from 'ng-zorro-antd';
 import { Profile } from 'src/app/shared/models/profile';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +46,7 @@ export class AuthService {
       })
     };
 
-    return this.http.get<any>('http://localhost:8081/api/auth', httpOptions);
+    return this.http.get<any>(`${environment.apiUrl}/api/auth`, httpOptions);
   }
 
   isLoggedIn(): boolean {
@@ -81,6 +82,6 @@ export class AuthService {
       })
     };
 
-    return this.http.get<Profile>('http://localhost:8081/api/profiles', httpOptions);
+    return this.http.get<Profile>(`${environment.apiUrl}/api/profiles`, httpOptions);
   }
 }

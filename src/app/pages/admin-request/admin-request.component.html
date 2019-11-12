@@ -29,7 +29,7 @@
             <td>{{request.requestType.name}}</td>
             <td>{{request.createAt | timeAgo}}</td>
             <td>
-                <p-dropdown [options]="statuss" [(ngModel)]="request.status" (onChange)="onChange($event, request)"></p-dropdown>
+                <p-dropdown [options]="status" [(ngModel)]="request.status" (onChange)="onChange($event, request)"></p-dropdown>
             </td>
             <td>{{request.description}}</td>
         </tr>

@@ -14,7 +14,7 @@ export class AdminRequestService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  private url = environment.apiUrl + '/api/requests';
+  private url = `${environment.apiUrl}/api/requests`;
 
   constructor(private httpClient : HttpClient) { }
 
@@ -29,7 +29,7 @@ export class AdminRequestService {
   getSize(keyword:string):Observable<number>{
     let params = new HttpParams()
     .append('search', keyword);
-    return this.httpClient.get<number>(this.url+'/get-size', {params:params});
+    return this.httpClient.get<number>(`${this.url}/get-size`, {params:params});
   }
 
   getPageRequest(body):Observable<RequestModel[]>{
@@ -39,6 +39,6 @@ export class AdminRequestService {
     .append('sortBy', body.sortBy)
     .append('search', body.search);
 
-    return this.httpClient.get<RequestModel[]>(this.url + '/pagination-and-search', {params:params}).pipe();
+    return this.httpClient.get<RequestModel[]>(`${this.url}/pagination-and-search`, {params:params}).pipe();
   }
 }
