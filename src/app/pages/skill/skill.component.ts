@@ -129,7 +129,7 @@ export class SkillComponent implements OnInit {
   }
 
   search(value: number): void {
-    if (value == null) {
+    if (!value) {
       this.skillService.getSkills().subscribe(data => this.data = data);
     } else {
       this.skillService.searchSkill(value).subscribe(data => this.data = [...data]);
