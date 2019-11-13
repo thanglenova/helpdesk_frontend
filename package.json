@@ -65,6 +65,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
+    "start-dev": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -75,10 +76,12 @@
   "dependencies": {
     "@angular/animations": "~8.2.5",
     "@angular/cli": "~8.3.4",
+    "@angular/cdk": "^8.2.3",
     "@angular/common": "~8.2.5",
     "@angular/compiler": "~8.2.5",
     "@angular/compiler-cli": "~8.2.5",
     "@angular/core": "~8.2.5",
+    "@angular/flex-layout": "^8.0.0-beta.27",
     "@angular/forms": "~8.2.5",
     "@angular/material": "^8.2.2",
     "@angular/platform-browser": "~8.2.5",
