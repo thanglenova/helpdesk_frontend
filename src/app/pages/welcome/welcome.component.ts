@@ -9,6 +9,7 @@ import {TypeDayOffService} from 'src/app/core/services/type-day-off.service';
 import {TypeDay} from 'src/app/shared/models/type-day';
 import {first} from 'rxjs/operators';
 import {AlertService} from 'src/app/core/services/alert.service';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-welcome',
@@ -44,9 +45,9 @@ export class WelcomeComponent implements OnInit {
   types: TypeDay[];
   type: TypeDay;
   id: number;
-
-  time: Date | null = null;
   year: number;
+
+
 
   ngOnInit(): void {
 
@@ -97,7 +98,13 @@ export class WelcomeComponent implements OnInit {
     if (this.requestForm.invalid) {
       return;
     }
-    this.dayOffService.addDayOff(this.requestForm.value)
+    let valueForm = this.requestForm.value;
+    valueForm = {
+      ...valueForm,
+      dayStartOff: new DatePipe('en-Us').transform(valueForm.dayStartOff, 'short', 'GMT+7'),
+      dayEndOff: new DatePipe('en-Us').transform(valueForm.dayEndOff, '', 'GMT+7'),
+    };
+    this.dayOffService.addDayOff(valueForm)
       .pipe(first())
       .subscribe(
         data => {

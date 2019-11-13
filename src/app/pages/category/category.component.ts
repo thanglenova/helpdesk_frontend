@@ -34,8 +34,7 @@ export class CategoryComponent implements OnInit {
   }
 
   createNew(name: string): void {
-    // tslint:disable-next-line:triple-equals
-    if (name.trim() == '') {
+    if (!name || name.trim() === '') {
       this.message.warning('Please input again name of category');
       return;
     }

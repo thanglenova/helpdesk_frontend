@@ -15,7 +15,7 @@ import {environment} from '../../../environments/environment';
 })
 export class AuthService {
 
-  serverUrl = environment.apiUrl + '/auth';
+  serverUrl =  environment.apiUrl + '/auth';
   errorData: {};
   redirectUrl: string;
 
