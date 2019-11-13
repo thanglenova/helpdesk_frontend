@@ -18,7 +18,7 @@ import {RequestPageModel} from 'src/app/shared/models/request-page-model';
 })
 export class AdminRequestComponent implements OnInit {
 
-  statuss: SelectItem[];
+  status: SelectItem[];
 
   requests: Request[];
 
@@ -65,12 +65,10 @@ export class AdminRequestComponent implements OnInit {
   getStatus() {
     this.statusService.getStatusList().subscribe(listStatus => {
       this.statusList = listStatus;
-      this.statuss = [
-        {label: this.statusList[0].name, value: this.statusList[0]},
-        {label: this.statusList[1].name, value: this.statusList[1]},
-        {label: this.statusList[2].name, value: this.statusList[2]}
-      ];
-    });
+      this.status = this.statusList.map(o => {
+        return {label: o.name, value: o}
+      })
+    })
   }
 
   putRequest(request: Request) {
@@ -89,6 +87,7 @@ export class AdminRequestComponent implements OnInit {
 
   requestPage(event) {
     this.requestPageModel.items = event.rows;
+    this.requestPageModel.page = event.page;
     this.sendRequestPage();
   }
 

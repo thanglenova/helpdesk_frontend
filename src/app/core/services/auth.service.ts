@@ -1,14 +1,14 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, throwError} from 'rxjs';
-import {User} from 'src/app/shared/models/user';
-import {HttpClient, HttpErrorResponse, HttpHandler, HttpHeaders} from '@angular/common/http';
-import {map, catchError, tap} from 'rxjs/operators';
-import {Token} from '../../shared/models/token';
-import {templateJitUrl} from '@angular/compiler';
-import {stringify} from 'querystring';
-import {NzAffixComponent, responsiveMap} from 'ng-zorro-antd';
-import {Profile} from 'src/app/shared/models/profile';
-import {environment} from '../../../environments/environment';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { User } from 'src/app/shared/models/user';
+import { HttpClient, HttpErrorResponse, HttpHandler, HttpHeaders } from '@angular/common/http';
+import { map, catchError, tap } from 'rxjs/operators';
+import { Token } from '../../shared/models/token';
+import { templateJitUrl } from '@angular/compiler';
+import { stringify } from 'querystring';
+import { NzAffixComponent, responsiveMap } from 'ng-zorro-antd';
+import { Profile } from 'src/app/shared/models/profile';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +45,7 @@ export class AuthService {
       })
     };
 
-    return this.http.get<any>(this.serverUrl, httpOptions);
+    return this.http.get<any>(`${environment.apiUrl}/api/auth`, httpOptions);
   }
 
   isLoggedIn(): boolean {
@@ -81,6 +81,6 @@ export class AuthService {
       })
     };
 
-    return this.http.get<Profile>('https://helpdesk-kunlez-novahub.herokuapp.com/api/profiles', httpOptions);
+    return this.http.get<Profile>(`${environment.apiUrl}/api/profiles`, httpOptions);
   }
 }

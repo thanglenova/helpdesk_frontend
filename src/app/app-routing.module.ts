@@ -1,5 +1,6 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { AdminGuard } from './core/guard/Admin.guard';
 
 const routes: Routes = [
 
@@ -10,7 +11,8 @@ const routes: Routes = [
   { path: 'categoríe', loadChildren: () => import('./pages/category/category.module').then(m => m.CategoryModule) },
   { path: 'skills', loadChildren: () => import('./pages/skill/skill.module').then(m => m.SkillModule) },
   { path: 'management', loadChildren: () => import('./pages/management/magement.module').then(m => m.MagementModule) },
-  { path: 'admin-request', loadChildren: () => import('./pages/admin-request/admin-request.module').then(m => m.AdminRequestModule)},
+  { path: 'admin-request', loadChildren: () => import('./pages/admin-request/admin-request.module').then(m => m.AdminRequestModule), canActivate: [AdminGuard]},
+  { path: 'request-type', loadChildren: () => import('./pages/request-type/request-type.module').then(m => m.RequestTypeModule), canActivate: [AdminGuard]},
   { path: 'user-request', loadChildren: () => import('./pages/request-user/request-user.module').then(m => m.RequestUserModule)}
 ];
 
