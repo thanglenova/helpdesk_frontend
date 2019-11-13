@@ -119,7 +119,7 @@ export class WelcomeComponent implements OnInit {
 
   getByYear(year: number): void {
     const id = +this.route.snapshot.paramMap.get('id');
-    if (year == null) {
+    if (!year) {
       this.dayOffService.getDayOffs(id).subscribe(data => this.data = data);
     } else {
       this.dayOffService.getDayOffsByYear(year).subscribe(data => this.data = [...data]);
