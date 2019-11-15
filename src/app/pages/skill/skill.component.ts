@@ -32,6 +32,7 @@ export class SkillComponent implements OnInit {
   submitted = false;
   categories: Category;
   categoryId: number;
+  suffixIconButton: any;
 
   constructor(
     private alertService: AlertService,

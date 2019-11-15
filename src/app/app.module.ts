@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { httpInterceptorProviders } from './core/interceptors/index'
+import {LOCALE_ID, NgModule} from '@angular/core';
+import { httpInterceptorProviders} from './core/interceptors/index';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AlertComponent } from './shared/components/alert/alert.component';
@@ -42,7 +42,7 @@ registerLocaleData(en);
   ],
   providers: [
     httpInterceptorProviders,
-    { provide: NZ_I18N, useValue: en_US }
+    { provide: NZ_I18N, useValue: en_US },
   ],
   bootstrap: [AppComponent]
 })
