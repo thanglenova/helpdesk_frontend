@@ -25,16 +25,28 @@ export class DayoffService {
 
     private handleError<T> (operation ='operation', result?:T){
       return (error: any): Observable<T> => {
-         console.error(error);
          this.alertService.error(`${operation} failed: ${error.alertService}`);
         return of(result as T);
       }
     }
 
-    getDayoff(): Observable<DayOff[]>{
+    getDayoffs(): Observable<DayOff[]>{
       return this.http.get<DayOff[]>(this.dayOffUrl).pipe(
        catchError(this.handleError<DayOff[]>('getDayOffs'))
       )
+    }
+
+    getDayOff(id: number): Observable<DayOff> {
+      const url = `${this.dayOffUrl}/${id}`;
+      return this.http.get<DayOff>(url).pipe(
+        catchError(this.handleError<DayOff>(`getDayOff id=${id}`))
+      );
+    }
+    getDayOffByUser(id:number,year:number):Observable<DayOff[]>{
+      const url=`${this.dayOffUrl}/user_of_year/${id}?year=${year}`;
+      return this.http.get<DayOff[]>(url, this.httpOptions).pipe(
+        catchError(this.handleError<DayOff[]>('deleteDayOff'))
+      );
     }
 
     deleteDayOff(dayoff: DayOff | number): Observable<DayOff>{
@@ -43,6 +55,22 @@ export class DayoffService {
   
       return this.http.delete<DayOff>(url, this.httpOptions).pipe(
         catchError(this.handleError<DayOff>('deleteDayOff'))
+      );
+    }
+
+    acceptDayOff(dayoff:DayOff|number):Observable<DayOff>{
+      const id = typeof dayoff === 'number' ? dayoff: dayoff.id;
+      const url = `${this.dayOffUrl}/accept/${id}`;
+      return this.http.put<DayOff>(url, this.httpOptions).pipe(
+        catchError(this.handleError<DayOff>('acceptDayOff'))
+      );
+    }
+
+    rejectDayOff(dayoff:DayOff|number):Observable<DayOff>{
+      const id = typeof dayoff === 'number' ? dayoff: dayoff.id;
+      const url = `${this.dayOffUrl}/rejected/${id}`;
+      return this.http.put<DayOff>(url, this.httpOptions).pipe(
+        catchError(this.handleError<DayOff>('rejectDayOff'))
       );
     }
 

@@ -14,10 +14,13 @@
             <a routerLink="/welcome">Home</a>
           </li>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/dayoff">Workplace</a>
+            <a routerLink="/dayoff">Day Off</a>
           </li>
           <li nz-menu-item nzMatchRouter>
-            <a>About Us</a>
+            <a routerLink="/dayofftype">Day Off Type</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/skills">Skill</a>
           </li>
           <li nz-menu-item nzMatchRouter>
             <a>Contact</a>
@@ -38,7 +41,7 @@
             </li>
           </ul>
           <ul>
-              <li nz-menu-item nzMatchRouter>
+              <li nz-menu-item nzMatchRouter (click)="logout()">
                 <a>Logout</a>
               </li>
             </ul>

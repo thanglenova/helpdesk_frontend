@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
 import { DayOff } from 'src/app/shared/models/date-off';
+import { TypeDay } from 'src/app/shared/models/type-day';
 import {DayoffService} from 'src/app/core/services/dayoff.service';
+import {UserService} from 'src/app/core/services/user.service';
+import { User } from 'src/app/shared/models/user';
 import { Router } from '@angular/router';
+import { Inject} from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { from } from 'rxjs';
 
 @Component({
@@ -12,56 +17,89 @@ import { from } from 'rxjs';
 })
 export class DayoffComponent implements OnInit {
 
-  searchValue = '';
-  sortName: string | null = null;
-  sortValue: string | null = null;
-  listOfFilterAddress = [{ text: 'London', value: 'London' }, { text: 'Sidney', value: 'Sidney' }];
-  listOfSearchAddress: string[] = [];
-
-  reset(): void {
-    this.searchValue = '';
-    this.search();
-  }
-
-  sort(sortName: string, value: string): void {
-    this.sortName = sortName;
-    this.sortValue = value;
-    this.search();
-  }
-
-  filterAddressChange(value: string[]): void {
-    this.listOfSearchAddress = value;
-    this.search();
-  }
-
-  search(): void {
-    const filterFunc = (item: { name: string; age: number; address: string }) => {
-      return (
-        (this.listOfSearchAddress.length
-          ? this.listOfSearchAddress.some(address => item.address.indexOf(address) !== -1)
-          : true) && item.name.indexOf(this.searchValue) !== -1
-      );
-    };
-  }
+  optionList = [{ label: '2019', value: '2019'}, { label: '2020', value: '2020' }];
+  selectedValue = { label: '2019', value: '2019'};
+  compareFn = (o1: any, o2: any) => (o1 && o2 ? o1.value === o2.value : o1 === o2);
 
   data: DayOff[];
   dayoff : DayOff;
+  dayOffTypes: TypeDay[]=[];
+  dayOffType:TypeDay; 
+  users: User[];
+  year :number =2019;
+  idUser:number;
 
   constructor(
     private dayOffService : DayoffService ,
-    private router : Router
+    private userService :UserService
   ) { }
 
   ngOnInit() {
-    this.getDayOffs();
+    this.getUsers();
+    // this.getDayOffByUser(this.idUser);
+  }  
+
+  log(event){
+    this.year=event.value;
   }
-  getDayOffs(): void {
-    this.dayOffService.getDayoff().subscribe(data=>this.data=data);
+
+  getUsers():void{
+    this.userService.getUsers().subscribe(users=>this.users=users);
+  }
+  
+  getDayOffByUser(id:number){
+    this.data= [];
+    this.dayOffService.getDayOffByUser(id,this.year).subscribe(data=>this.data=data);
   }
 
   delete(dayoff: DayOff): void {
-    // this.dayoffs = this.dayoffs.filter(b => b !== dayoff);
     this.dayOffService.deleteDayOff(dayoff).subscribe();
   }
 
+  isVisibleDayOff = false;
+
+  showModalDayOff(data : DayOff): void {
+    this.isVisibleDayOff = true;
+    const id = +data.id;
+    this.dayOffService.getDayOff(id).subscribe(data => this.dayoff = data);
+  }
+
+  temp:DayOff;
+
+  acceptDayOff(id:number): void {
+    this.isVisibleDayOff=false;
+    this.dayOffService.getDayOff(id).subscribe(data => this.dayoff = data);
+    this.dayOffService.acceptDayOff(this.dayoff).subscribe(dayoff=>this.dayoff=dayoff); 
+  }
+  handleCancelDayOff(): void {
+    this.isVisibleDayOff = false;
+  }
+
+  isVisibleDayOff1 = false;
+
+  reject(data : DayOff): void {
+    this.isVisibleDayOff1 = true;
+    const id = +data.id;
+    this.dayOffService.getDayOff(id).subscribe(data => this.dayoff = data);
+  }
+
+  rejectedDayOff(id:number): void {
+    this.isVisibleDayOff1=false;
+    this.dayOffService.getDayOff(id).subscribe(data => this.dayoff = data);
+    this.dayOffService.rejectDayOff(this.dayoff).subscribe(dayoff=>this.dayoff=dayoff); 
+  }
+  handleCancelDayOff1(): void {
+    this.isVisibleDayOff1 = false;
+  }
+  checkStatus(status:string){
+    if(status == 'PENDING'){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  checkData(data: DayOff[]){
+    return (data==null || data.length==0)
+  }
 }
