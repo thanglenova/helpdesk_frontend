@@ -46,6 +46,7 @@ export class WelcomeComponent implements OnInit {
   type: TypeDay;
   id: number;
   year: number;
+  suffixIconButton: any;
 
 
 
@@ -101,8 +102,8 @@ export class WelcomeComponent implements OnInit {
     let valueForm = this.requestForm.value;
     valueForm = {
       ...valueForm,
-      dayStartOff: new DatePipe('en-Us').transform(valueForm.dayStartOff, 'short', 'GMT+7'),
-      dayEndOff: new DatePipe('en-Us').transform(valueForm.dayEndOff, '', 'GMT+7'),
+      dayStartOff: new DatePipe('en-US').transform(valueForm.dayStartOff, 'yyyy-MM-ddTHH:mm:ss'),
+      dayEndOff: new DatePipe('en-US').transform(valueForm.dayEndOff, 'yyyy-MM-ddTHH:mm:ss'),
     };
     this.dayOffService.addDayOff(valueForm)
       .pipe(first())

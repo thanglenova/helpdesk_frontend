@@ -3,7 +3,7 @@
 </h1>
 <div fxLayout="row" fxLayoutAlign="space-between center">
 <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" style="width: 50%; float: right">
-  <nz-select nzPlaceHolder="Select Category Of Skill" nzAllowClear [(ngModel)]="year" (ngModelChange)="getByYear(year)">
+  <nz-select nzPlaceHolder="Select Year" nzAllowClear [(ngModel)]="year" (ngModelChange)="getByYear(year)">
     <nz-option nzValue="2019" nzLabel="2019"></nz-option>
     <nz-option nzValue="2018" nzLabel="2018"></nz-option>
     <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
@@ -33,10 +33,9 @@
     <div class="form-group">
       <nz-form-item>
         <label style="padding-right: 22px;"><br/>Day End: </label>
-        <!--          <nz-date-picker formControlName="dayEndOff" class="form-control" [nzFormat]="dateFormat"></nz-date-picker>-->
         <nz-date-picker formControlName="dayEndOff"
                         nzShowTime
-                        nzFormat="dd-MM-yyyy-HH:mm:ss"
+                        nzFormat="dd-MM-yyyy HH:mm:ss"
                         nzPlaceHolder="Select Time"
                         ngModel
                         (ngModelChange)="onChange($event)"
@@ -84,13 +83,13 @@
   <tbody>
   <tr *ngFor="let data of editRowTable.data">
     <td>
-      <ng-container>{{ data.createAt | date : 'dd/MM/yyyy' }}</ng-container>
+      <ng-container>{{ data.createAt | date : 'short'}}</ng-container>
     </td>
     <td>
-      <ng-container>{{ data.dayStartOff | date : 'dd/MM/yyyy' }}</ng-container>
+      <ng-container>{{ data.dayStartOff | date : 'dd/MM/yyyy HH:mm':'+0000'}}</ng-container>
     </td>
     <td>
-      <ng-container>{{ data.dayEndOff | date : 'dd/MM/yyyy'}}</ng-container>
+      <ng-container>{{ data.dayEndOff | date : 'dd/MM/yyyy HH:mm':'+0000'}}</ng-container>
     </td>
     <td>
       <ng-container>{{ data.description }}</ng-container>
