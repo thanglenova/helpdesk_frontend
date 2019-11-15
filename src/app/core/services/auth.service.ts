@@ -46,7 +46,7 @@ export class AuthService {
       })
     };
 
-    return this.http.get<any>(`${environment.apiUrl}/api/auth`, httpOptions);
+    return this.http.get<any>(`${environment.apiUrl}/auth`, httpOptions);
   }
 
   isLoggedIn(): boolean {
