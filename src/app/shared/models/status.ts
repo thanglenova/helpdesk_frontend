@@ -1,5 +1,8 @@
-export class Status{
+export class Status {
+  id: number;
+  name: String;
 
-    id: number;
-    name: string;
+  constructor(obj?: any) {
+    Object.assign(this, obj);
+  }
 }

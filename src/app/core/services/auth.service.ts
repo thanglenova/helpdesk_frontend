@@ -3,16 +3,20 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { User } from 'src/app/shared/models/user';
 import { HttpClient, HttpErrorResponse, HttpHandler, HttpHeaders } from '@angular/common/http';
 import { map, catchError, tap } from 'rxjs/operators';
+import { Token } from '../../shared/models/token';
 import { templateJitUrl } from '@angular/compiler';
 import { stringify } from 'querystring';
 import { NzAffixComponent, responsiveMap } from 'ng-zorro-antd';
+import { Profile } from 'src/app/shared/models/profile';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  serverUrl = "";
+
+  serverUrl = environment.apiUrl + '/auth';
   errorData: {};
   redirectUrl: string;
 
@@ -31,18 +35,18 @@ export class AuthService {
     }
     this.errorData = {
       errorTitle: 'Request failed',
-    }
+    };
     return throwError(this.errorData);
   }
 
-  //login with gg
-  loginGoogle(token: string): Observable<any> {
+  loginGoogle(token: string): Observable<Token> {
     const httpOptions = {
       headers: new HttpHeaders({
         'token-google': token
       })
     };
-    return this.http.get<any>('https://helpdesk-kunlez-novahub.herokuapp.com/api/auth', httpOptions);
+
+    return this.http.get<any>(`${environment.apiUrl}/api/auth`, httpOptions);
   }
 
   isLoggedIn(): boolean {
@@ -58,17 +62,26 @@ export class AuthService {
   }
 
   getToken(): string {
-    let temp = localStorage.getItem('currentUser').split(" ");
+    const temp = localStorage.getItem('currentUser').split(' ');
     return temp[1];
   }
 
   getTokenGoogle() {
-    let token_value = JSON.parse(this.getToken());
-    return token_value.token
+    const tokenValue = JSON.parse(this.getToken());
+    return tokenValue.token;
   }
 
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
   }
 
+  getProfileCurrent(): Observable<Profile> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.getAuthentication()
+      })
+    };
+
+    return this.http.get<Profile>(`${environment.apiUrl}/api/profiles`, httpOptions);
+  }
 }

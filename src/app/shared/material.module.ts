@@ -38,4 +38,5 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty';
     NzEmptyModule
   ]
 })
-export class AppMaterialModule {}
+export class AppMaterialModule {
+}
