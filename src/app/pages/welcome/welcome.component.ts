@@ -1,7 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {DayOff} from 'src/app/shared/models/date-off';
+import {DayOff} from 'src/app/shared/models/day-off';
 import {AuthService} from 'src/app/core/services/auth.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {DayOffService} from 'src/app/core/services/day-off.service';

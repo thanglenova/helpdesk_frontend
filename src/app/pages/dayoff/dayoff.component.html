@@ -30,13 +30,13 @@
           <td>{{ data.description }}</td>
           <td>
             <div *ngIf="data.status.name=='PENDING'">
-              <span class="badge badge-warning">Pending</span>
+              <b style="color: darkorange;">Pending</b>
             </div>
-            <div *ngIf="data.status.name=='APPROVED'; else showDisable">
-              <span class="badge badge-success">Approved</span>
+            <div *ngIf="data.status.name=='APPROVED'">
+              <b style="color:forestgreen;">Approved</b>
             </div>
-            <div *ngIf="data.status.name=='REJECTED'; else showDisable">
-              <span class="badge badge-danger">Rejected</span>
+            <div *ngIf="data.status.name=='REJECTED'">
+              <b style="color:maroon;">Rejected</b>
             </div>
           </td>
           <td>

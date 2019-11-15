@@ -7,7 +7,7 @@ export interface DayOff{
     dayStartOff: Date;
     dayEndOff: Date;
     description: string;
-    userEntity: User;
+    user: User;
     status: Status;
 }
 export class DayOff {

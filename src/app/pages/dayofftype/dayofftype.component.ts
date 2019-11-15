@@ -49,19 +49,19 @@ export class DayofftypeComponent implements OnInit {
     this.isVisible = false;
   }
 
-  isVisible1 = false;
+  isVisibleEdit = false;
   nameEdit: string;
   loading: boolean = false;
 
-  showModal1(data: TypeDay): void {
+  showModalEdit(data: TypeDay): void {
 
-    this.isVisible1 = true;
+    this.isVisibleEdit = true;
     const id = +data.id;
     this.dayOffTypeService.getTypeDay(id).subscribe(dayofftype => this.dayOffType = dayofftype);
   }
 
-  handleOk1(dayOffType: TypeDay): void {
-    this.isVisible1 = false;
+  handleOkEdit(dayOffType: TypeDay): void {
+    this.isVisibleEdit = false;
     this.data=this.data.filter((value,key)=>{
       if(value.id == dayOffType.id){
         value.name = dayOffType.name;
@@ -71,8 +71,8 @@ export class DayofftypeComponent implements OnInit {
     })
   }
 
-  handleCancel1(): void {
-    this.isVisible1 = false;
+  handleCancelEdit(): void {
+    this.isVisibleEdit = false;
   }
 
 }
