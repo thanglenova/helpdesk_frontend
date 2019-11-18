@@ -1,21 +1,21 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <== add the imports!
-import { ManagementComponent } from './management.component';
-import { NzTableModule } from 'ng-zorro-antd/table';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms"; // <== add the imports!
+import { ManagementComponent } from "./management.component";
+import { NzTableModule } from "ng-zorro-antd/table";
+import { NzButtonModule } from "ng-zorro-antd/button";
+import { NzIconModule } from "ng-zorro-antd/icon";
+import { NzDropDownModule } from "ng-zorro-antd/dropdown";
+import { NzInputModule } from "ng-zorro-antd/input";
+import { NzMessageModule } from "ng-zorro-antd/message";
+import { ManagementRoutingModule } from "./management-routing.module";
 @NgModule({
-  declarations: [
-    ManagementComponent
-  ],
+  declarations: [ManagementComponent],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    ManagementRoutingModule,
     NzTableModule,
     NzButtonModule,
     NzIconModule,
@@ -24,4 +24,4 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
     NzMessageModule
   ]
 })
-export class MagementModule { }
+export class MagementModule {}

@@ -11,7 +11,7 @@ export class ShowProfileService {
   constructor(private http: HttpClient) {}
 
   getProfileFollowId(id: number): Observable<Profile> {
-    let api = environment.apiUrl + "/profiles/user?idUser=" + id;
+    let api = `${environment.apiUrl}/profiles/user?idUser=${id}`;
     return this.http.get<Profile>(api);
   }
 }
