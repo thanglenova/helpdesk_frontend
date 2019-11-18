@@ -66,9 +66,9 @@ export class AdminRequestComponent implements OnInit {
     this.statusService.getStatusList().subscribe(listStatus => {
       this.statusList = listStatus;
       this.status = this.statusList.map(o => {
-        return {label: o.name, value: o}
-      })
-    })
+        return {label: o.name, value: o.name} as SelectItem;
+      });
+    });
   }
 
   putRequest(request: Request) {
