@@ -26,6 +26,21 @@ export class UserService {
   }
 
 
+  private handleError<T> (operation ='operation', result?:T){
+    return (error: any): Observable<T> => {
+       console.error(error);
+       this.alertService.error(`${operation} failed: ${error.alertService}`);
+      return of(result as T);
+    }
+  }
+
+  getUsers(): Observable<User[]>{
+    return this.http.get<User[]>(this.serverUrl).pipe(
+     catchError(this.handleError<User[]>('getUsers'))
+    )
+  }
+
+  
   /** GET list items of user from server. Will 404 if id is not found */
 
 

@@ -1,38 +1,41 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {MatNativeDateModule} from '@angular/material/core';
-import {NzInputModule} from 'ng-zorro-antd/input';
-import {NzDatePickerModule} from 'ng-zorro-antd/date-picker';
-import {NzFormModule} from 'ng-zorro-antd/form';
-import {NzTableModule} from 'ng-zorro-antd/table';
-import {NzGridModule} from 'ng-zorro-antd/grid';
-import {NzButtonModule} from 'ng-zorro-antd/button';
-import {NzSelectModule} from 'ng-zorro-antd/select';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NzIconModule} from 'ng-zorro-antd/icon';
-import {NzDividerModule} from 'ng-zorro-antd/divider';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatNativeDateModule } from '@angular/material/core';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import {TableModule} from 'primeng/table';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzModalModule } from 'ng-zorro-antd/modal';
-import {NzMessageModule} from 'ng-zorro-antd';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, MatNativeDateModule, FormsModule, NzFormModule, ReactiveFormsModule],
+  imports: [CommonModule, MatNativeDateModule,FormsModule,NzFormModule,ReactiveFormsModule,NzBadgeModule,NzCollapseModule,NzEmptyModule],
   exports: [
 
     // Material
+    NzModalModule,
+    TableModule,
     NzInputModule,
     NzDatePickerModule,
     NzFormModule,
     NzTableModule,
     NzGridModule,
     NzButtonModule,
+    NzDropDownModule,
     NzSelectModule,
-    NzIconModule,
-    NzDividerModule,
-    NzModalModule,
-    NzMessageModule,
-    FlexLayoutModule
+    NzBadgeModule,
+    ReactiveFormsModule,
+    NzCollapseModule,
+    NzEmptyModule
   ]
 })
 export class AppMaterialModule {

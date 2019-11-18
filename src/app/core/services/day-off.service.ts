@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {HttpHeaders, HttpClient} from '@angular/common/http';
-import {AlertService} from './alert.service';
-import {DayOff} from 'src/app/shared/models/date-off';
-import {Observable, of} from 'rxjs';
-import {catchError} from 'rxjs/operators';
-import {User} from 'src/app/shared/models/user';
-import {TypeDay} from 'src/app/shared/models/type-day';
-import {environment} from '../../../environments/environment';
+import { Injectable } from '@angular/core';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { AlertService } from './alert.service';
+import { DayOff } from 'src/app/shared/models/day-off';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { User } from 'src/app/shared/models/user';
+import { TypeDay } from 'src/app/shared/models/type-day';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
