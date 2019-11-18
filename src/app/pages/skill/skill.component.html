@@ -6,15 +6,12 @@
   <div nz-col [nzSpan]="18" [nzPush]="6">
     <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" style="width: 50%; float: right">
       <nz-select nzPlaceHolder="Select Category Of Skill" nzAllowClear [(ngModel)]="categoryId" (ngModelChange)="search(categoryId)">
-        <nz-option *ngFor="let value of cateValues" [nzValue]="value.id" [nzLabel]="value.name" >
-
-        </nz-option>
+        <nz-option *ngFor="let value of cateValues" [nzValue]="value.id" [nzLabel]="value.name" ></nz-option>
         <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
           <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
         </nz-option>
       </nz-select>
     </nz-input-group>
-
   </div>
   <div nz-col [nzSpan]="6" [nzPull]="18">
 <button nz-button nzType="dashed" nzShape="circle" (click)="showModal()"><i nz-icon nzType="plus"
