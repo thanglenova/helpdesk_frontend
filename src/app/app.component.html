@@ -1,18 +1,33 @@
 <nz-layout class="app-layout">
-  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
-    [nzTrigger]="null">
-    <div  class="sidebar-logo">
+  <nz-sider
+    class="menu-sidebar"
+    nzCollapsible
+    nzWidth="256px"
+    nzBreakpoint="md"
+    [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null"
+  >
+    <div class="sidebar-logo">
       <a href="https://ng.ant.design/" target="_blank">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
+        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo" />
         <h1>Helpdesk Novahub</h1>
       </a>
     </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
+
+    <ul
+      nz-menu
+      nzTheme="dark"
+      nzMode="inline"
+      [nzInlineCollapsed]="isCollapsed"
+    >
+      <li
+        *ngIf="adminLogged; else NotAdminLogged"
+        nz-submenu
+        nzOpen
+        nzTitle="Admin"
+        nzIcon="dashboard"
+      >
         <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">Home</a>
-          </li>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/dayoff">Day Off</a>
           </li>
@@ -20,80 +35,57 @@
             <a routerLink="/dayofftype">Day Off Type</a>
           </li>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/skills">Skill</a>
+            <a routerLink="/categoríe">Categories</a>
           </li>
           <li nz-menu-item nzMatchRouter>
-            <a>Contact</a>
+            <a routerLink="/skills">Skills</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/management">Users</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/admin-request">Request</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/request-type">Request Type</a>
           </li>
         </ul>
       </li>
-      <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a>Request</a>
-          </li>
-        </ul>
-      </li>
-      <li nz-submenu nzOpen nzTitle="Your" nzIcon="user">
+
+      <ng-template #NotAdminLogged>
+        <li nz-submenu nzOpen nzTitle="User" nzIcon="dashboard">
           <ul>
             <li nz-menu-item nzMatchRouter>
-              <a>Profile</a>
-    <nz-sider *ngIf="isLogged()" class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
-        <div class="sidebar-logo">
-            <a href="https://ng.ant.design/" target="_blank">
-                <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
-                <h1>Helpdesk Novahub</h1>
-            </a>
-        </div>
-        
-        <ul  nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-            <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
-                <ul>
-                    <li nz-menu-item nzMatchRouter>
-                        <a routerLink="/welcome">Home</a>
-                    </li>
-                    <li nz-menu-item nzMatchRouter>
-                        <a routerLink="/categories">Category</a>
-                    </li>
-                    <li nz-menu-item nzMatchRouter>
-                        <a routerLink="/skills">Skill</a>
-                    </li>
-                    <li nz-menu-item nzMatchRouter>
-                        <a routerLink="/management">Management</a>
-                    </li>
-                </ul>
+              <a routerLink="/welcome">Day Off</a>
             </li>
-            <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
-                <ul>
-                    <li nz-menu-item nzMatchRouter>
-                        <a>Request</a>
-                    </li>
-                </ul>
+            <li nz-menu-item nzMatchRouter>
+              <a routerLink="/user-request">New Request</a>
             </li>
-            <li nz-submenu nzOpen nzTitle="Your" nzIcon="user">
-                <ul>
-                    <li nz-menu-item nzMatchRouter>
-                        <a (click)="profile()">Profile</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li nz-menu-item nzMatchRouter (click)="logout()">
-                        <a>Logout</a>
-                    </li>
-                </ul>
+            <li nz-menu-item nzMatchRouter>
+              <a (click)="profile()">Profile</a>
             </li>
-        </ul>
-    </nz-sider>
-    </li>
           </ul>
+        </li>
+      </ng-template>
+
+      <li nz-submenu nzOpen nzTitle="Orther" nzIcon="user">
+        <ul>
+          <li nz-menu-item nzMatchRouter (click)="logout()">
+            <a>Logout</a>
+          </li>
+        </ul>
       </li>
     </ul>
   </nz-sider>
-    <nz-layout>
-        <nz-header *ngIf="isLogged()">
-            <div class="app-header">
-                <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-          <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+  <nz-layout>
+    <nz-header *ngIf="isLogged()">
+      <div class="app-header">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+          <i
+            class="trigger"
+            nz-icon
+            [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+          ></i>
         </span>
       </div>
     </nz-header>
@@ -103,5 +95,4 @@
       </div>
     </nz-content>
   </nz-layout>
-
 </nz-layout>

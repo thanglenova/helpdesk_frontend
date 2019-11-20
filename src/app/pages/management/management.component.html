@@ -1,5 +1,11 @@
 <nz-input-group [nzSuffix]="suffixIconSearch" class="group-search">
-  <input type="text" nz-input placeholder="input search text" id="input-search" [(ngModel)]="valueSearch" />
+  <input
+    type="text"
+    nz-input
+    placeholder="input search text"
+    id="input-search"
+    [(ngModel)]="valueSearch"
+  />
 </nz-input-group>
 <ng-template #suffixIconSearch>
   <i nz-icon nzType="search" id="btn-search" (click)="search()"></i>
@@ -13,7 +19,8 @@
         <i nz-icon nzType="user" nzTheme="outline"></i>
         Name
       </th>
-      <th nzWidth="150px" nzShowSort (nzSortChange)="sortEmail($event)"><i nz-icon nzType="mail" nzTheme="outline"></i>
+      <th nzWidth="150px" nzShowSort (nzSortChange)="sortEmail($event)">
+        <i nz-icon nzType="mail" nzTheme="outline"></i>
         Email
       </th>
       <th><i nz-icon nzType="file-image" nzTheme="outline"></i> Image</th>
@@ -25,9 +32,15 @@
     <tr *ngFor="let data of filterTable.data">
       <td>{{ data.firstName }} {{ data.lastName }}</td>
       <td>{{ data.email }}</td>
-      <td><img src="{{'data:image/jpg;base64,' + data.avatarBase64}}" class="img-user" alt="Not found image"></td>
       <td>
-        <div *ngIf="!data.enable ; else disableUser">
+        <img
+          src="{{ 'data:image/jpg;base64,' + data.avatarBase64 }}"
+          class="img-user"
+          alt="Not found image"
+        />
+      </td>
+      <td>
+        <div *ngIf="!data.enable; else disableUser">
           <button nz-button nzType="default" (click)="onEnableUser(data)">
             <i nz-icon nzType="user-add" nzTheme="outline"></i>
             Enable
@@ -40,8 +53,9 @@
           </button>
         </ng-template>
       </td>
-      <td><button nz-button nzType="default" routerLink="/profile/{{data.id}}"><i nz-icon nzType="edit"
-            nzTheme="outline"></i>Edit
+      <td>
+        <button nz-button nzType="default" routerLink="/profile/{{ data.id }}">
+          <i nz-icon nzType="edit" nzTheme="outline"></i>Edit
         </button>
       </td>
     </tr>
