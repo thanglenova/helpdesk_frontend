@@ -25,11 +25,11 @@ export class AdminGuard implements CanActivate {
       if (
         this.tokenService
           .parseJwt(this.authService.getAuthentication())
-          .scopes.includes("ROLE_ADMIN")
+          .scopes.includes('ROLE_ADMIN')
       ) {
         return true;
       }
-      this.message.error("Access is not allowed");
+      this.message.error('Access is not allowed');
       return false;
   }
 }
