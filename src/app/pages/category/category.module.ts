@@ -4,7 +4,7 @@ import {SharedModule} from 'src/app/shared/shared.module';
 import {CategoryComponent} from './category.component';
 import {CategoryRoutingModule} from './category-routing.module';
 import {NzPopconfirmModule} from 'ng-zorro-antd';
-
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 @NgModule({
   declarations: [CategoryComponent],
@@ -12,7 +12,8 @@ import {NzPopconfirmModule} from 'ng-zorro-antd';
     CommonModule,
     SharedModule,
     CategoryRoutingModule,
-    NzPopconfirmModule
+    NzPopconfirmModule,
+    NzDividerModule
   ],
   exports: [CategoryComponent]
 })

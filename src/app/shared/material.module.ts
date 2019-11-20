@@ -15,12 +15,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import {NzIconModule} from 'ng-zorro-antd';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, MatNativeDateModule,FormsModule,NzFormModule,ReactiveFormsModule,NzBadgeModule,NzCollapseModule,NzEmptyModule],
+  imports: [
+    CommonModule,
+    MatNativeDateModule,
+    FormsModule,
+    NzFormModule,
+    ReactiveFormsModule,
+    NzBadgeModule,
+    NzCollapseModule,
+    NzEmptyModule],
   exports: [
-
     // Material
     NzModalModule,
     TableModule,
@@ -35,7 +43,8 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty';
     NzBadgeModule,
     ReactiveFormsModule,
     NzCollapseModule,
-    NzEmptyModule
+    NzEmptyModule,
+    NzIconModule
   ]
 })
 export class AppMaterialModule {
