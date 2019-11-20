@@ -1,21 +1,22 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { MatNativeDateModule } from "@angular/material/core";
-import { NzInputModule } from "ng-zorro-antd/input";
-import { NzDatePickerModule } from "ng-zorro-antd/date-picker";
-import { NzFormModule } from "ng-zorro-antd/form";
-import { NzTableModule } from "ng-zorro-antd/table";
-import { NzGridModule } from "ng-zorro-antd/grid";
-import { NzButtonModule } from "ng-zorro-antd/button";
-import { TableModule } from "primeng/table";
-import { NzDropDownModule } from "ng-zorro-antd/dropdown";
-import { NzModalModule } from "ng-zorro-antd/modal";
-import { NzSelectModule } from "ng-zorro-antd/select";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { NzBadgeModule } from "ng-zorro-antd/badge";
-import { NzCollapseModule } from "ng-zorro-antd/collapse";
-import { NzEmptyModule } from "ng-zorro-antd/empty";
-import { NzDividerModule } from "ng-zorro-antd/divider";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatNativeDateModule } from '@angular/material/core';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import {TableModule} from 'primeng/table';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import {NzIconModule} from 'ng-zorro-antd';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 @NgModule({
   declarations: [],
@@ -27,8 +28,7 @@ import { NzDividerModule } from "ng-zorro-antd/divider";
     ReactiveFormsModule,
     NzBadgeModule,
     NzCollapseModule,
-    NzEmptyModule
-  ],
+    NzEmptyModule],
   exports: [
     // Material
     NzModalModule,
@@ -45,7 +45,9 @@ import { NzDividerModule } from "ng-zorro-antd/divider";
     ReactiveFormsModule,
     NzCollapseModule,
     NzEmptyModule,
+    NzIconModule,
     NzDividerModule
   ]
 })
-export class AppMaterialModule {}
+export class AppMaterialModule {
+}
