@@ -56,7 +56,7 @@ const routes: Routes = [
     loadChildren: () =>
       import("./pages/management/magement.module").then(m => m.MagementModule)
   },
-  // tslint:disable-next-line:max-line-length
+
   {
     path: "admin-requests",
     loadChildren: () =>
@@ -65,7 +65,6 @@ const routes: Routes = [
       ),
     canActivate: [AdminGuard]
   },
-  // tslint:disable-next-line:max-line-length
   {
     path: "request-types",
     loadChildren: () =>
