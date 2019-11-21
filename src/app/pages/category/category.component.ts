@@ -16,6 +16,8 @@ export class CategoryComponent implements OnInit {
   isVisible = false;
   value: Category;
   edit: boolean;
+  suffixIconButton: any;
+  suffixTemplateInfo: any;
 
   constructor(
     private route: Router,

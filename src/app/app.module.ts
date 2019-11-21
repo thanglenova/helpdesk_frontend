@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { httpInterceptorProviders } from './core/interceptors/index'
+import {LOCALE_ID, NgModule} from '@angular/core';
+import { httpInterceptorProviders} from './core/interceptors/index';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AlertComponent } from './shared/components/alert/alert.component';
@@ -15,8 +15,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import en from '@angular/common/locales/en';
+import {JwtHelperService, JwtModule} from '@auth0/angular-jwt';
 
 registerLocaleData(en);
+
+export function tokenGetter() {
+  return localStorage.getItem('currentUser');
+}
 
 @NgModule({
   declarations: [
@@ -28,7 +33,7 @@ registerLocaleData(en);
     BrowserModule,
     FormsModule,
     NzFormModule,
-    NgZorroAntdModule.forRoot(),
+    NgZorroAntdModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -38,11 +43,16 @@ registerLocaleData(en);
     NgZorroAntdModule,
     FormsModule,
     NzFormModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+      }
+    }),
   ],
   providers: [
     httpInterceptorProviders,
-    { provide: NZ_I18N, useValue: en_US }
+    { provide: NZ_I18N, useValue: en_US },
   ],
   bootstrap: [AppComponent]
 })

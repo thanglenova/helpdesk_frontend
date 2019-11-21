@@ -14,7 +14,7 @@ export class AdminRequestService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  private url = `${environment.apiUrl}/api/requests`;
+  private url = `${environment.apiUrl}/requests`;
 
   constructor(private httpClient : HttpClient) { }
 

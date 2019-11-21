@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppMaterialModule } from './material.module';
 import { NzFormModule } from 'ng-zorro-antd';
-
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
   declarations: [],
@@ -11,12 +12,15 @@ import { NzFormModule } from 'ng-zorro-antd';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NzFormModule
+    NzFormModule,
+    NzBadgeModule
   ],
   exports: [
     FormsModule,
     ReactiveFormsModule,
-    AppMaterialModule
+    AppMaterialModule,
+    NzBadgeModule,
+    FlexLayoutModule
   ]
 })
 export class SharedModule { }

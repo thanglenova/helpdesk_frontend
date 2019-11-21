@@ -32,6 +32,8 @@ export class SkillComponent implements OnInit {
   submitted = false;
   categories: Category;
   categoryId: number;
+  suffixIconButton: any;
+  suffixTemplateInfo: any;
 
   constructor(
     private alertService: AlertService,
@@ -70,7 +72,7 @@ export class SkillComponent implements OnInit {
   }
 
   getSkills(): void {
-    this.skillService.getSkills().subscribe(skills => this.skills = skills);
+    this.skillService.getSkills().subscribe(data => this.data = data);
   }
 
   getCategory(): void {
