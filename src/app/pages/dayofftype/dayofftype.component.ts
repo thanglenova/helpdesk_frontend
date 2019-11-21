@@ -75,9 +75,6 @@ export class DayofftypeComponent implements OnInit {
   }
   checkData(name:string){
     name=name.trim();
-    // if(name==''){
-    //   return false;
-    // }
     return name!='';
   }
 
