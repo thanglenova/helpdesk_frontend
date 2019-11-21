@@ -21,7 +21,7 @@
       [nzInlineCollapsed]="isCollapsed"
     >
       <li
-        *ngIf="isAdminLoggin"
+        *ngIf="isAdminLoggin; else NotAdminLoggin"
         nz-submenu
         nzOpen
         nzTitle="Admin"
@@ -29,16 +29,16 @@
       >
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/dayoff">Day Off</a>
+            <a routerLink="/admin-dayoffs">Day Off</a>
           </li>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/dayofftype">Day Off Type</a>
+            <a routerLink="/admin-dayofftypes">Day Off Type</a>
           </li>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/skills">Skill</a>
+            <a routerLink="/admin-skills">Skill</a>
           </li>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/categories">Category</a>
+            <a routerLink="/admin-categoríes">Category</a>
           </li>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/admin-users">Users</a>
@@ -51,19 +51,20 @@
           </li>
         </ul>
       </li>
-      <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a>Request</a>
-          </li>
-        </ul>
-      </li>
-      <li nz-submenu nzOpen nzTitle="Your" nzIcon="user">
+      <li nz-submenu nzOpen nzTitle="User" nzIcon="user">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a (click)="profile()">Profile</a>
           </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/user-requests">Request</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/user-day-offs">Day Off</a>
+          </li>
         </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="Other" nzIcon="user">
         <ul>
           <li nz-menu-item nzMatchRouter (click)="logout()">
             <a>Logout</a>
