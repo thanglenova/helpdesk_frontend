@@ -11,14 +11,14 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class ManagementComponent implements OnInit {
 
-  private users: Profile[];
-  private valueSearch: string;
-  private allUser: Profile[];
-  private sortEmailCurrent: string;
+  public users: Profile[];
+  public valueSearch: string;
+  public allUser: Profile[];
+  public sortEmailCurrent: string;
 
-  constructor(private showUserService: ShowUserService,
-    private editUserService: EditUserService,
-    private message: NzMessageService) { }
+  constructor(public showUserService: ShowUserService,
+    public editUserService: EditUserService,
+    public message: NzMessageService) { }
 
   public ngOnInit() {
     this.loadListUser();

@@ -16,15 +16,16 @@ import { NzMessageService } from "ng-zorro-antd/message";
   styleUrls: ["./edit-skills.component.scss"]
 })
 export class EditSkillsComponent implements OnInit {
-  private listOfTagOptions: Skill[];
-  private validateForm = false;
+  public listOfTagOptions: Skill[];
+  public validateForm = false;
   private idUrl = this.commonService.getIdProfileInParams();
-  private skills: Skill[];
-  private categories: Category[];
+  public skills: Skill[];
+  public categories: Category[];
   private skillFollowCategories: Skill[];
-  private selectedCategory: Category = null;
-  private listSkillFollowCategories: Skill[];
-  private notifitionText: string;
+  public selectedCategory: Category = null;
+  public listSkillFollowCategories: Skill[];
+  public notifitionText: string;
+  value: string;
 
   constructor(
     private showSkillService: ShowSkillsService,
@@ -195,4 +196,5 @@ export class EditSkillsComponent implements OnInit {
     }
     return false;
   }
+
 }

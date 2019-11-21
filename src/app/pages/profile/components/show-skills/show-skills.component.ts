@@ -12,8 +12,8 @@ import { ShowProfileService } from "../../service/show-profile/show-profile.serv
   styleUrls: ["./show-skills.component.scss"]
 })
 export class ShowSkillsComponent implements OnInit {
-  private skills: Skill[];
-  private isUserLogin = false;
+  public skills: Skill[];
+  public isUserLogin = false;
 
   constructor(
     private commonService: CommonService,

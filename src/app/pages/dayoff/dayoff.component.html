@@ -10,7 +10,6 @@
       <nz-empty></nz-empty>
     </div>
     <ng-template #showTable>
-      <nz-table [nzFrontPagination]="false" [nzShowPagination]="false" #nzTable [nzData]="data">
         <thead>
           <tr>
             <th nzCustomFilter>ID</th>
@@ -52,13 +51,3 @@
       </nz-table>
     </ng-template>
   </nz-collapse-panel>
-</nz-collapse>
-<nz-modal [(nzVisible)]="isVisibleDayOff" nzTitle="" (nzOnCancel)="handleCancelDayOff()"
-  (nzOnOk)="acceptDayOff(data.id)">
-  <p>Do you want accept request!</p>
-</nz-modal>
-
-<nz-modal [(nzVisible)]="isVisibleDayOff1" nzTitle="" (nzOnCancel)="handleCancelDayOff1()"
-  (nzOnOk)="rejectedDayOff(dayoff)">
-  <p>Do you want reject request!</p>
-</nz-modal>

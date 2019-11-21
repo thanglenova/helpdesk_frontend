@@ -9,9 +9,9 @@ import { EditProfileService } from "../../service/edit-profile/edit-profile.serv
   styleUrls: ["./edit-profile.component.scss"]
 })
 export class EditProfileComponent implements OnInit {
-  @Input() private profile: Profile;
-  @Input() private fileToUpload: File;
-  @Output() private getValidateForm = new EventEmitter<boolean>();
+  @Input() public profile: Profile;
+  @Input() public fileToUpload: File;
+  @Output() public getValidateForm = new EventEmitter<boolean>();
 
   constructor(
     private msg: NzMessageService,
