@@ -8,6 +8,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { ManagementRoutingModule } from './management-routing.module';
 @NgModule({
   declarations: [
     ManagementComponent
@@ -15,6 +16,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
   imports: [
     CommonModule,
     FormsModule,
+    ManagementRoutingModule,
     ReactiveFormsModule,
     NzTableModule,
     NzButtonModule,

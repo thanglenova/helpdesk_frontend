@@ -16,6 +16,7 @@ import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import {NzIconModule} from 'ng-zorro-antd';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 @NgModule({
   declarations: [],
@@ -44,7 +45,8 @@ import {NzIconModule} from 'ng-zorro-antd';
     ReactiveFormsModule,
     NzCollapseModule,
     NzEmptyModule,
-    NzIconModule
+    NzIconModule,
+    NzDividerModule
   ]
 })
 export class AppMaterialModule {
