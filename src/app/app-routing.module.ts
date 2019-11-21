@@ -20,11 +20,11 @@ const routes: Routes = [
     canLoad: [AuthGuardService] },
   { path: 'skills', loadChildren: () => import('./pages/skill/skill.module').then(m => m.SkillModule),
     canLoad: [AuthGuardService] },
-  { path: 'management', loadChildren: () => import('./pages/management/magement.module').then(m => m.MagementModule) },
+  { path: 'admin-users', loadChildren: () => import('./pages/management/magement.module').then(m => m.MagementModule) },
   // tslint:disable-next-line:max-line-length
-  { path: 'admin-request', loadChildren: () => import('./pages/admin-request/admin-request.module').then(m => m.AdminRequestModule), canActivate: [AdminGuard]},
+  { path: 'admin-requests', loadChildren: () => import('./pages/admin-request/admin-request.module').then(m => m.AdminRequestModule), canActivate: [AdminGuard]},
   // tslint:disable-next-line:max-line-length
-  { path: 'request-type', loadChildren: () => import('./pages/request-type/request-type.module').then(m => m.RequestTypeModule), canActivate: [AdminGuard]},
+  { path: 'request-types', loadChildren: () => import('./pages/request-type/request-type.module').then(m => m.RequestTypeModule), canActivate: [AdminGuard]},
   { path: 'user-request', loadChildren: () => import('./pages/request-user/request-user.module').then(m => m.RequestUserModule)}
 ];
 
