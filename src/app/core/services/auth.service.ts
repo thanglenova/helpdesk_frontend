@@ -93,7 +93,7 @@ export class AuthService {
 
   public isAdmin() : boolean {
     if (
-      !this.getAuthentication() &&
+      this.getAuthentication() !== null &&
       this.tokenService
         .parseJwt(this.getAuthentication())
         .scopes.includes("ROLE_ADMIN")

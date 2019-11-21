@@ -14,14 +14,13 @@ export class AppComponent {
   }
 
   public isLogged(): boolean {
-    console.log(this.authService.isAdmin());
-    
+    this.isAdminLoggin = this.authService.isAdmin();
     return this.authService.isLoggedIn();
   }
 
   public logout(): void {
     localStorage.removeItem('currentUser');
-    
+    this.isAdminLoggin = false;
     this.router.navigate(['/login']);
   }
 

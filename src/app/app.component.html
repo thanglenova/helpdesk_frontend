@@ -8,6 +8,28 @@
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+
+        <li *ngIf="isAdminLoggin" nz-submenu nzOpen nzTitle="Admin" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item nzMatchRouter>
+                <a routerLink="/welcome">Home</a>
+              </li>
+              <li nz-menu-item nzMatchRouter>
+                <a routerLink="/dayoff">Day Off</a>
+              </li>
+              <li nz-menu-item nzMatchRouter>
+                <a routerLink="/dayofftype">Day Off Type</a>
+              </li>
+              <li nz-menu-item nzMatchRouter>
+                <a routerLink="/skills">Skill</a>
+              </li>
+              <li nz-menu-item nzMatchRouter>
+                <a routerLink="/categories">Category</a>
+              </li>
+            </ul>
+          </li>
+
+
       <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
         <ul>
           <li nz-menu-item nzMatchRouter>
