@@ -30,13 +30,13 @@
   <h3><strong>Add new skills</strong></h3>
   <div nz-row>
     <nz-form-label [nzSpan]="5" nzFor="address">*Categories</nz-form-label>
-    <nz-form-control [nzSpan]="19">
+    <nz-form-control [nzSpan]="19" >
       <nz-select
         style="width: 100%;"
         [(ngModel)]="selectedCategory"
         (ngModelChange)="changeCategories($event)"
         nzPlaceHolder="Categories skill"
-        (ngModelChange)="onChangeValidate()"
+        (ngModelChange)="onChangeValidate(value)"
         required
       >
         <nz-option

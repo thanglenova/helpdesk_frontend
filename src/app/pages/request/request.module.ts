@@ -4,6 +4,7 @@ import {CommonModule} from '@angular/common';
 import {RequestRoutingModule} from './request-routing.module';
 import {RequestComponent} from './request.component';
 import {SharedModule} from '../../shared/shared.module';
+import {NgZorroAntdModule} from 'ng-zorro-antd';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import {SharedModule} from '../../shared/shared.module';
   imports: [
     CommonModule,
     RequestRoutingModule,
-    SharedModule
+    SharedModule,
+    NgZorroAntdModule
   ],
   exports: [RequestComponent]
 })

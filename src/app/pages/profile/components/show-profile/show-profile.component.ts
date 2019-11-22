@@ -15,12 +15,14 @@ import { TokenService } from "src/app/core/services/token.service";
   styleUrls: ["./show-profile.component.scss"]
 })
 export class ShowProfileComponent implements OnInit {
-  private isVisible = false;
-  private validateForm = true;
-  private isUserLogin = false;
-  private profile: Profile;
-  private fileToUpload: File;
-  private profileSendToEditProfile: Profile;
+  gender: any;
+  isConfirmLoading: any;
+  public isVisible = false;
+  public validateForm = true;
+  public isUserLogin = false;
+  public profile: Profile;
+  public fileToUpload: File;
+  public profileSendToEditProfile: Profile;
   private idUrl = this.commonService.getIdProfileInParams();
 
   constructor(

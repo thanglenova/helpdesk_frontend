@@ -10,16 +10,16 @@ import { Profile } from "selenium-webdriver/firefox";
   styleUrls: ["./request-user.component.scss"]
 })
 export class RequestUserComponent implements OnInit {
-  private requestTypes;
-  private selectedRequestType;
-  private description: string;
-  private selectedDate;
-  private validateScope;
-
+  public requestTypes;
+  public selectedRequestType;
+  public description: string;
+  public selectedDate;
+  public validateScope;
+  footerRender: any;
   constructor(
-    private requestUserService: RequestUserService,
-    private message: NzMessageService,
-    private authService: AuthService
+    public requestUserService: RequestUserService,
+    public message: NzMessageService,
+    public authService: AuthService
   ) {}
 
   ngOnInit() {
