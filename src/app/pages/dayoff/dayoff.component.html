@@ -10,7 +10,7 @@
       <nz-empty></nz-empty>
     </div>
     <ng-template #showTable>
-      <nz-table>
+      <nz-table [nzFrontPagination]="false" [nzShowPagination]="false" #nzTable [nzData]="data">
         <thead>
           <tr>
             <th nzCustomFilter>ID</th>
