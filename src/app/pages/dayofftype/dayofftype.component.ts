@@ -31,7 +31,7 @@ export class DayofftypeComponent implements OnInit {
   }
 
   isVisible = false;
-  name: string;
+  name: string='';
 
   showModal(): void {
     this.isVisible = true;
@@ -59,7 +59,6 @@ export class DayofftypeComponent implements OnInit {
     const id = +data.id;
     this.dayOffTypeService.getTypeDay(id).subscribe(dayofftype => this.dayOffType = dayofftype);
   }
-
   handleOkEdit(dayOffType: TypeDay): void {
     this.isVisibleEdit = false;
     this.data=this.data.filter((value,key)=>{
@@ -73,6 +72,10 @@ export class DayofftypeComponent implements OnInit {
 
   handleCancelEdit(): void {
     this.isVisibleEdit = false;
+  }
+  checkData(name:string){
+    name=name.trim();
+    return name!='';
   }
 
 }
