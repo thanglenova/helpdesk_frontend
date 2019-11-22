@@ -9,15 +9,18 @@ import {Router} from '@angular/router';
 })
 export class AppComponent {
   isCollapsed: boolean;
+  isAdminLoggin : boolean;
   constructor(private authService: AuthService, private router: Router) {
   }
 
   public isLogged(): boolean {
+    this.isAdminLoggin = this.authService.isAdmin();
     return this.authService.isLoggedIn();
   }
 
   public logout(): void {
     localStorage.removeItem('currentUser');
+    this.isAdminLoggin = false;
     this.router.navigate(['/login']);
   }
 
