@@ -46,7 +46,7 @@
       <br/>
       <div class="form-group">
         <label style="padding-right: 22px;">Type : </label>
-        <nz-form-item style=" margin-left: 80px; width: 355px; margin-top: 3px;">
+        <nz-form-item class="width-80">
           <nz-select formControlName="dayOffType" (nzScrollToBottom)="getAllTypes()"
                      nzPlaceHolder="Select Type Of Day Off" nzAllowClear>
             <nz-option *ngFor="let type of types" [nzValue]="type" [nzLabel]="type.name"></nz-option>
@@ -57,9 +57,10 @@
         </nz-form-item>
       </div>
       <br/>
-      <div class="form=form-group">
-        <nz-form-item>
-          <label style="padding-right: 10px;"><br/>Comments: </label>
+      <div class="form-group">
+        <label style="padding-right: 10px;">Comments: </label>
+        <nz-form-item class="width-60">
+
           <input nz-input formControlName="description"/>
         </nz-form-item>
       </div>
