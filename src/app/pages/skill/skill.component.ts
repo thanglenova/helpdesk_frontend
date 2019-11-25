@@ -23,8 +23,6 @@ export class SkillComponent implements OnInit {
   edit: boolean;
   id: number;
 
-  editCache: { [key: string]: { edit: boolean; data: Skill } } = {};
-  listOfData: Skill[] = [];
   skills: Skill[];
 
   skillForm: FormGroup;

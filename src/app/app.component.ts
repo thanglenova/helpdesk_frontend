@@ -1,17 +1,16 @@
-import {Component} from '@angular/core';
-import {AuthService} from './core/services/auth.service';
-import {Router} from '@angular/router';
+import { Component } from "@angular/core";
+import { AuthService } from "./core/services/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
   isCollapsed: boolean;
-  isAdminLoggin : boolean;
-  constructor(private authService: AuthService, private router: Router) {
-  }
+  isAdminLoggin: boolean;
+  constructor(private authService: AuthService, private router: Router) {}
 
   public isLogged(): boolean {
     this.isAdminLoggin = this.authService.isAdmin();
@@ -19,18 +18,17 @@ export class AppComponent {
   }
 
   public logout(): void {
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem("currentUser");
     this.isAdminLoggin = false;
-    this.router.navigate(['/login']);
+    this.router.navigate(["/login"]);
   }
 
   public profile(): void {
     this.authService.getProfileCurrent().subscribe(
       data => {
-        this.router.navigate(['/profile/' + data.id]);
+        this.router.navigate(["/profile/" + data.id]);
       },
-      error => {
-      }
+      error => {}
     );
   }
 }
