@@ -13,7 +13,7 @@ export class RequestTypeService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  private url = `${environment.apiUrl}/api/request-types`
+  private url = `${environment.apiUrl}/request-types`
 
   constructor(private httpClient: HttpClient) { }
 

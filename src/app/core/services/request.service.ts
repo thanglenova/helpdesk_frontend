@@ -11,7 +11,7 @@ import {environment} from '../../../environments/environment';
 })
 export class RequestService {
 
-  private serverUrl =  environment.apiUrl + '/requests';
+  private serverUrl =  `${environment.apiUrl}/requests`;
 
   constructor(
     private http: HttpClient,
