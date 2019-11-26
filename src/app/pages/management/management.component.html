@@ -6,17 +6,16 @@
   <span nzType="default" id="btn-reset-data" (click)="reset()">Reset</span>
 </ng-template>
 
-<nz-table #filterTable [nzData]="users" [nzPageSize]="3">
+<nz-table #filterTable [nzData]="users" [nzPageSize]="20">
   <thead>
     <tr>
-      <th nzWidth="150px" nzShowSort (nzSortChange)="sortName($event)">
+      <th nzWidth="300px" nzShowSort (nzSortChange)="sortName($event)">
         <i nz-icon nzType="user" nzTheme="outline"></i>
         Name
       </th>
-      <th nzWidth="150px" nzShowSort (nzSortChange)="sortEmail($event)"><i nz-icon nzType="mail" nzTheme="outline"></i>
+      <th nzWidth="300px" nzShowSort (nzSortChange)="sortEmail($event)"><i nz-icon nzType="mail" nzTheme="outline"></i>
         Email
       </th>
-      <th><i nz-icon nzType="file-image" nzTheme="outline"></i> Image</th>
       <th>Disable</th>
       <th>Edit</th>
     </tr>
@@ -25,7 +24,6 @@
     <tr *ngFor="let data of filterTable.data">
       <td>{{ data.firstName }} {{ data.lastName }}</td>
       <td>{{ data.email }}</td>
-      <td><img src="{{'data:image/jpg;base64,' + data.avatarBase64}}" class="img-user" alt="Not found image"></td>
       <td>
         <div *ngIf="!data.enable ; else disableUser">
           <button nz-button nzType="default" (click)="onEnableUser(data)">
@@ -40,7 +38,7 @@
           </button>
         </ng-template>
       </td>
-      <td><button nz-button nzType="default" [routerLink]="['profile', data.id]"><i nz-icon nzType="edit"
+      <td><button nz-button nzType="default" [routerLink]="['/profile', data.id]"><i nz-icon nzType="edit"
             nzTheme="outline"></i>Edit
         </button>
       </td>
