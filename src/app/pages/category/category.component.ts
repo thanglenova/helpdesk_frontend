@@ -1,14 +1,14 @@
-import { Component, OnInit } from "@angular/core";
-import { Category } from "src/app/shared/models/category";
-import { Router } from "@angular/router";
-import { CategoryService } from "src/app/core/services/category.service";
-import { NzModalService } from "ng-zorro-antd";
-import { NzMessageService } from "ng-zorro-antd/message";
+import { Component, OnInit } from '@angular/core';
+import { Category } from 'src/app/shared/models/category';
+import { Router } from '@angular/router';
+import { CategoryService } from 'src/app/core/services/category.service';
+import { NzModalService } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
-  selector: "app-category",
-  templateUrl: "./category.component.html",
-  styleUrls: ["./category.component.scss"]
+  selector: 'app-category',
+  templateUrl: './category.component.html',
+  styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
   data: Category[];
@@ -35,8 +35,8 @@ export class CategoryComponent implements OnInit {
   }
 
   createNew(name: string): void {
-    if (!name || name.trim() === "") {
-      this.message.warning("Please input again name of category");
+    if (!name || name.trim() === '') {
+      this.message.warning('Please input again name of category');
       return;
     }
     this.categoryService.addCategory(name).subscribe(data => {
@@ -59,16 +59,16 @@ export class CategoryComponent implements OnInit {
 
   showDeleteConfirm(currentData: Category): void {
     this.modalService.confirm({
-      nzTitle: "Are you sure delete this category?",
+      nzTitle: 'Are you sure delete this category?',
       nzContent: '<b style="color: red;">This action can be dangerous</b>',
-      nzOkText: "Yes",
-      nzOkType: "danger",
+      nzOkText: 'Yes',
+      nzOkType: 'danger',
       nzOnOk: () => {
         this.data = this.data.filter(c => c !== currentData);
         this.categoryService.deleteCategory(currentData).subscribe();
       },
-      nzCancelText: "No",
-      nzOnCancel: () => console.log("Cancel")
+      nzCancelText: 'No',
+      nzOnCancel: () => console.log('Cancel')
     });
   }
 
