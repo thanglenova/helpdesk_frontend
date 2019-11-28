@@ -15,7 +15,14 @@
   </button>
 </div>
 <nz-card class="title-skills" nz-row style="margin-top: 20px;">
-  <nz-tag *ngFor="let skill of skills" [nzColor]="'#001429'">
-    <strong>{{ skill.name }}</strong>
-  </nz-tag>
+  <div *ngIf="!isEmptySkills; else EmptySkill">
+    <nz-tag *ngFor="let skill of skills" [nzColor]="'#001429'">
+      <strong>{{ skill.name }}</strong>
+    </nz-tag>
+  </div>
+  <ng-template #EmptySkill style="text-align: center;">
+    <h4 id="empty-skills">
+      Empty Skills
+    </h4>
+  </ng-template>
 </nz-card>

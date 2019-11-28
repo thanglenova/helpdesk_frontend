@@ -31,7 +31,7 @@ export class EditProfileComponent implements OnInit {
       this.profile.sex == null
     ) {
       this.getValidateForm.emit(false);
-      this.message.error("Please enter full information!!! Thank");
+      this.message.error("Please enter full information!!!");
     } else if (!this.isFileImage(this.fileToUpload)) {
       this.getValidateForm.emit(false);
     } else {
@@ -53,7 +53,7 @@ export class EditProfileComponent implements OnInit {
     this.fileToUpload = files.item(0);
     if (!this.isFileImage(this.fileToUpload)) {
       this.message.error(
-        "Please upload to photo Image file formats TIF, JPG, PNG, GIF!!! Thank"
+        "Please upload to photo Image file formats TIF, JPG, PNG, GIF!!!"
       );
     }
     this.onChange();
