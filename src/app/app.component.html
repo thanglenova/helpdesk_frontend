@@ -64,12 +64,9 @@
           </li>
         </ul>
       </li>
-      <li nz-submenu nzOpen nzTitle="Other" nzIcon="user">
-        <ul>
-          <li nz-menu-item nzMatchRouter (click)="logout()">
-            <a>Logout</a>
-          </li>
-        </ul>
+
+      <li nz-menu-item nzMatchRouter (click)="logout()">
+        <i nz-icon nzType="logout" nzTheme="outline"></i> Logout
       </li>
     </ul>
   </nz-sider>
