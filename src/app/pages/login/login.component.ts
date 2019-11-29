@@ -80,7 +80,6 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('currentUser',token);
           }
         );
-
       });
   }
 
