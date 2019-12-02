@@ -103,7 +103,7 @@ export class SkillComponent implements OnInit {
   showDeleteConfirm(currentData: Skill): void {
     this.modalService.confirm({
       nzTitle: "Are you sure delete this skill?",
-      nzContent: '<b style="color: red;">This action can be dangerous</b>',
+      nzContent: "<b style='color: red;'>This action can be dangerous</b>",
       nzOkText: "Yes",
       nzOkType: "danger",
       nzOnOk: () => {
