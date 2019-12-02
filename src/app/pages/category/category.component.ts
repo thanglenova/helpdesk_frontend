@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {Category} from 'src/app/shared/models/category';
-import {Router} from '@angular/router';
-import {CategoryService} from 'src/app/core/services/category.service';
-import {NzModalService} from 'ng-zorro-antd';
+import { Component, OnInit } from '@angular/core';
+import { Category } from 'src/app/shared/models/category';
+import { Router } from '@angular/router';
+import { CategoryService } from 'src/app/core/services/category.service';
+import { NzModalService } from 'ng-zorro-antd';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
@@ -11,21 +11,20 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
-
   data: Category[];
   isVisible = false;
   value: Category;
   edit: boolean;
   suffixIconButton: any;
   suffixTemplateInfo: any;
+  editCache: { [key: string]: { edit: boolean; data: Category } } = {};
 
   constructor(
     private route: Router,
     private categoryService: CategoryService,
     private modalService: NzModalService,
     private message: NzMessageService
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.getCategories();
@@ -41,7 +40,7 @@ export class CategoryComponent implements OnInit {
       return;
     }
     this.categoryService.addCategory(name).subscribe(data => {
-      this.categoryService.getCategories().subscribe(listCategories => this.data = listCategories);
+      this.getCategories();
     });
 
     this.isVisible = false;
@@ -52,7 +51,10 @@ export class CategoryComponent implements OnInit {
   }
 
   getCategories(): void {
-    this.categoryService.getCategories().subscribe(data => this.data = data);
+    this.categoryService.getCategories().subscribe(data => {
+      this.data = data;
+      this.updateEditCache();
+    });
   }
 
   showDeleteConfirm(currentData: Category): void {
@@ -71,23 +73,31 @@ export class CategoryComponent implements OnInit {
   }
 
   search(valueSearch: string): void {
-    this.categoryService.searchCategory(valueSearch).subscribe(data => this.data = [...data]);
-
+    this.categoryService
+      .searchCategory(valueSearch)
+      .subscribe(data => (this.data = [...data]));
   }
 
   startEdit(id: number): void {
-    this.edit = true;
+    this.editCache[id].edit = true;
   }
 
   cancelEdit(id: number): void {
-    const index = this.data.findIndex(c => c.id === id);
-    this.edit = false;
+    this.editCache[id].edit = false;
+    this.getCategories();
   }
-
 
   saveEdit(currentData: Category): void {
     this.categoryService.updateCategory(currentData).subscribe();
-    this.edit = false;
+    this.editCache[currentData.id].edit = false;
   }
 
+  updateEditCache(): void {
+    this.data.forEach(item => {
+      this.editCache[item.id] = {
+        edit: false,
+        data: { ...item }
+      };
+    });
+  }
 }
