@@ -76,7 +76,6 @@ export class WelcomeComponent implements OnInit {
   }
 
   handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.isVisible = false;
   }
 
@@ -95,6 +94,8 @@ export class WelcomeComponent implements OnInit {
 
   onSubmit() {
 
+    console.log("cocococ");
+    
     this.submitted = true;
     if (this.requestForm.invalid) {
       return;
@@ -105,13 +106,16 @@ export class WelcomeComponent implements OnInit {
       dayStartOff: new DatePipe('en-US').transform(valueForm.dayStartOff, 'yyyy-MM-ddTHH:mm:ss'),
       dayEndOff: new DatePipe('en-US').transform(valueForm.dayEndOff, 'yyyy-MM-ddTHH:mm:ss'),
     };
+    console.log('sdadadadasd');
     this.dayOffService.addDayOff(valueForm)
       .pipe(first())
       .subscribe(
         data => {
+          console.log(data);
           this.alertService.success('successful');
         },
         error => {
+          console.log(error);
           this.alertService.error('error');
         }
       );
