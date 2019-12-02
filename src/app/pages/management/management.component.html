@@ -1,5 +1,11 @@
 <nz-input-group [nzSuffix]="suffixIconSearch" class="group-search">
-  <input type="text" nz-input placeholder="input search text" id="input-search" [(ngModel)]="valueSearch" />
+  <input
+    type="text"
+    nz-input
+    placeholder="input search text"
+    id="input-search"
+    [(ngModel)]="valueSearch"
+  />
 </nz-input-group>
 <ng-template #suffixIconSearch>
   <i nz-icon nzType="search" id="btn-search" (click)="search()"></i>
@@ -13,7 +19,8 @@
         <i nz-icon nzType="user" nzTheme="outline"></i>
         Name
       </th>
-      <th nzWidth="300px" nzShowSort (nzSortChange)="sortEmail($event)"><i nz-icon nzType="mail" nzTheme="outline"></i>
+      <th nzWidth="300px" nzShowSort (nzSortChange)="sortEmail($event)">
+        <i nz-icon nzType="mail" nzTheme="outline"></i>
         Email
       </th>
       <th>Disable</th>
@@ -25,7 +32,7 @@
       <td>{{ data.firstName }} {{ data.lastName }}</td>
       <td>{{ data.email }}</td>
       <td>
-        <div *ngIf="!data.enable ; else disableUser">
+        <div *ngIf="!data.enable; else disableUser">
           <button nz-button nzType="default" (click)="onEnableUser(data)">
             <i nz-icon nzType="user-add" nzTheme="outline"></i>
             Enable
@@ -38,8 +45,9 @@
           </button>
         </ng-template>
       </td>
-      <td><button nz-button nzType="default" [routerLink]="['/profile', data.id]"><i nz-icon nzType="edit"
-            nzTheme="outline"></i>Edit
+      <td>
+        <button nz-button nzType="default" [routerLink]="['/profile', data.id]">
+          <i nz-icon nzType="edit" nzTheme="outline"></i>Edit
         </button>
       </td>
     </tr>
