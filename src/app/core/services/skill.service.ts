@@ -5,8 +5,6 @@ import {Observable, of} from 'rxjs';
 import {Skill} from 'src/app/shared/models/skill';
 import {catchError} from 'rxjs/operators';
 import {environment} from '../../../environments/environment';
-import {Category} from '../../shared/models/category';
-
 
 @Injectable({
   providedIn: 'root'
@@ -49,9 +47,7 @@ export class SkillService {
   }
 
   addSkill(skill: Skill): Observable<Skill> {
-    return this.http.post<Skill>(this.serverUrl, skill).pipe(
-      catchError(this.handleError<Skill>('addSkill'))
-    );
+    return this.http.post<Skill>(this.serverUrl, skill);
   }
 
   updateSkill(skill: Skill | number): Observable<Skill> {
