@@ -1,12 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { Profile } from "../../../../shared/models/profile";
-import { NzMessageService } from "ng-zorro-antd/message";
-import { EditProfileService } from "../../service/edit-profile/edit-profile.service";
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Profile } from '../../../../shared/models/profile';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { EditProfileService } from '../../service/edit-profile/edit-profile.service';
 
 @Component({
-  selector: "app-edit-profile",
-  templateUrl: "./edit-profile.component.html",
-  styleUrls: ["./edit-profile.component.scss"]
+  selector: 'app-edit-profile',
+  templateUrl: './edit-profile.component.html',
+  styleUrls: ['./edit-profile.component.scss']
 })
 export class EditProfileComponent implements OnInit {
   @Input() public profile: Profile;
@@ -26,12 +26,13 @@ export class EditProfileComponent implements OnInit {
       this.isStringvalidate(this.profile.firstName) ||
       this.isStringvalidate(this.profile.lastName) ||
       this.isStringvalidate(this.profile.address) ||
-      this.profile.startingDay == null ||
-      this.profile.birthday == null ||
-      this.profile.sex == null
+      !this.profile.startingDay ||
+      !this.profile.birthday ||
+      !this.profile.sex ||
+      !this.profile.age
     ) {
       this.getValidateForm.emit(false);
-      this.message.error("Please enter full information!!!");
+      this.message.error('Please enter full information!!!');
     } else if (!this.isFileImage(this.fileToUpload)) {
       this.getValidateForm.emit(false);
     } else {
@@ -43,7 +44,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   public isStringvalidate(data: string): boolean {
-    if (data == null || data === "") {
+    if (data == null || data === '') {
       return true;
     }
     return false;
@@ -53,7 +54,7 @@ export class EditProfileComponent implements OnInit {
     this.fileToUpload = files.item(0);
     if (!this.isFileImage(this.fileToUpload)) {
       this.message.error(
-        "Please upload to photo Image file formats TIF, JPG, PNG, GIF!!!"
+        'Please upload to photo Image file formats TIF, JPG, PNG, GIF!!!'
       );
     }
     this.onChange();
@@ -61,11 +62,11 @@ export class EditProfileComponent implements OnInit {
 
   public isFileImage(file) {
     const acceptedImageTypes = [
-      "image/gif",
-      "image/jpeg",
-      "image/png",
-      "image/jpg"
+      'image/gif',
+      'image/jpeg',
+      'image/png',
+      'image/jpg'
     ];
-    return file && acceptedImageTypes.includes(file["type"]);
+    return file && acceptedImageTypes.includes(file['type']);
   }
 }

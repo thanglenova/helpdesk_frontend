@@ -1,15 +1,15 @@
-import {Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {DayOff} from 'src/app/shared/models/day-off';
-import {AuthService} from 'src/app/core/services/auth.service';
-import {Router, ActivatedRoute} from '@angular/router';
-import {DayOffService} from 'src/app/core/services/day-off.service';
-import {TypeDayOffService} from 'src/app/core/services/type-day-off.service';
-import {TypeDay} from 'src/app/shared/models/type-day';
-import {first} from 'rxjs/operators';
-import {AlertService} from 'src/app/core/services/alert.service';
-import {DatePipe} from '@angular/common';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DayOff } from 'src/app/shared/models/day-off';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { DayOffService } from 'src/app/core/services/day-off.service';
+import { TypeDayOffService } from 'src/app/core/services/type-day-off.service';
+import { TypeDay } from 'src/app/shared/models/type-day';
+import { first } from 'rxjs/operators';
+import { AlertService } from 'src/app/core/services/alert.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-welcome',
@@ -17,7 +17,6 @@ import {DatePipe} from '@angular/common';
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent implements OnInit {
-
   isVisible = false;
 
   constructor(
@@ -26,8 +25,7 @@ export class WelcomeComponent implements OnInit {
     private dayOffService: DayOffService,
     private typeService: TypeDayOffService,
     private alertService: AlertService
-  ) {
-  }
+  ) {}
 
   get f() {
     return this.requestForm.controls;
@@ -48,10 +46,7 @@ export class WelcomeComponent implements OnInit {
   year: number;
   suffixIconButton: any;
 
-
-
   ngOnInit(): void {
-
     this.getDays();
     this.getAllTypes();
 
@@ -59,7 +54,7 @@ export class WelcomeComponent implements OnInit {
       dayEndOff: ['', [Validators.required]],
       dayOffType: [0, ''],
       dayStartOff: ['', [Validators.required]],
-      description: ['', [Validators.required]],
+      description: ['', [Validators.required]]
     });
   }
 
@@ -76,13 +71,12 @@ export class WelcomeComponent implements OnInit {
   }
 
   handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.isVisible = false;
   }
 
   getDays(): void {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.dayOffService.getDayOffs(id).subscribe(data => this.data = data);
+    this.dayOffService.getDayOffs(id).subscribe(data => (this.data = data));
   }
 
   getAllTypes(): void {
@@ -94,7 +88,6 @@ export class WelcomeComponent implements OnInit {
   }
 
   onSubmit() {
-
     this.submitted = true;
     if (this.requestForm.invalid) {
       return;
@@ -102,10 +95,17 @@ export class WelcomeComponent implements OnInit {
     let valueForm = this.requestForm.value;
     valueForm = {
       ...valueForm,
-      dayStartOff: new DatePipe('en-US').transform(valueForm.dayStartOff, 'yyyy-MM-ddTHH:mm:ss'),
-      dayEndOff: new DatePipe('en-US').transform(valueForm.dayEndOff, 'yyyy-MM-ddTHH:mm:ss'),
+      dayStartOff: new DatePipe('en-US').transform(
+        valueForm.dayStartOff,
+        'yyyy-MM-ddTHH:mm:ss'
+      ),
+      dayEndOff: new DatePipe('en-US').transform(
+        valueForm.dayEndOff,
+        'yyyy-MM-ddTHH:mm:ss'
+      )
     };
-    this.dayOffService.addDayOff(valueForm)
+    this.dayOffService
+      .addDayOff(valueForm)
       .pipe(first())
       .subscribe(
         data => {
@@ -121,15 +121,15 @@ export class WelcomeComponent implements OnInit {
   getByYear(year: number): void {
     const id = +this.route.snapshot.paramMap.get('id');
     if (!year) {
-      this.dayOffService.getDayOffs(id).subscribe(data => this.data = data);
+      this.dayOffService.getDayOffs(id).subscribe(data => (this.data = data));
     } else {
-      this.dayOffService.getDayOffsByYear(year).subscribe(data => this.data = [...data]);
+      this.dayOffService
+        .getDayOffsByYear(year)
+        .subscribe(data => (this.data = [...data]));
     }
   }
 
-  onChange(result: Date): void {
-  }
+  onChange(result: Date): void {}
 
-  onOk(result: Date): void {
-  }
+  onOk(result: Date): void {}
 }
