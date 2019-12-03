@@ -1,13 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {SkillService} from 'src/app/core/services/skill.service';
-import {Router} from '@angular/router';
-import {Skill} from 'src/app/shared/models/skill';
-import {Category} from '../../shared/models/category';
-import {CategoryService} from '../../core/services/category.service';
-import {NzMessageService, NzModalService} from 'ng-zorro-antd';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {first} from 'rxjs/operators';
-import {AlertService} from '../../core/services/alert.service';
+import { Component, OnInit } from '@angular/core';
+import { SkillService } from 'src/app/core/services/skill.service';
+import { Router } from '@angular/router';
+import { Skill } from 'src/app/shared/models/skill';
+import { Category } from '../../shared/models/category';
+import { CategoryService } from '../../core/services/category.service';
+import { NzMessageService, NzModalService } from 'ng-zorro-antd';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertService } from '../../core/services/alert.service';
 
 @Component({
   selector: 'app-skill',
@@ -15,16 +14,13 @@ import {AlertService} from '../../core/services/alert.service';
   styleUrls: ['./skill.component.scss']
 })
 export class SkillComponent implements OnInit {
-
   data: Skill[];
   isVisible = false;
   cateValues: Category[];
   isLoading = false;
   edit: boolean;
   id: number;
-
   skills: Skill[];
-
   skillForm: FormGroup;
   skillEditForm: FormGroup;
   submitted = false;
@@ -41,21 +37,19 @@ export class SkillComponent implements OnInit {
     private modalService: NzModalService,
     private formBuilder: FormBuilder,
     private message: NzMessageService
-  ) {
-  }
+  ) {}
 
   get f() {
     return this.skillForm.controls;
   }
-
 
   ngOnInit() {
     this.getSkills();
     this.getCategory();
 
     this.skillForm = this.formBuilder.group({
-      name: [Skill, [Validators.required]],
-      categories: [Category, [Validators.required]]
+      name: [null, [Validators.required]],
+      categories: [null, [Validators.required]]
     });
 
     this.skillEditForm = this.formBuilder.group({
@@ -70,30 +64,42 @@ export class SkillComponent implements OnInit {
   }
 
   getSkills(): void {
-    this.skillService.getSkills().subscribe(data => this.data = data);
+    this.skillService.getSkills().subscribe(data => (this.data = data));
   }
 
   getCategory(): void {
-    this.cateService.getCategories().subscribe(cateValues => this.cateValues = cateValues);
+    this.cateService
+      .getCategories()
+      .subscribe(cateValues => (this.cateValues = cateValues));
   }
 
   onSubmit() {
     this.submitted = true;
-    if (this.skillForm.invalid) {
-      this.message.warning('Please fill this form');
-      return;
-    }
-    this.skillService.addSkill(this.skillForm.value)
-      .pipe(first())
-      .subscribe(
+    if (this.isPassValidateFormAddNewSkill()) {
+      this.skillService.addSkill(this.skillForm.value).subscribe(
         data => {
-          this.alertService.success('successful');
+          this.message.success('Create new skill success!');
+          this.skillForm.reset();
+          this.getSkills();
+          this.isVisible = false;
         },
         error => {
           this.alertService.error('error');
         }
       );
-    this.isVisible = false;
+    }
+  }
+
+  isPassValidateFormAddNewSkill() {
+    for (const i in this.skillForm.controls) {
+      this.skillForm.controls[i].markAsDirty();
+      this.skillForm.controls[i].updateValueAndValidity();
+    }
+    if (!this.skillForm.valid) {
+      this.message.warning('Please enter full the infomation!');
+      return false;
+    }
+    return true;
   }
 
   handleCancel(): void {
@@ -102,10 +108,10 @@ export class SkillComponent implements OnInit {
 
   showDeleteConfirm(currentData: Skill): void {
     this.modalService.confirm({
-      nzTitle: 'Are you sure delete this skill?',
-      nzContent: '<b style="color: red;">This action can be dangerous</b>',
-      nzOkText: 'Yes',
-      nzOkType: 'danger',
+      nzTitle: "Are you sure delete this skill?",
+      nzContent: "<b style='color: red;'>This action can be dangerous</b>",
+      nzOkText: "Yes",
+      nzOkType: "danger",
       nzOnOk: () => {
         this.data = this.data.filter(c => c !== currentData);
         this.skillService.deleteSkill(currentData).subscribe();
@@ -130,9 +136,11 @@ export class SkillComponent implements OnInit {
 
   search(value: number): void {
     if (!value) {
-      this.skillService.getSkills().subscribe(data => this.data = data);
+      this.skillService.getSkills().subscribe(data => (this.data = data));
     } else {
-      this.skillService.searchSkill(value).subscribe(data => this.data = [...data]);
+      this.skillService
+        .searchSkill(value)
+        .subscribe(data => (this.data = [...data]));
     }
   }
 }
