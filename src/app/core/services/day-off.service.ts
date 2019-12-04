@@ -4,7 +4,6 @@ import { AlertService } from './alert.service';
 import { DayOff } from 'src/app/shared/models/day-off';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { User } from 'src/app/shared/models/user';
 import { TypeDay } from 'src/app/shared/models/type-day';
 import { environment } from '../../../environments/environment';
 
@@ -34,12 +33,9 @@ export class DayOffService {
     );
   }
 
-
   /** POST: add a new request day off */
   addDayOff(dayOff: TypeDay) {
-    return this.http.post(this.serverUrl, dayOff).pipe(
-      catchError(this.handleError<TypeDay>('addDayOff'))
-    );
+    return this.http.post(this.serverUrl, dayOff);
   }
 
   getDayOffsByYear(year: number) {
