@@ -13,11 +13,10 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { TimeAgoPipe } from 'time-ago-pipe';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
-  declarations: [RequestUserComponent,
-    TimeAgoPipe
-  ],
+  declarations: [RequestUserComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -32,6 +31,8 @@ import { TimeAgoPipe } from 'time-ago-pipe';
     NzMessageModule,
     TableModule,
     ButtonModule,
-  ]
+    SharedModule
+  ],
+  exports:[TimeAgoPipe]
 })
 export class RequestUserModule { }

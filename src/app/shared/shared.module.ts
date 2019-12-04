@@ -5,9 +5,11 @@ import { AppMaterialModule } from './material.module';
 import { NzFormModule } from 'ng-zorro-antd';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 @NgModule({
-  declarations: [],
+  declarations: 
+  [TimeAgoPipe],
   imports: [
     CommonModule,
     FormsModule,
@@ -20,7 +22,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     ReactiveFormsModule,
     AppMaterialModule,
     NzBadgeModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    TimeAgoPipe
   ]
 })
 export class SharedModule { }

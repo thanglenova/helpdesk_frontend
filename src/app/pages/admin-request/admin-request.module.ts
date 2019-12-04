@@ -3,16 +3,15 @@ import { AdminRequestComponent } from './admin-request.component';
 import { AdminRequestRoutingModule } from './admin-request-routing.module';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { TimeAgoPipe } from 'time-ago-pipe';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { PaginatorModule } from 'primeng/paginator';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 @NgModule({
   declarations: [
-    AdminRequestComponent,
-    TimeAgoPipe
+    AdminRequestComponent
   ],
   imports: [
     CommonModule,
@@ -23,6 +22,6 @@ import { PaginatorModule } from 'primeng/paginator';
     ButtonModule,
     AdminRequestRoutingModule
   ],
-  exports: [AdminRequestComponent]
+  exports: [AdminRequestComponent, TimeAgoPipe]
 })
 export class AdminRequestModule { }
