@@ -53,25 +53,24 @@
                   nz-input
                   placeholder="Create New Skill Name"
                   style="width: 470px;"
-                  formControlName="name" 
+                  formControlName="name"
                 />
               </nz-input-group>
             </nz-form-control>
           </nz-form-item>
-          <br /><br />
           <nz-form-item>
             <nz-form-control nzErrorTip="Please input categories!">
               <nz-select
                 formControlName="categories"
                 nzPlaceHolder="Select Category Of New Skill"
                 nzAllowClear
-                formControlName="categories" 
+                formControlName="categories"
               >
                 <nz-option
                   *ngFor="let value of cateValues"
                   [nzValue]="value"
                   [nzLabel]="value.name"
-                ></nz-option>   
+                ></nz-option>
                 <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
                   <i nz-icon nzType="loading" class="loading-icon"></i> Loading
                   Data...
