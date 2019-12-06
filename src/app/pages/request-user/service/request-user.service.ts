@@ -21,7 +21,7 @@ export class RequestUserService {
   }
 
   getRequestOfMe():Observable<Request>{
-    const api = `${environment.apiUrl}/requests/getRequestOfMe`;
+    const api = `${environment.apiUrl}/requests/me`;
     return this.http.get<Request>(api);
   }
 }
