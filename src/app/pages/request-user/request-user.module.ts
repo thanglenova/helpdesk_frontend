@@ -10,6 +10,10 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { TimeAgoPipe } from 'time-ago-pipe';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [RequestUserComponent],
@@ -24,7 +28,11 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
     NzInputModule,
     NzDatePickerModule,
     NzButtonModule,
-    NzMessageModule
-  ]
+    NzMessageModule,
+    TableModule,
+    ButtonModule,
+    SharedModule
+  ],
+  exports:[TimeAgoPipe]
 })
 export class RequestUserModule { }

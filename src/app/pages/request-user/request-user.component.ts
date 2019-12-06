@@ -15,6 +15,7 @@ export class RequestUserComponent implements OnInit {
   public description: string;
   public selectedDate;
   public validateScope;
+  public requestsOfMe : Request[];
   footerRender: any;
   constructor(
     public requestUserService: RequestUserService,
@@ -25,6 +26,7 @@ export class RequestUserComponent implements OnInit {
   ngOnInit() {
     this.loadListRequestType();
     this.initValidateScope();
+    this.getRequestOfMe();
   }
 
   initValidateScope() {
@@ -110,5 +112,9 @@ export class RequestUserComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  getRequestOfMe(){
+    this.requestUserService.getRequestOfMe().subscribe((_:any) => this.requestsOfMe = _);
   }
 }
