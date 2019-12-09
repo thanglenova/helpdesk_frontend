@@ -1,26 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
-import { DayOff } from 'src/app/shared/models/day-off';
-import { TypeDay } from 'src/app/shared/models/type-day';
-import { DayoffService } from 'src/app/core/services/dayoff.service';
-import { UserService } from 'src/app/core/services/user.service';
-import { User } from 'src/app/shared/models/user';
-import {Status} from 'src/app/shared/enum/status';
-import { Router } from '@angular/router';
-import { Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { from } from 'rxjs';
+import { DayOff } from "src/app/shared/models/day-off";
+import { TypeDay } from "src/app/shared/models/type-day";
+import { DayoffService } from "src/app/core/services/dayoff.service";
+import { UserService } from "src/app/core/services/user.service";
+import { User } from "src/app/shared/models/user";
+import { Status } from "src/app/shared/enum/status";
+import { Router } from "@angular/router";
+import { Inject } from "@angular/core";
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA
+} from "@angular/material/dialog";
+import { from } from "rxjs";
 
 @Component({
-  selector: 'app-dayoff',
-  templateUrl: './dayoff.component.html',
-  styleUrls: ['./dayoff.component.scss']
+  selector: "app-dayoff",
+  templateUrl: "./dayoff.component.html",
+  styleUrls: ["./dayoff.component.scss"]
 })
 export class DayoffComponent implements OnInit {
-
-  optionList = [{ label: '2019', value: '2019' }, { label: '2020', value: '2020' }];
-  selectedValue = { label: '2019', value: '2019' };
-  compareFn = (o1: any, o2: any) => (o1 && o2 ? o1.value === o2.value : o1 === o2);
+  optionList = [
+    { label: "2019", value: "2019" },
+    { label: "2020", value: "2020" }
+  ];
+  selectedValue = { label: "2019", value: "2019" };
+  compareFn = (o1: any, o2: any) =>
+    o1 && o2 ? o1.value === o2.value : o1 === o2;
 
   data: DayOff[];
   dayoff: DayOff;
@@ -33,7 +40,7 @@ export class DayoffComponent implements OnInit {
   constructor(
     private dayOffService: DayoffService,
     private userService: UserService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.getUsers();
@@ -44,12 +51,18 @@ export class DayoffComponent implements OnInit {
   }
 
   getUsers(): void {
-    this.userService.getUsers().subscribe(users => this.users = users);
+    this.userService.getUsers().subscribe(users => (this.users = users));
   }
 
   getDayOffByUser(id: number) {
     this.data = [];
-    this.dayOffService.getDayOffByUser(id, this.year).subscribe(data => this.data = data);
+    this.dayOffService
+      .getDayOffByUser(id, this.year)
+      .subscribe(data => {
+        this.data = data;
+        this.getUsers();
+
+      });
   }
 
   delete(dayoff: DayOff): void {
@@ -61,15 +74,17 @@ export class DayoffComponent implements OnInit {
   showModalDayOff(data: DayOff): void {
     this.isVisibleDayOff = true;
     const id = +data.id;
-    this.dayOffService.getDayOff(id).subscribe(data => this.dayoff = data);
+    this.dayOffService.getDayOff(id).subscribe(data => (this.dayoff = data));
   }
 
   temp: DayOff;
 
   acceptDayOff(id: number): void {
     this.isVisibleDayOff = false;
-    this.dayOffService.getDayOff(id).subscribe(data => this.dayoff = data);
-    this.dayOffService.acceptDayOff(this.dayoff).subscribe(dayoff => this.dayoff = dayoff);
+    this.dayOffService.getDayOff(id).subscribe(data => (this.dayoff = data));
+    this.dayOffService
+      .acceptDayOff(this.dayoff)
+      .subscribe(dayoff => (this.dayoff = dayoff));
   }
   handleCancelDayOff(): void {
     this.isVisibleDayOff = false;
@@ -80,13 +95,15 @@ export class DayoffComponent implements OnInit {
   reject(data: DayOff): void {
     this.isVisibleDayOff1 = true;
     const id = +data.id;
-    this.dayOffService.getDayOff(id).subscribe(data => this.dayoff = data);
+    this.dayOffService.getDayOff(id).subscribe(data => (this.dayoff = data));
   }
 
   rejectedDayOff(id: number): void {
     this.isVisibleDayOff1 = false;
-    this.dayOffService.getDayOff(id).subscribe(data => this.dayoff = data);
-    this.dayOffService.rejectDayOff(this.dayoff).subscribe(dayoff => this.dayoff = dayoff);
+    this.dayOffService.getDayOff(id).subscribe(data => (this.dayoff = data));
+    this.dayOffService
+      .rejectDayOff(this.dayoff)
+      .subscribe(dayoff => (this.dayoff = dayoff));
   }
   handleCancelDayOff1(): void {
     this.isVisibleDayOff1 = false;
