@@ -7,9 +7,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DayOffService } from 'src/app/core/services/day-off.service';
 import { TypeDayOffService } from 'src/app/core/services/type-day-off.service';
 import { TypeDay } from 'src/app/shared/models/type-day';
-import { first } from 'rxjs/operators';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { DatePipe } from '@angular/common';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-welcome',
@@ -24,7 +25,8 @@ export class WelcomeComponent implements OnInit {
     private route: ActivatedRoute,
     private dayOffService: DayOffService,
     private typeService: TypeDayOffService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private message: NzMessageService
   ) {}
 
   get f() {
@@ -52,7 +54,7 @@ export class WelcomeComponent implements OnInit {
 
     this.requestForm = this.formBuilder.group({
       dayEndOff: ['', [Validators.required]],
-      dayOffType: [0, ''],
+      dayOffType: ['', [Validators.required]],
       dayStartOff: ['', [Validators.required]],
       description: ['', [Validators.required]]
     });
@@ -89,10 +91,41 @@ export class WelcomeComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    if (this.requestForm.invalid) {
+    if (this.isPassValidateForm()) {
+      let valueForm = this.getFormatDateTimeForValueForm(
+        this.requestForm.value
+      );
+      this.dayOffService
+        .addDayOff(valueForm)
+        .pipe(first())
+        .subscribe(
+          data => {
+            this.message.success('Create new day off successful');
+            this.getDays();
+            this.resetForm(this.requestForm);
+          },
+          error => {
+            this.message.error(`[ERROR] ${error.error.message}`);
+          }
+        );
+      this.isVisible = false;
       return;
     }
-    let valueForm = this.requestForm.value;
+    this.message.warning('Please enter full the infomation!');
+  }
+
+  isPassValidateForm(): boolean {
+    for (const i in this.requestForm.controls) {
+      this.requestForm.controls[i].markAsDirty();
+      this.requestForm.controls[i].updateValueAndValidity();
+    }
+    if (this.requestForm.invalid) {
+      return false;
+    }
+    return true;
+  }
+
+  getFormatDateTimeForValueForm(valueForm: any) {
     valueForm = {
       ...valueForm,
       dayStartOff: new DatePipe('en-US').transform(
@@ -104,18 +137,7 @@ export class WelcomeComponent implements OnInit {
         'yyyy-MM-ddTHH:mm:ss'
       )
     };
-    this.dayOffService
-      .addDayOff(valueForm)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.alertService.success('successful');
-        },
-        error => {
-          this.alertService.error('error');
-        }
-      );
-    this.isVisible = false;
+    return valueForm;
   }
 
   getByYear(year: number): void {
@@ -127,6 +149,10 @@ export class WelcomeComponent implements OnInit {
         .getDayOffsByYear(year)
         .subscribe(data => (this.data = [...data]));
     }
+  }
+
+  resetForm(form : FormGroup){
+    form.reset();
   }
 
   onChange(result: Date): void {}
