@@ -4,6 +4,7 @@ import { TypeDay } from 'src/app/shared/models/type-day';
 import { DayoffService } from 'src/app/core/services/dayoff.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { Status } from 'src/app/shared/enum/status';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-dayoff',
@@ -27,7 +28,8 @@ export class DayoffComponent implements OnInit {
 
   constructor(
     private dayOffService: DayoffService,
-    private userService: UserService
+    private userService: UserService,
+    private message: NzMessageService
   ) {}
 
   ngOnInit() {
@@ -86,25 +88,39 @@ export class DayoffComponent implements OnInit {
   }
 
   getDayOffByIdUser(id: number) {
-    this.data = [];
-    this.idUserActiveCurrent = id;
-    this.resetPanelUser(id);
-    this.dayOffService.getDayOffByUser(id, this.year).subscribe(data => {
-      this.data = data;
-    });
+    //=> purpose if command is avoid event click of nz-collapse-panel for table data dayoff
+    if (id != this.idUserActiveCurrent) {
+      this.message.loading('Data loading...');
+      this.data = [];
+      this.idUserActiveCurrent = id;
+      this.resetPanelUser(id);
+      this.dayOffService.getDayOffByUser(id, this.year).subscribe(data => {
+        this.data = data;
+      });
+    }
   }
 
   acceptDayOff(data: DayOff): void {
     const id = +data.id;
     this.dayOffService.acceptDayOff(id).subscribe(dayoff => {
-      this.getDayOffByIdUser(data.userEntity.id);
+      this.setStatusDayOffFollowIdStatus(id, Status.approved);
     });
   }
 
   rejectDayOff(data: DayOff): void {
     const id = +data.id;
     this.dayOffService.rejectDayOff(id).subscribe(dayoff => {
-      this.getDayOffByIdUser(data.userEntity.id);
+      this.setStatusDayOffFollowIdStatus(id, Status.rejected);
+    });
+  }
+
+  setStatusDayOffFollowIdStatus(id: number, nameStatus: string) {
+    this.data.forEach(element => {
+      if (element.id == id) {
+        element.status.name = nameStatus;
+        this.checkStatus(element.status.name.toString());
+      }
+      return;
     });
   }
 
