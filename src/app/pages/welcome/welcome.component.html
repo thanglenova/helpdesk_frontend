@@ -88,7 +88,12 @@
           [nzSpan]="15"
           nzErrorTip="Please input day off's comment!"
         >
-          <input style="width: 100%;" nz-input formControlName="description" />
+          <textarea
+            rows="4"
+            style="width: 100%;"
+            nz-input
+            formControlName="description"
+          ></textarea>
         </nz-form-control>
       </nz-form-item>
     </form>
