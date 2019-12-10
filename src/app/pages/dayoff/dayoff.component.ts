@@ -25,6 +25,7 @@ export class DayoffComponent implements OnInit {
   selectedValue = null;
   optionList = [];
   idUserActiveCurrent: number;
+  isChangeYearDayOff : boolean = false;
 
   constructor(
     private dayOffService: DayoffService,
@@ -39,6 +40,7 @@ export class DayoffComponent implements OnInit {
 
   changeYearDayOff(event) {
     this.year = event.value;
+    this.isChangeYearDayOff = true;
     this.getDayOffByIdUser(this.idUserActiveCurrent);
   }
 
@@ -89,13 +91,14 @@ export class DayoffComponent implements OnInit {
 
   getDayOffByIdUser(id: number) {
     //=> purpose if command is avoid event click of nz-collapse-panel for table data dayoff
-    if (id != this.idUserActiveCurrent) {
+    if (id != this.idUserActiveCurrent || this.isChangeYearDayOff == true) {
       this.message.loading('Data loading...');
       this.data = [];
       this.idUserActiveCurrent = id;
       this.resetPanelUser(id);
       this.dayOffService.getDayOffByUser(id, this.year).subscribe(data => {
         this.data = data;
+        this.isChangeYearDayOff = false;
       });
     }
   }
