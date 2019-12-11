@@ -1,17 +1,5 @@
 <div class="title-skills" nz-row>
   <h1 nz-col nzSpan="21"><strong>Edit skills</strong></h1>
-  <button
-    id="btn-show-edit-skill"
-    nz-tooltip
-    nzTooltipTitle="Save skills"
-    nz-col
-    nzSpan="3"
-    nz-button
-    nzType="primary"
-    (click)="onSaveSkills()"
-  >
-    <i nz-icon nzType="save" nzTheme="outline"></i>
-  </button>
 </div>
 
 <nz-card class="list-skills" nz-row>
@@ -78,7 +66,7 @@
         (click)="onClickUpSkills(template)"
         [disabled]="!validateForm"
       >
-        Up skills
+        Add
       </button>
     </nz-form-control>
   </div>
