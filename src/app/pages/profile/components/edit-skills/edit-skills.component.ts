@@ -1,19 +1,19 @@
-import { Component, OnInit, TemplateRef, OnDestroy } from "@angular/core";
-import { Skill } from "src/app/shared/models/skill";
-import { ShowSkillsService } from "../../service/show-skills/show-skills.service";
-import { Category } from "src/app/shared/models/category";
-import { EditSkillsService } from "../../service/edit-skills/edit-skills.service";
-import { ShowProfileService } from "../../service/show-profile/show-profile.service";
-import { EditProfileService } from "../../service/edit-profile/edit-profile.service";
-import { NzModalService } from "ng-zorro-antd/modal";
-import { CommonService } from "../../service/common/common.service";
-import { NzNotificationService } from "ng-zorro-antd/notification";
-import { NzMessageService } from "ng-zorro-antd/message";
+import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
+import { Skill } from 'src/app/shared/models/skill';
+import { ShowSkillsService } from '../../service/show-skills/show-skills.service';
+import { Category } from 'src/app/shared/models/category';
+import { EditSkillsService } from '../../service/edit-skills/edit-skills.service';
+import { ShowProfileService } from '../../service/show-profile/show-profile.service';
+import { EditProfileService } from '../../service/edit-profile/edit-profile.service';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { CommonService } from '../../service/common/common.service';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
-  selector: "app-edit-skills",
-  templateUrl: "./edit-skills.component.html",
-  styleUrls: ["./edit-skills.component.scss"]
+  selector: 'app-edit-skills',
+  templateUrl: './edit-skills.component.html',
+  styleUrls: ['./edit-skills.component.scss']
 })
 export class EditSkillsComponent implements OnInit {
   public listOfTagOptions: Skill[];
@@ -49,7 +49,7 @@ export class EditSkillsComponent implements OnInit {
         this.categories = data;
       },
       error => {
-        this.message.error("[ERROR] load list categories of skill");
+        this.message.error('[ERROR] load list categories of skill');
       }
     );
   }
@@ -57,10 +57,12 @@ export class EditSkillsComponent implements OnInit {
   public loadSkills() {
     this.showSkillService.getSkillFollowIdUser(this.idUrl).subscribe(
       data => {
-        this.skills = data;
+        this.skills = data.sort(function(a, b) {
+          return a.id - b.id;
+        });
       },
       error => {
-        this.message.error("[ERORR] load list skill");
+        this.message.error('[ERORR] load list skill');
       }
     );
   }
@@ -71,7 +73,7 @@ export class EditSkillsComponent implements OnInit {
         this.skillFollowCategories = data;
       },
       error => {
-        this.message.error("[ERROR] load skills follow categories");
+        this.message.error('[ERROR] load skills follow categories');
       }
     );
   }
@@ -88,67 +90,38 @@ export class EditSkillsComponent implements OnInit {
           this.listSkillFollowCategories = data;
         },
         error => {
-          this.message.error("[ERROR] change categories");
+          this.message.error('[ERROR] change categories');
         }
       );
   }
 
   public onClickUpSkills(template: TemplateRef<{}>) {
+    let newSkills: Skill[] = [];
     for (let i = 0; i < this.listOfTagOptions.length; i++) {
-      if (this.listOfTagOptions[i].id != null) {
-        this.skills.push(this.listOfTagOptions[i]);
+      let nameSkill =
+        typeof this.listOfTagOptions[i] != 'object'
+          ? this.listOfTagOptions[i] + ''
+          : this.listOfTagOptions[i].name;
+      if (nameSkill.length > 70) {
+        this.notifitionText = 'data lager';
+        this.notification.template(template);
       } else {
-        let nameSkill = this.listOfTagOptions[i] + "";
-
-        if (nameSkill.length > 70) {
-          this.notifitionText = "data lager";
-          this.notification.template(template);
-        } else {
-          if (!this.skillIsExistFollowName(nameSkill)) {
-            if (this.selectedCategory == null) {
-              if (this.selectedCategory == null) {
-              }
-            }
-            this.skills.push(
-              new Skill({
-                id: 0,
-                name: nameSkill,
-                categories: this.selectedCategory
-              })
-            );
-          }
+        if (!this.skillIsExistFollowName(nameSkill)) {
+          newSkills.push({
+            id: 0,
+            name: nameSkill,
+            categories: this.selectedCategory
+          });
         }
       }
     }
+    if (newSkills.length >= 1) {
+      this.onSaveSkills(newSkills);
+      this.listOfTagOptions = null;
+      this.validateForm = false;
+    }
   }
 
-  public onSaveSkills() {
-    const modal = this.modalService.success({
-      nzTitle: "Skills saving",
-      nzContent: "Waiting................"
-    });
-    setTimeout(() => modal.destroy(), 2000);
-    this.showProfileService.getProfileFollowId(this.idUrl).subscribe(
-      data => {
-        data.skills = this.skills;
-        this.editProfileService.editProfile(data).subscribe(
-          data => {
-            const modal = this.modalService.success({
-              nzTitle: "SUSCESS",
-              nzContent: "Save skills is suscess"
-            });
-            setTimeout(() => modal.destroy(), 1000);
-          },
-          error => {
-            this.message.error("[ERROR] Edit profile");
-          }
-        );
-      },
-      error => {
-        this.message.error("[ERROR] Save skill for user");
-      }
-    );
-  }
   public skillIsExistFollowName(nameSkill: string): boolean {
     for (let i = 0; i < this.skills.length; ++i) {
       if (this.skills[i].name.toLowerCase() == nameSkill.toLowerCase()) {
@@ -157,9 +130,45 @@ export class EditSkillsComponent implements OnInit {
     }
     return false;
   }
+
+  public onSaveSkills(newSkills: Skill[]) {
+    this.showProfileService.getProfileFollowId(this.idUrl).subscribe(
+      data => {
+        data.skills = [...this.skills, ...newSkills];
+        this.editProfileService.editProfile(data).subscribe(
+          data => {
+            this.loadSkills();
+          },
+          error => {
+            this.message.error('[ERROR] Edit profile');
+          }
+        );
+      },
+      error => {
+        this.message.error('[ERROR] Save skill for user');
+      }
+    );
+  }
+
   public onCloseTagSkill(skill: Skill) {
     let indexDelete = this.getIndexSkillsFollowName(skill.name);
-    this.skills.splice(indexDelete, indexDelete + 1);
+    this.skills.splice(indexDelete, 1);
+
+    // save skill
+    this.showProfileService.getProfileFollowId(this.idUrl).subscribe(
+      data => {
+        data.skills = this.skills;
+        this.editProfileService.editProfile(data).subscribe(
+          data => {},
+          error => {
+            this.message.error('[ERROR] Edit profile');
+          }
+        );
+      },
+      error => {
+        this.message.error('[ERROR] Save skill for user');
+      }
+    );
   }
 
   public getIndexSkillsFollowName(name: String): number {
@@ -180,7 +189,7 @@ export class EditSkillsComponent implements OnInit {
       if (this.isMaxValue(value[value.length - 1], 70)) {
         this.validateForm = false;
         this.message.error(
-          "The skill is less than 70 characters long!!! Thank"
+          'The skill is less than 70 characters long!!! Thank'
         );
       } else {
         this.validateForm = true;
@@ -196,5 +205,4 @@ export class EditSkillsComponent implements OnInit {
     }
     return false;
   }
-
 }
