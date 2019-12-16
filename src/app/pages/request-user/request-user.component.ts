@@ -64,6 +64,9 @@ export class RequestUserComponent implements OnInit {
         this.requestUserService.postRequest(request).subscribe(
           data => {
             this.message.success("send request success");
+            this.selectedDate = "";
+            this.description = "";
+            this.selectedRequestType = null;
           },
           error => {
             this.message.error("Send request error");
