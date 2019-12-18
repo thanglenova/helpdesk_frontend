@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ShowUserService } from './service/show-user/show-user.service';
-import { Profile } from '../../shared/models/profile'
+import { Profile } from '../../shared/models/profile';
 import { EditUserService } from './service/edit-user/edit-user.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
@@ -10,18 +10,27 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   styleUrls: ['./management.component.scss']
 })
 export class ManagementComponent implements OnInit {
-
   public users: Profile[];
   public valueSearch: string;
   public allUser: Profile[];
   public sortEmailCurrent: string;
 
-  constructor(public showUserService: ShowUserService,
+  constructor(
+    public showUserService: ShowUserService,
     public editUserService: EditUserService,
-    public message: NzMessageService) { }
+    public message: NzMessageService
+  ) {}
 
   public ngOnInit() {
     this.loadListUser();
+  }
+
+  public checkNameSkillIsExistInLocalStorage() {
+    if (localStorage.getItem('skill')) {
+      this.valueSearch = localStorage.getItem('skill');
+      localStorage.removeItem('skill');
+      this.search();
+    }
   }
 
   public loadListUser() {
@@ -29,31 +38,34 @@ export class ManagementComponent implements OnInit {
       data => {
         this.allUser = data;
         this.users = [...this.allUser];
+        this.checkNameSkillIsExistInLocalStorage();
       },
       error => {
-        this.message.error("[ERROR] load list user");
+        this.message.error('[ERROR] load list user');
       }
-    )
+    );
   }
 
   public onDisableUser(user: Profile) {
     this.editUserService.disableFollowIdUser(user.id).subscribe(
       data => {
         this.reverseStatusOfUser(user);
-      }, error => {
-        this.message.error("[ERROR] on disable user");
+      },
+      error => {
+        this.message.error('[ERROR] on disable user');
       }
-    )
+    );
   }
 
   public onEnableUser(user: Profile) {
     this.editUserService.enableFollowIdUser(user.id).subscribe(
       data => {
         this.reverseStatusOfUser(user);
-      }, error => {
-        this.message.error("[ERROR] On enable user");
+      },
+      error => {
+        this.message.error('[ERROR] On enable user');
       }
-    )
+    );
   }
 
   public reverseStatusOfUser(user: Profile) {
@@ -67,20 +79,20 @@ export class ManagementComponent implements OnInit {
 
   public sortName(event) {
     this.users = [...this.users];
-    if (event == "ascend") {
-      this.users.sort(function (a, b) {
+    if (event == 'ascend') {
+      this.users.sort(function(a, b) {
         var nameA = a.lastName.toUpperCase();
         var nameB = b.lastName.toUpperCase();
         return nameA.localeCompare(nameB);
       });
-    } else if (event == "descend") {
-      this.users.sort(function (a, b) {
+    } else if (event == 'descend') {
+      this.users.sort(function(a, b) {
         var nameA = a.lastName.toUpperCase();
         var nameB = b.lastName.toUpperCase();
         return nameB.localeCompare(nameA);
       });
     } else {
-      this.users.sort(function (a, b) {
+      this.users.sort(function(a, b) {
         if (a.id === b.id) {
           return 0;
         }
@@ -92,20 +104,20 @@ export class ManagementComponent implements OnInit {
 
   public sortEmail(event) {
     this.users = [...this.users];
-    if (event === "ascend") {
-      this.users.sort(function (a, b) {
+    if (event === 'ascend') {
+      this.users.sort(function(a, b) {
         var nameA = a.email.toUpperCase();
         var nameB = b.email.toUpperCase();
         return nameA.localeCompare(nameB);
       });
-    } else if (event === "descend") {
-      this.users.sort(function (a, b) {
+    } else if (event === 'descend') {
+      this.users.sort(function(a, b) {
         var nameA = a.email.toUpperCase();
         var nameB = b.email.toUpperCase();
         return nameB.localeCompare(nameA);
       });
     } else {
-      this.users.sort(function (a, b) {
+      this.users.sort(function(a, b) {
         if (a.id === b.id) {
           return 0;
         }
@@ -118,17 +130,30 @@ export class ManagementComponent implements OnInit {
   public search() {
     let litsUserSearch: Profile[];
     this.users = this.allUser.filter(user => {
-      if (user.email.includes(this.valueSearch)
-        || user.firstName.includes(this.valueSearch)
-        || user.lastName.includes(this.valueSearch)) {
+      if (
+        user.email.includes(this.valueSearch) ||
+        user.firstName.includes(this.valueSearch) ||
+        user.lastName.includes(this.valueSearch) ||
+        this.checkSkillIsExistInUsers(user, this.valueSearch)
+      ) {
         return user;
       }
     });
     this.sortEmail(this.sortEmailCurrent);
   }
 
+  public checkSkillIsExistInUsers(user: Profile, nameSkill: string): boolean {
+    let isExist: boolean = false;
+    user.skills.forEach(skill => {
+      if (skill.name.includes(nameSkill)) {
+        isExist = true;
+        return;
+      }
+    });
+    return isExist;
+  }
+
   reset() {
     this.users = this.allUser;
   }
-
 }
