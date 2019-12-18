@@ -36,11 +36,12 @@
           <nz-date-picker
             formControlName="dayStartOff"
             nzShowTime
-            nzFormat="dd-MM-yyyy-HH:mm"
+            nzFormat="dd-MM-yyyy HH:mm"
             nzPlaceHolder="Select Time"
             ngModel
             (ngModelChange)="onChange($event)"
             (nzOnOk)="onOk($event)"
+            [nzDisabledTime]="disabledDateTime"
           ></nz-date-picker>
         </nz-form-control>
       </nz-form-item>
@@ -50,11 +51,12 @@
           <nz-date-picker
             formControlName="dayEndOff"
             nzShowTime
-            nzFormat="dd-MM-yyyy HH:mm:ss"
+            nzFormat="dd-MM-yyyy HH:mm"
             nzPlaceHolder="Select Time"
             ngModel
             (ngModelChange)="onChange($event)"
             (nzOnOk)="onOk($event)"
+            [nzDisabledTime]="disabledDateTime"
           ></nz-date-picker>
         </nz-form-control>
       </nz-form-item>
