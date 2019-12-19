@@ -143,4 +143,10 @@ export class SkillComponent implements OnInit {
         .subscribe(data => (this.data = [...data]));
     }
   }
+
+  onClickToUserHaveSkill(nameSkill: string) {
+    localStorage.setItem('skill', nameSkill);
+    let url = '/admin/users';
+    this.router.navigate([url]).then();
+  }
 }

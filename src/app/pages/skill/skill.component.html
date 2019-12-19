@@ -93,8 +93,8 @@
     <tr>
       <th nzWidth="15%">ID</th>
       <th nzWidth="25%">Name</th>
-      <th nzWidth="35%">Category</th>
-      <th nzWidth="15%">More</th>
+      <th nzWidth="30%">Category</th>
+      <th nzWidth="30%">More</th>
     </tr>
   </thead>
   <tbody>
@@ -137,6 +137,10 @@
             <nz-divider nzType="vertical"></nz-divider>
             <button nz-button nzType="dashed" (click)="showDeleteConfirm(data)">
               Delete
+            </button>
+            <nz-divider nzType="vertical"></nz-divider>
+            <button nz-button nzType="dashed" (click)="onClickToUserHaveSkill(data.name)">
+              List user
             </button>
           </ng-container>
           <ng-template #saveTpl>
